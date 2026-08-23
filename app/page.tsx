@@ -1,20 +1,13 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { AuditCTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { HomeShowcase } from './components/HomeShowcase';
 import { JsonLd } from './components/JsonLd';
-import { ProjectCard } from './components/ProjectCard';
 import { Reveal } from './components/Reveal';
 import { projects } from './data/projects';
 import { services } from './data/services';
 import { siteUrl } from './data/site';
-
-const gaps = [
-  ['Hard to discover', 'Search, Maps and social do not point to one clear business.'],
-  ['Hard to understand', 'The offer is present, but its relevance is difficult to grasp.'],
-  ['Hard to trust', 'The real work exists without enough proof around it.'],
-  ['Hard to choose', 'Enquiry paths are unclear, broken or spread across channels.'],
-];
 
 const categories = [
   { title: 'Websites & Commerce', copy: 'Web design, Shopify and search visibility built around a clear buying path.', serviceNames: ['Web Design & Development', 'Shopify Store Development', 'E-commerce SEO'] },
@@ -47,31 +40,79 @@ export default function Home() {
       }} />
       <HomeShowcase />
 
-      <section className="home-gap section-light">
-        <Reveal className="home-gap-heading" direction="left">
-          <p className="eyebrow eyebrow-dark">The digital gap</p>
-          <h2>A good business should not feel difficult to choose online.</h2>
-          <p>Your real reputation and your visible digital presence should tell the same story.</p>
-          <Link className="text-link text-link-dark" href="/audit">See what the audit reviews ↗</Link>
+      <section className="home-process-story">
+        <Reveal className="home-process-story-heading" direction="scale">
+          <p className="eyebrow">A defined way of working</p>
+          <h2>Clear thinking first.<br />Better outcomes follow.</h2>
         </Reveal>
-        <div className="home-gap-grid">
-          {gaps.map(([title, copy], index) => (
-            <Reveal className="home-gap-card" direction={index % 2 ? 'right' : 'up'} delay={index * 0.07} key={title}>
-              <span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p>
+
+        <div className="home-process-story-scene">
+          <div className="home-process-story-path" aria-hidden="true"><i /><i /><i /></div>
+
+          <Reveal className="home-process-story-row home-process-story-row-first" direction="left">
+            <div className="home-process-story-media">
+              <Image
+                src="/assets/projects/mittal-architect/mittal-homepage.png"
+                alt="Mittal Architect website showing a clear project-led digital presence"
+                fill
+                sizes="(max-width: 900px) 92vw, 45vw"
+              />
+              <span>Discoverability + proof</span>
+            </div>
+            <div className="home-process-story-copy">
+              <span>01 · Audit</span>
+              <h3>Find the gaps that make a good business difficult to choose.</h3>
+              <p>We study the business, category, competitors, search presence, brand signals and enquiry path before recommending a format.</p>
+            </div>
+          </Reveal>
+
+          <Reveal className="home-process-story-row home-process-story-row-second" direction="right">
+            <div className="home-process-story-copy">
+              <span>02 · Clarify and propose</span>
+              <h3>Turn findings into one focused commercial direction.</h3>
+              <p>The scope, investment, timeline and exclusions are made visible. Every surface then carries the same idea—from identity to enquiry.</p>
+              <Link href="/process">See the complete process <b aria-hidden="true">↗</b></Link>
+            </div>
+            <div className="home-process-story-media">
+              <Image
+                src="/assets/projects/kiraq-jewellery/kiraq-pdp-whatsapp-order-flow.png"
+                alt="Kiraq Jewellery product page and WhatsApp ordering path"
+                fill
+                sizes="(max-width: 900px) 92vw, 45vw"
+              />
+              <span>Clarity + conversion</span>
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="home-process-story-stages" aria-label="Kraftt delivery stages">
+          {processStages.map(([stage, copy], index) => (
+            <Reveal key={stage} delay={index * 0.06}>
+              <span>0{index + 1}</span><strong>{stage}</strong><p>{copy}</p>
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="home-work section-dark">
-        <Reveal className="home-work-heading split-heading">
-          <div><p className="eyebrow">Selected work</p><h2>Proof with context, not polished claims without evidence.</h2></div>
-          <div className="home-work-aside"><p>Measured outcomes, qualitative outcomes and founder work are labelled differently.</p><Link className="text-link" href="/work">Explore all six projects ↗</Link></div>
+      <section className="home-case-studies section-light">
+        <Reveal className="home-case-studies-heading">
+          <div><p className="eyebrow eyebrow-dark">Selected work</p><h2>Real businesses.<br />Visible before-and-after.</h2></div>
+          <div><p>Every outcome is labelled by the evidence available—measured, qualitative or founder note.</p><Link className="text-link text-link-dark" href="/work">Explore all six projects ↗</Link></div>
         </Reveal>
-        <div className="home-project-stage">
+        <div className="home-case-studies-list">
           {selectedProjects.map((project, index) => (
-            <Reveal className={`home-project-slot home-project-slot-${index + 1}`} direction="scale" delay={index * 0.08} key={project.slug}>
-              <ProjectCard project={project} priority={index === 0} />
+            <Reveal className={`home-case-study home-case-study-${index + 1}`} direction={index % 2 ? 'left' : 'right'} delay={index * 0.07} key={project.slug}>
+              <div className="home-case-study-copy">
+                <span>Case study 0{index + 1} · {project.outcomeType}</span>
+                <h3>{project.name}</h3>
+                <p>{project.problem}</p>
+                <Link href={`/work/${project.slug}`}>Explore project <b aria-hidden="true">↗</b></Link>
+              </div>
+              {project.hero ? (
+                <div className="home-case-study-media">
+                  <Image src={project.hero.src} alt={project.hero.alt} fill sizes="(max-width: 900px) 92vw, 48vw" priority={index === 0} />
+                </div>
+              ) : null}
             </Reveal>
           ))}
         </div>
@@ -99,38 +140,36 @@ export default function Home() {
         <Reveal className="home-services-footer"><Link className="button button-outline-dark" href="/services">View services, pricing and packages</Link></Reveal>
       </section>
 
-      <section className="home-system section-dark">
-        <Reveal className="home-system-heading split-heading">
-          <div><p className="eyebrow">Digital Presence System</p><h2>One commercial idea, carried across every surface.</h2></div>
-          <p>Research gives the work its direction. Strategy, design, technology and execution keep every visible piece connected.</p>
+      <section className="home-conversion">
+        <Reveal className="home-conversion-heading" direction="left">
+          <p className="eyebrow eyebrow-dark">Built to be chosen</p>
+          <h2>Clarity earns attention.<br />Proof turns it into action.</h2>
+          <p>A useful digital presence does more than look finished. It helps the right person understand the offer, believe the business and know what to do next.</p>
+          <Link href="/audit">Start with the real gap <span aria-hidden="true">→</span></Link>
         </Reveal>
-        <div className="home-system-method" aria-label="Kraftt method">
-          {['Research', 'Strategy', 'Design', 'Technology', 'Execution'].map((item, index) => (
-            <Reveal className="home-system-step" direction={index % 2 ? 'up' : 'scale'} delay={index * 0.08} key={item}>
-              <span>0{index + 1}</span><strong>{item}</strong>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal className="home-system-output" direction="scale">
-          <span>Connected output</span>
-          <h3>Brand + website + content + growth + systems</h3>
-          <p>Not five disconnected deliverables. One presence built around how the business needs to be discovered, trusted and chosen.</p>
-        </Reveal>
-      </section>
 
-      <section className="home-process section-parchment-deep">
-        <Reveal className="home-process-heading" direction="left">
-          <p className="eyebrow eyebrow-dark">How the work moves</p>
-          <h2>A visible path from first findings to delivered work.</h2>
-          <Link className="text-link text-link-dark" href="/process">Read the complete process ↗</Link>
+        <Reveal className="home-conversion-main-media" direction="scale">
+          <Image
+            src="/assets/projects/shree-hari-spintex/shsl-homepage.png"
+            alt="Shree Hari Spintex website built around manufacturing proof and enquiries"
+            fill
+            sizes="(max-width: 900px) 92vw, 54vw"
+          />
         </Reveal>
-        <div className="home-process-list">
-          {processStages.map(([stage, copy], index) => (
-            <Reveal className="home-process-item" direction="right" delay={index * 0.06} key={stage}>
-              <span>0{index + 1}</span><h3>{stage}</h3><p>{copy}</p>
-            </Reveal>
-          ))}
-        </div>
+
+        <Reveal className="home-conversion-detail-media" direction="left">
+          <Image
+            src="/assets/projects/mittal-architect/mittal-whatsapp-flow.png"
+            alt="Mittal Architect direct WhatsApp enquiry flow"
+            fill
+            sizes="(max-width: 900px) 70vw, 25vw"
+          />
+        </Reveal>
+
+        <Reveal className="home-conversion-copy" direction="right">
+          <p>Between research, structure, brand expression and technology, we reduce the distance between first impression and confident enquiry.</p>
+          <strong>One idea, consistently expressed across brand, website, content, growth and internal systems.</strong>
+        </Reveal>
       </section>
 
       <section className="home-principles section-light">
