@@ -1,18 +1,12 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { navItems } from '../data/site';
+import { BrandWordmark } from './BrandWordmark';
 
 export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
   return (
     <header className={`site-header${overlay ? ' site-header-overlay' : ''}`}>
       <Link href="/" aria-label="Kraftt Digital home" className="brand-link">
-        <Image
-          src="/assets/brand/kraftt-primary-dark.png"
-          alt="Kraftt Digital"
-          width={2048}
-          height={1024}
-          priority
-        />
+        <BrandWordmark inverse />
       </Link>
 
       <nav className="desktop-nav" aria-label="Primary navigation">
