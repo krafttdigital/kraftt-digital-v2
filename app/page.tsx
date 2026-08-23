@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Hero03 } from '@/components/ui/hero-03';
 import { AuditCTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { JsonLd } from './components/JsonLd';
@@ -44,30 +45,16 @@ export default function Home() {
       }} />
       <SiteHeader overlay />
 
-      <section className="hero section-dark">
-        <div className="hero-copy">
-          <p className="eyebrow">Kraftt Digital Presence System</p>
-          <h1>Make your business easier to discover, trust and choose.</h1>
-          <p className="hero-lede">
-            We connect brand, websites, content and digital systems into one clear
-            presence built around how your business actually works.
-          </p>
-          <div className="button-row">
-            <Link className="button button-accent" href="/audit">Request a Digital Presence Audit</Link>
-            <Link className="text-link" href="/work">View Our Work <span aria-hidden="true">↗</span></Link>
-          </div>
-        </div>
-
-        <aside className="system-card" aria-label="Digital Presence System overview">
-          <p className="eyebrow">One connected system</p>
-          <ol>
-            <li><span>01</span> Research the real gap</li>
-            <li><span>02</span> Shape the right strategy</li>
-            <li><span>03</span> Build the essential surfaces</li>
-            <li><span>04</span> Make every touchpoint work together</li>
-          </ol>
-        </aside>
-      </section>
+      <Hero03
+        eyebrow="Kraftt Digital Presence System"
+        title="Make your business easier to discover, trust and choose."
+        description="We connect brand, websites, content and digital systems into one clear presence built around how your business actually works."
+        portraitImage="/hero-banner.png"
+        portraitAlt="Kraftt team mapping brand, website, content and growth systems around a strategy table"
+        animation="none"
+        primaryCTA={{ ctaEnabled: true, text: 'Request a Digital Presence Audit', link: '/audit', variant: 'default', size: 'lg' }}
+        secondaryCTA={{ ctaEnabled: true, text: 'View Our Work ↗', link: '/work', variant: 'link', size: 'default' }}
+      />
 
       <section className="proof-strip" aria-label="Selected proof">
         <p>Proof, not theatre.</p>

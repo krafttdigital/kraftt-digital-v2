@@ -7,7 +7,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
     <header className={`site-header${overlay ? ' site-header-overlay' : ''}`}>
       <Link href="/" aria-label="Kraftt Digital home" className="brand-link">
         <Image
-          src="/assets/brand/kraftt-primary-light.png"
+          src="/assets/brand/kraftt-primary-dark.png"
           alt="Kraftt Digital"
           width={2048}
           height={1024}

@@ -142,6 +142,10 @@ h1 {
 .section-light { background: var(--parchment); color: var(--midnight); }
 .section-parchment-deep { background: #e8e0d4; color: var(--midnight); }
 .reveal-enhanced { opacity: 0; transform: translateY(16px); }
+.hero03-media {
+  -webkit-mask-image: radial-gradient(ellipse 88% 84% at 50% 48%, #000 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse 88% 84% at 50% 48%, #000 62%, transparent 100%);
+}
 
 h2,
 h3 { font-family: var(--font-display), Georgia, serif; font-weight: 400; }
