@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/audit' },
 };
 
-const reviewed = ['Search and local discovery', 'Website clarity and enquiry paths', 'Brand consistency and trust signals', 'Content and social alignment', 'Technical and measurement foundations'];
+const reviewed = ['Business, category and current operating context', 'Existing website, brand, content and contact systems', 'Relevant competitors and their digital presence', 'Discovery, trust and conversion gaps', 'The most useful solution direction for the business'];
 
 export default function AuditPage() {
   return (
@@ -26,9 +26,13 @@ export default function AuditPage() {
       </section>
       <section className="audit-content">
         <div className="audit-copy-block"><p className="eyebrow eyebrow-dark">Why research first</p><h2>Because a website, campaign or identity can only solve the right problem once the gap is clear.</h2></div>
+        <div className="audit-two-col good-not-fit">
+          <div><p className="eyebrow eyebrow-dark">Why it is paid</p><p>The ₹999 fee protects the research time required to study the business, category, systems and competitors instead of turning the audit into a sales call.</p></div>
+          <div><p className="eyebrow eyebrow-dark">What it is for</p><p>A decision-ready view of the actual problem, the visible findings and the most useful next scope.</p></div>
+        </div>
         <div className="audit-two-col">
           <div><p className="eyebrow eyebrow-dark">What is reviewed</p><ul className="check-list">{reviewed.map((item) => <li key={item}>{item}</li>)}</ul></div>
-          <div><p className="eyebrow eyebrow-dark">What you receive</p><ul className="check-list"><li>A focused findings summary</li><li>Prioritised recommendations</li><li>Suggested next scope</li><li>[PENDING: confirm delivery format]</li></ul></div>
+          <div><p className="eyebrow eyebrow-dark">What you receive</p><ul className="check-list"><li>A focused findings summary</li><li>A relevant competitor snapshot</li><li>Prioritised recommendations</li><li>A suggested solution and next scope</li><li>An optional clarification call if the findings need explanation</li></ul></div>
         </div>
         <div className="audit-two-col good-not-fit">
           <div><p className="eyebrow eyebrow-dark">For</p><p>Owner-led businesses, launch-stage brands and growing D2C teams with a real decision to make.</p></div>
@@ -39,10 +43,10 @@ export default function AuditPage() {
           <AuditForm />
         </section>
         <div className="audit-two-col audit-steps">
-          <div><p className="eyebrow eyebrow-dark">Payment step</p><p>Investment: ₹999. [PENDING: add approved payment link and confirmation workflow]</p></div>
-          <div><p className="eyebrow eyebrow-dark">Delivery expectation</p><p>[PENDING: confirm audit delivery time] after payment and complete inputs are received.</p></div>
+          <div><p className="eyebrow eyebrow-dark">Payment step</p><p>Investment: ₹999. After the request is reviewed, Kraftt shares the payment instructions and confirms the inputs needed to begin.</p></div>
+          <div><p className="eyebrow eyebrow-dark">Delivery expectation</p><p>The delivery format and timing are confirmed when the audit request is accepted. Research begins after payment and complete inputs are received.</p></div>
         </div>
-        <p className="privacy-note">Your details are used only to review your request and communicate about the audit. See the <Link href="/legal/privacy-policy">privacy policy</Link>.</p>
+        <p className="privacy-note">This page does not transmit form entries automatically. You choose what to share when you continue to WhatsApp. See the <Link href="/legal/privacy-policy">privacy policy</Link>.</p>
       </section>
     </main>
   );

@@ -48,7 +48,6 @@ export default async function BundlePage({ params }: { params: Promise<{ slug: s
       <SiteHeader />
       <section className="page-hero service-page-hero section-dark">
         <p className="eyebrow">Service bundle</p>
-        {/* naming under review — may become "Local Business Growth System" */}
         <h1>{bundle.headline}</h1>
         <p>{bundle.name}</p>
       </section>

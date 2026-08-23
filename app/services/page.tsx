@@ -25,7 +25,7 @@ export default function ServicesPage() {
       <section className="page-hero section-dark">
         <p className="eyebrow">Services</p>
         <h1>Choose the problem first. Then choose the right service.</h1>
-        <p>Eight focused services, each with a real page, visible structure and a direct route to discuss the work.</p>
+        <p>Eight focused services with published India and international pricing, delivery ranges, inclusions and boundaries.</p>
       </section>
 
       <section className="content-section section-light service-hub">
@@ -46,7 +46,7 @@ export default function ServicesPage() {
       <section className="content-section section-parchment-deep">
         <Reveal className="section-heading split-heading">
           <div><p className="eyebrow eyebrow-dark">Bundles</p><h2>Connected scopes for businesses that need more than one surface.</h2></div>
-          <p>Bundle pricing and scope stay marked pending until the working-system figures are confirmed.</p>
+          <p>Four pre-packaged combinations bring brand, website, commerce, content, social and search work into one accountable engagement.</p>
         </Reveal>
         <div className="bundle-grid">
           {bundles.map((bundle) => (

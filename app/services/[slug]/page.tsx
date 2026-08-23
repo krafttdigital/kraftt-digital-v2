@@ -70,6 +70,12 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 <strong>{tier.price}</strong>
                 <p className="timeline">{tier.timeline}</p>
                 <ul>{tier.deliverables.map((item) => <li key={item}>{item}</li>)}</ul>
+                {tier.addOns && tier.addOns.length > 0 && (
+                  <div className="tier-addons">
+                    <p>Optional add-ons</p>
+                    <ul>{tier.addOns.map((item) => <li key={item}>{item}</li>)}</ul>
+                  </div>
+                )}
                 <a className={`button ${index === 1 ? 'button-accent' : 'button-outline-dark'}`} href={whatsappUrl(message)}>Discuss {tier.name}</a>
               </Reveal>
             );
@@ -80,6 +86,18 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       <section className="content-section section-light deliverables-grid">
         <Reveal><p className="eyebrow eyebrow-dark">Main deliverables</p><ul className="check-list">{service.mainDeliverables.map((item) => <li key={item}>{item}</li>)}</ul></Reveal>
         <Reveal><p className="eyebrow eyebrow-dark">Not included by default</p><ul className="plain-list muted-list">{service.notIncluded.map((item) => <li key={item}>{item}</li>)}</ul></Reveal>
+      </section>
+
+      <section className="content-section service-workflow section-parchment-deep">
+        <Reveal className="section-heading split-heading">
+          <div><p className="eyebrow eyebrow-dark">How the work runs</p><h2>A visible path from brief to delivery.</h2></div>
+          <p>Scope details are confirmed in the proposal before work begins.</p>
+        </Reveal>
+        <div className="workflow-grid">
+          {service.workflow.map((step, index) => (
+            <Reveal className="workflow-step" key={step.title}><span>0{index + 1}</span><h3>{step.title}</h3><p>{step.detail}</p></Reveal>
+          ))}
+        </div>
       </section>
 
       <section className="content-section fit-section section-dark">
@@ -93,6 +111,18 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <ProjectCard project={relatedProject} />
         </section>
       )}
+
+      <section className="content-section faq-section section-light">
+        <Reveal className="section-heading"><p className="eyebrow eyebrow-dark">Frequently asked questions</p><h2>Scope, timing and expectations — stated plainly.</h2></Reveal>
+        <div className="faq-list">
+          {service.faqs.map((item) => (
+            <details key={item.question}>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
 
       <section className="service-actions section-parchment-deep">
         <Link className="button button-accent" href="/audit">Request a Digital Presence Audit</Link>

@@ -24,13 +24,14 @@ export function Footer() {
         <Link href="/work">Work</Link>
         <Link href="/process">Process</Link>
         <Link href="/about">About</Link>
+        <Link href="/resources">Resources</Link>
         <Link href="/contact">Contact</Link>
         <Link href="/legal/privacy-policy">Privacy policy</Link>
         <Link href="/legal/terms">Terms</Link>
       </div>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} Kraftt Digital</span>
-        <span>[PENDING: confirm contact email]</span>
+        <span>India · Working with clients worldwide</span>
       </div>
     </footer>
   );

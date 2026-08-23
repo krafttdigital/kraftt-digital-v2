@@ -12,7 +12,7 @@ export default function PrivacyPage() {
         <h2>How information is used</h2><p>Information is used to assess your request, deliver agreed services, communicate about the engagement and improve the service experience.</p>
         <h2>Sharing and retention</h2><p>Information is not sold. It may be shared with service providers only where needed to operate the site or deliver agreed work. Retention follows legitimate business and legal needs.</p>
         <h2>Your choices</h2><p>You may request access, correction or deletion of your information, subject to applicable obligations.</p>
-        <h2>Contact</h2><p>[PENDING: confirm privacy contact email and registered business details before publish]</p>
+        <h2>Contact</h2><p>Privacy questions or data requests can be sent through the contact options on this website. Kraftt will verify the request before acting on access, correction or deletion instructions.</p>
       </article><Footer /></main>
   );
 }

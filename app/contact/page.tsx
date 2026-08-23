@@ -21,7 +21,7 @@ export default function ContactPage() {
       <section className="content-section contact-grid section-light">
         <Link href="/audit"><p className="eyebrow eyebrow-dark">Primary</p><h2>Request a Digital Presence Audit</h2><span>Start the ₹999 review ↗</span></Link>
         <a href={whatsappUrl('Hi Kraftt, I would like to discuss a digital presence project.')}><p className="eyebrow eyebrow-dark">Direct</p><h2>Discuss a Service on WhatsApp</h2><span>Open a pre-filled message ↗</span></a>
-        <div><p className="eyebrow eyebrow-dark">Email</p><h2>[PENDING: confirm contact email]</h2><span>Add the approved address before publish.</span></div>
+        <Link href="/services"><p className="eyebrow eyebrow-dark">Explore first</p><h2>Compare services, packages and pricing</h2><span>View the complete service menu ↗</span></Link>
       </section>
       <Footer />
     </main>

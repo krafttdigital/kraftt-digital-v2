@@ -1,15 +1,29 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import type { FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { services } from '../data/services';
+import { whatsappUrl } from '../data/site';
 
 export function AuditForm() {
-  const router = useRouter();
+  const [ready, setReady] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    router.push('/thank-you');
+    setReady(true);
+  }
+
+  if (ready) {
+    return (
+      <div className="audit-form-next-step" role="status">
+        <p className="eyebrow eyebrow-dark">Ready for the next step</p>
+        <h3>Your form details have not been sent or stored.</h3>
+        <p>Open WhatsApp to start the audit conversation. Share only the business information you choose to send directly to Kraftt.</p>
+        <div className="audit-form-actions">
+          <a className="button button-accent" href={whatsappUrl('Hi Kraftt, I would like to request the ₹999 Digital Presence Audit.')}>Open WhatsApp</a>
+          <button className="button button-outline-dark" type="button" onClick={() => setReady(false)}>Edit the form</button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -36,7 +50,7 @@ export function AuditForm() {
         </label>
       </div>
       <label className="consent"><input type="checkbox" name="consent" required /> I consent to Kraftt using these details to review my business and contact me about the audit.</label>
-      <button className="button button-accent" type="submit">Continue to Payment & Next Steps</button>
+      <button className="button button-accent" type="submit">Review the Next Step</button>
     </form>
   );
 }

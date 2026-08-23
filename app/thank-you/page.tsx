@@ -16,8 +16,8 @@ export default function ThankYouPage() {
       <h1>Thank you. The next step is a focused review, not a sales chase.</h1>
       <div className="thank-you-grid">
         <div><span>01</span><h2>Details checked</h2><p>Kraftt reviews the information you provided and confirms whether the audit is a fit.</p></div>
-        <div><span>02</span><h2>Payment confirmed</h2><p>[PENDING: add the approved payment and confirmation process]</p></div>
-        <div><span>03</span><h2>Audit delivered</h2><p>[PENDING: confirm delivery timing] after complete inputs and payment are received.</p></div>
+        <div><span>02</span><h2>Payment instructions shared</h2><p>If the request is a fit, Kraftt confirms the required inputs and shares the ₹999 audit payment step.</p></div>
+        <div><span>03</span><h2>Research begins</h2><p>The delivery format and timing are confirmed after payment and complete business inputs are received.</p></div>
       </div>
       <Link className="button button-light" href="/">Return to Kraftt Digital</Link>
     </main>

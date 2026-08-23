@@ -18,8 +18,9 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
             />
           </div>
         ) : (
-          <div className="project-placeholder" role="img" aria-label="Project images not yet supplied">
-            <span>Real project imagery not yet supplied.</span>
+          <div className="project-placeholder" role="img" aria-label={`${project.name} project title card`}>
+            <span>{project.relationshipLabel ?? project.industry}</span>
+            <strong>{project.name}</strong>
           </div>
         )}
         <div className="project-card-copy">

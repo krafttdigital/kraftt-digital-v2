@@ -37,10 +37,14 @@ export default function AboutPage() {
         <Reveal className="founder-copy">
           <p className="eyebrow eyebrow-dark">Founder-led accountability</p>
           <h2>One accountable lead stays close to the research, decisions and delivery.</h2>
-          <p>[PENDING: approved founder biography and portrait needed]</p>
+          <p>Ketan Goyal leads Kraftt and uses his own portfolio to document the work, the journey, current exploration, future goals and lessons from building. That visibility gives clients context on who is responsible for the engagement.</p>
           <Link className="text-link text-link-dark" href="/work/ketan-goyal">Read the founder project note ↗</Link>
         </Reveal>
-        <div className="portrait-placeholder" role="img" aria-label="Founder portrait not yet supplied"><span>Real founder photograph needed.</span></div>
+        <Reveal className="founder-principle-card">
+          <p className="eyebrow eyebrow-dark">The operating idea</p>
+          <blockquote>“This is your business. We treat it like it matters — because it does.”</blockquote>
+          <p>Calm confidence, direct access and no claims without evidence.</p>
+        </Reveal>
       </section>
       <section className="content-section section-dark principles-section">
         <Reveal className="section-heading"><p className="eyebrow">Principles</p><h2>Restraint in the work. Clarity in the relationship.</h2></Reveal>

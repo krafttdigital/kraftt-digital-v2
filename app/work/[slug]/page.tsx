@@ -49,8 +49,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         {project.hero ? (
           <Image src={project.hero.src} alt={project.hero.alt} width={project.hero.width} height={project.hero.height} priority sizes="100vw" />
         ) : (
-          <div className="project-placeholder project-hero-placeholder" role="img" aria-label="Project images not yet supplied">
-            <span>Real project imagery not found. Placeholder retained intentionally.</span>
+          <div className="project-placeholder project-hero-placeholder" role="img" aria-label={`${project.name} project title card`}>
+            <span>{project.relationshipLabel ?? project.industry}</span>
+            <strong>{project.name}</strong>
           </div>
         )}
       </section>
@@ -73,7 +74,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             ))}
           </div>
         ) : (
-          <div className="project-placeholder gallery-placeholder"><span>Real project screenshots are still needed for this page.</span></div>
+          <div className="project-placeholder gallery-placeholder"><span>Founder-led internal venture</span><strong>Documented as practice, not client proof.</strong></div>
         )}
       </section>
 

@@ -119,11 +119,11 @@ export default function Home() {
 
       <section className="content-section section-light">
         <Reveal className="section-heading split-heading">
-          <div><p className="eyebrow eyebrow-dark">Process</p><h2>Four visible stages. No mystery between them.</h2></div>
+          <div><p className="eyebrow eyebrow-dark">Process</p><h2>From paid audit to researched delivery.</h2></div>
           <Link className="text-link text-link-dark" href="/process">See the full process ↗</Link>
         </Reveal>
         <div className="process-row">
-          {['Audit', 'Proposal', 'Agreement', 'Delivery'].map((stage, index) => (
+          {['Audit', 'Clarify', 'Proposal', 'Advance', 'Onboard', 'Research', 'Deliver'].map((stage, index) => (
             <Reveal className="process-step" key={stage}><span>0{index + 1}</span><h3>{stage}</h3></Reveal>
           ))}
         </div>
