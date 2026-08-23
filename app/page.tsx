@@ -92,6 +92,10 @@ export default function Home() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal className="home-process-story-explore" direction="scale">
+          <Link href="/process">Explore the process <span aria-hidden="true">↗</span></Link>
+        </Reveal>
       </section>
 
       <section className="home-case-studies section-light">
