@@ -90,7 +90,7 @@ export function Hero03({
   const vs = variantStyles[variant];
 
   return (
-    <section className="relative isolate w-full overflow-hidden bg-[#0d0d0d] text-[#e8dcc8]">
+    <section className="hero03-shell relative isolate w-full overflow-hidden bg-[#0d0d0d] text-[#e8dcc8]">
       <motion.div
         className={cn('relative z-[1] mx-auto flex max-w-[1600px] flex-col px-5 sm:px-8', vs.section, vs.content)}
         variants={animate ? container : undefined}

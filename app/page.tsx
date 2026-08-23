@@ -7,12 +7,13 @@ import { ProjectCard } from './components/ProjectCard';
 import { Reveal } from './components/Reveal';
 import { SiteHeader } from './components/SiteHeader';
 import { projects } from './data/projects';
+import { services } from './data/services';
 import { siteUrl } from './data/site';
 
 const proof = [
-  ['06', 'real projects'],
-  ['05', 'client sectors'],
-  ['01', 'research-first system'],
+  ['08', 'focused services'],
+  ['06', 'documented projects'],
+  ['04', 'connected bundles'],
 ];
 
 const gaps = [
@@ -23,10 +24,18 @@ const gaps = [
 ];
 
 const categories = [
-  ['Websites & Commerce', 'Web design, e-commerce stores and SEO built around a clear buying path.'],
-  ['Brand & Content', 'Identity, copy and social systems that keep the business recognisable.'],
-  ['Creative Production', 'AI-powered production with human direction and brand control.'],
-  ['Digital Systems', 'Dashboards and internal tools that remove known operating friction.'],
+  { title: 'Websites & Commerce', copy: 'Web design, Shopify and search visibility built around a clear buying path.', serviceNames: ['Web Design & Development', 'Shopify Store Development', 'E-commerce SEO'] },
+  { title: 'Brand & Content', copy: 'Identity, copy and social systems that keep the business recognisable everywhere.', serviceNames: ['Brand Identity', 'Content & Copywriting', 'Social Media Management'] },
+  { title: 'Creative Production', copy: 'AI-assisted creative production with human direction, curation and brand control.', serviceNames: ['AI-Powered Creative'] },
+  { title: 'Digital Systems', copy: 'Dashboards and internal tools that replace repetitive operating friction.', serviceNames: ['Dashboards & Internal Tools'] },
+];
+
+const processStages = [
+  ['Audit', 'Study the business, category, competitors and visible gaps.'],
+  ['Clarify', 'Explain the findings and agree on the real problem.'],
+  ['Propose', 'Set the scope, investment, timeline and boundaries.'],
+  ['Onboard', 'Confirm payment, responsibilities and final inputs.'],
+  ['Deliver', 'Research deeply, build carefully, review and launch.'],
 ];
 
 const selectedProjects = ['mittal-architect', 'shree-hari-spintex', 'kiraq-jewellery']
@@ -51,99 +60,127 @@ export default function Home() {
         description="We connect brand, websites, content and digital systems into one clear presence built around how your business actually works."
         portraitImage="/hero-banner.png"
         portraitAlt="Kraftt team mapping brand, website, content and growth systems around a strategy table"
-        animation="none"
+        animation="subtle"
         primaryCTA={{ ctaEnabled: true, text: 'Request a Digital Presence Audit', link: '/audit', variant: 'default', size: 'lg' }}
         secondaryCTA={{ ctaEnabled: true, text: 'View Our Work ↗', link: '/work', variant: 'link', size: 'default' }}
       />
 
-      <section className="proof-strip" aria-label="Selected proof">
-        <p>Proof, not theatre.</p>
-        <div className="proof-items">
-          {proof.map(([number, label]) => (
-            <div key={label}><strong>{number}</strong><span>{label}</span></div>
+      <section className="home-proof-rail section-light" aria-label="Kraftt at a glance">
+        <Reveal className="home-proof-statement" direction="left">
+          <span className="home-proof-mark">K.</span>
+          <p>Digital presence for brands that take themselves seriously.</p>
+        </Reveal>
+        <div className="home-proof-items">
+          {proof.map(([number, label], index) => (
+            <Reveal className="home-proof-item" delay={index * 0.08} key={label}>
+              <strong>{number}</strong><span>{label}</span>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="content-section section-light">
-        <Reveal className="section-heading split-heading">
-          <div><p className="eyebrow eyebrow-dark">The gap</p><h2>Good businesses can still be difficult to choose online.</h2></div>
-          <p>A Digital Presence Audit is a focused paid review of the visible gaps between your real business and the experience a prospect finds online.</p>
+      <section className="home-gap section-light">
+        <Reveal className="home-gap-heading" direction="left">
+          <p className="eyebrow eyebrow-dark">The digital gap</p>
+          <h2>A good business should not feel difficult to choose online.</h2>
+          <p>Your real reputation and your visible digital presence should tell the same story.</p>
+          <Link className="text-link text-link-dark" href="/audit">See what the audit reviews ↗</Link>
         </Reveal>
-        <div className="four-grid">
+        <div className="home-gap-grid">
           {gaps.map(([title, copy], index) => (
-            <Reveal className="line-card" key={title}>
+            <Reveal className="home-gap-card" direction={index % 2 ? 'right' : 'up'} delay={index * 0.07} key={title}>
               <span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p>
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="content-section work-preview section-dark">
-        <Reveal className="section-heading split-heading">
-          <div><p className="eyebrow">Selected work</p><h2>Real work, with the kind of outcome named clearly.</h2></div>
-          <Link className="text-link" href="/work">View all six projects ↗</Link>
+      <section className="home-work section-dark">
+        <Reveal className="home-work-heading split-heading">
+          <div><p className="eyebrow">Selected work</p><h2>Proof with context, not polished claims without evidence.</h2></div>
+          <div className="home-work-aside"><p>Measured outcomes, qualitative outcomes and founder work are labelled differently.</p><Link className="text-link" href="/work">Explore all six projects ↗</Link></div>
         </Reveal>
-        <div className="project-grid project-grid-featured">
-          {selectedProjects.map((project, index) => <ProjectCard key={project.slug} project={project} priority={index === 0} />)}
-        </div>
-      </section>
-
-      <section className="content-section section-light">
-        <Reveal className="section-heading split-heading">
-          <div><p className="eyebrow eyebrow-dark">Services</p><h2>Choose the business problem before choosing a deliverable.</h2></div>
-          <Link className="text-link text-link-dark" href="/services">View all eight services ↗</Link>
-        </Reveal>
-        <div className="service-category-grid">
-          {categories.map(([title, copy], index) => (
-            <Reveal className="category-card" key={title}>
-              <span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p>
+        <div className="home-project-stage">
+          {selectedProjects.map((project, index) => (
+            <Reveal className={`home-project-slot home-project-slot-${index + 1}`} direction="scale" delay={index * 0.08} key={project.slug}>
+              <ProjectCard project={project} priority={index === 0} />
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="content-section system-section section-dark">
-        <Reveal className="section-heading split-heading">
+      <section className="home-services section-light">
+        <Reveal className="home-services-heading" direction="left">
+          <p className="eyebrow eyebrow-dark">What we build</p>
+          <h2>Start with the business problem. Choose the right surface second.</h2>
+        </Reveal>
+        <div className="home-service-index">
+          {categories.map((category, index) => (
+            <Reveal className="home-service-row" delay={index * 0.06} key={category.title}>
+              <span className="home-service-number">0{index + 1}</span>
+              <div><h3>{category.title}</h3><p>{category.copy}</p></div>
+              <div className="home-service-links">
+                {category.serviceNames.map((name) => {
+                  const service = services.find((item) => item.name === name);
+                  return service ? <Link key={service.slug} href={`/services/${service.slug}`}>{service.name}<span>↗</span></Link> : null;
+                })}
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal className="home-services-footer"><Link className="button button-outline-dark" href="/services">View services, pricing and packages</Link></Reveal>
+      </section>
+
+      <section className="home-system section-dark">
+        <Reveal className="home-system-heading split-heading">
           <div><p className="eyebrow">Digital Presence System</p><h2>One commercial idea, carried across every surface.</h2></div>
-          <p>Ideas and business problems move through research, strategy, design, technology and execution — then emerge as a connected brand, site, content and growth system.</p>
+          <p>Research gives the work its direction. Strategy, design, technology and execution keep every visible piece connected.</p>
         </Reveal>
-        <Reveal className="system-diagram" aria-label="Digital Presence System flow">
-          <div><span>Input</span><strong>Ideas + problems</strong></div>
-          <i aria-hidden="true">→</i>
-          <div className="system-core"><span>Method</span><strong>Research · Strategy · Design · Technology · Execution</strong></div>
-          <i aria-hidden="true">→</i>
-          <div><span>Presence</span><strong>Brand + site + content + growth</strong></div>
+        <div className="home-system-method" aria-label="Kraftt method">
+          {['Research', 'Strategy', 'Design', 'Technology', 'Execution'].map((item, index) => (
+            <Reveal className="home-system-step" direction={index % 2 ? 'up' : 'scale'} delay={index * 0.08} key={item}>
+              <span>0{index + 1}</span><strong>{item}</strong>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal className="home-system-output" direction="scale">
+          <span>Connected output</span>
+          <h3>Brand + website + content + growth + systems</h3>
+          <p>Not five disconnected deliverables. One presence built around how the business needs to be discovered, trusted and chosen.</p>
         </Reveal>
       </section>
 
-      <section className="content-section section-light">
-        <Reveal className="section-heading split-heading">
-          <div><p className="eyebrow eyebrow-dark">Process</p><h2>From paid audit to researched delivery.</h2></div>
-          <Link className="text-link text-link-dark" href="/process">See the full process ↗</Link>
+      <section className="home-process section-parchment-deep">
+        <Reveal className="home-process-heading" direction="left">
+          <p className="eyebrow eyebrow-dark">How the work moves</p>
+          <h2>A visible path from first findings to delivered work.</h2>
+          <Link className="text-link text-link-dark" href="/process">Read the complete process ↗</Link>
         </Reveal>
-        <div className="process-row">
-          {['Audit', 'Clarify', 'Proposal', 'Advance', 'Onboard', 'Research', 'Deliver'].map((stage, index) => (
-            <Reveal className="process-step" key={stage}><span>0{index + 1}</span><h3>{stage}</h3></Reveal>
+        <div className="home-process-list">
+          {processStages.map(([stage, copy], index) => (
+            <Reveal className="home-process-item" direction="right" delay={index * 0.06} key={stage}>
+              <span>0{index + 1}</span><h3>{stage}</h3><p>{copy}</p>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="content-section why-section section-parchment-deep">
-        <Reveal className="section-heading split-heading">
-          <div><p className="eyebrow eyebrow-dark">Why Kraftt</p><h2>Research first. Founder-led. Scope stated plainly.</h2></div>
-          <ul className="plain-list">
-            <li>The work starts with evidence, not a favourite format.</li>
-            <li>One accountable lead stays close to the engagement.</li>
-            <li>Pricing and exclusions are visible before work begins.</li>
-            <li>Measured and qualitative outcomes are never blurred.</li>
-            <li>Calls are available whenever something needs explaining.</li>
-            <li>Missing proof is marked, not manufactured.</li>
-          </ul>
+      <section className="home-principles section-light">
+        <Reveal className="home-principles-quote" direction="scale">
+          <p className="eyebrow eyebrow-dark">Why Kraftt</p>
+          <blockquote>Research first. Founder-led. Scope stated plainly.</blockquote>
+        </Reveal>
+        <Reveal className="home-principles-list" direction="right">
+          <p>Evidence before format.</p>
+          <p>One accountable lead.</p>
+          <p>Pricing and exclusions visible.</p>
+          <p>No ranking guarantees.</p>
+          <p>No blurred outcomes.</p>
+          <p>No manufactured proof.</p>
         </Reveal>
       </section>
 
-      <AuditCTA />
+      <AuditCTA title="Make the gap clear before choosing what to build." />
       <Footer />
     </main>
   );
