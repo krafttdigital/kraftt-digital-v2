@@ -50,14 +50,14 @@ export default function Home() {
           <div className="home-process-story-path" aria-hidden="true"><i /><i /><i /></div>
 
           <Reveal className="home-process-story-row home-process-story-row-first" direction="left">
-            <div className="home-process-story-media">
+            <div className="home-process-story-media home-process-story-illustration">
               <Image
-                src="/assets/projects/mittal-architect/mittal-homepage.png"
-                alt="Mittal Architect website showing a clear project-led digital presence"
+                src="/kraftt-audit-section-illustration.png"
+                alt="Kraftt audit illustration showing a website connected to trust, quality and growth signals"
                 fill
                 sizes="(max-width: 900px) 92vw, 45vw"
               />
-              <span>Discoverability + proof</span>
+              <span>Audit the visible gap</span>
             </div>
             <div className="home-process-story-copy">
               <span>01 · Audit</span>
@@ -73,14 +73,14 @@ export default function Home() {
               <p>The scope, investment, timeline and exclusions are made visible. Every surface then carries the same idea—from identity to enquiry.</p>
               <Link href="/process">See the complete process <b aria-hidden="true">↗</b></Link>
             </div>
-            <div className="home-process-story-media">
+            <div className="home-process-story-media home-process-story-illustration">
               <Image
-                src="/assets/projects/kiraq-jewellery/kiraq-pdp-whatsapp-order-flow.png"
-                alt="Kiraq Jewellery product page and WhatsApp ordering path"
+                src="/kraftt-clarify-propose-section-illustration.png"
+                alt="Kraftt clarify and propose illustration showing a connected path from discovery to delivery"
                 fill
                 sizes="(max-width: 900px) 92vw, 45vw"
               />
-              <span>Clarity + conversion</span>
+              <span>Clarify + propose</span>
             </div>
           </Reveal>
         </div>
@@ -150,20 +150,22 @@ export default function Home() {
 
         <Reveal className="home-conversion-main-media" direction="scale">
           <Image
-            src="/assets/projects/shree-hari-spintex/shsl-homepage.png"
-            alt="Shree Hari Spintex website built around manufacturing proof and enquiries"
+            src="/Built to be chosen image.png"
+            alt="Kraftt strategist connecting research, structure, brand expression and technology"
             fill
             sizes="(max-width: 900px) 92vw, 54vw"
           />
+          <span>Research → structure → visible trust</span>
         </Reveal>
 
         <Reveal className="home-conversion-detail-media" direction="left">
           <Image
-            src="/assets/projects/mittal-architect/mittal-whatsapp-flow.png"
-            alt="Mittal Architect direct WhatsApp enquiry flow"
+            src="/Built to be chosen image 2.png"
+            alt="Kraftt team mapping one commercial idea across connected digital surfaces"
             fill
             sizes="(max-width: 900px) 70vw, 25vw"
           />
+          <span>One idea across every surface</span>
         </Reveal>
 
         <Reveal className="home-conversion-copy" direction="right">

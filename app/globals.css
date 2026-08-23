@@ -1676,3 +1676,35 @@ p { line-height: 1.65; }
 @media (prefers-reduced-motion: reduce) {
   .home-showcase-visual > video { display: none; }
 }
+
+/* Named homepage illustrations */
+.home-process-story-illustration {
+  border-color: rgb(242 239 233 / 72%);
+  background: var(--parchment);
+}
+.home-process-story-illustration img {
+  object-fit: contain;
+  padding: clamp(14px, 2vw, 32px);
+}
+
+.home-conversion-main-media > span,
+.home-conversion-detail-media > span {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+  padding: 9px 12px;
+  background: rgb(13 13 13 / 84%);
+  color: var(--linen);
+  font-size: 9px;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+.home-conversion-detail-media { aspect-ratio: 1.5; }
+
+@media (max-width: 680px) {
+  .home-process-story-illustration img { padding: 10px; }
+  .home-conversion-main-media > span,
+  .home-conversion-detail-media > span { right: 9px; bottom: 9px; max-width: calc(100% - 18px); font-size: 8px; }
+}
