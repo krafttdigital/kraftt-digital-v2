@@ -1,20 +1,13 @@
 import Link from 'next/link';
-import { Hero03 } from '@/components/ui/hero-03';
 import { AuditCTA } from './components/CTA';
 import { Footer } from './components/Footer';
+import { HomeShowcase } from './components/HomeShowcase';
 import { JsonLd } from './components/JsonLd';
 import { ProjectCard } from './components/ProjectCard';
 import { Reveal } from './components/Reveal';
-import { SiteHeader } from './components/SiteHeader';
 import { projects } from './data/projects';
 import { services } from './data/services';
 import { siteUrl } from './data/site';
-
-const proof = [
-  ['08', 'focused services'],
-  ['06', 'documented projects'],
-  ['04', 'connected bundles'],
-];
 
 const gaps = [
   ['Hard to discover', 'Search, Maps and social do not point to one clear business.'],
@@ -52,32 +45,7 @@ export default function Home() {
         url: siteUrl,
         description: 'Kraftt connects brand, websites, content and digital systems to make businesses easier to discover, trust and choose.',
       }} />
-      <SiteHeader overlay />
-
-      <Hero03
-        eyebrow="Kraftt Digital Presence System"
-        title="Make your business easier to discover, trust and choose."
-        description="We connect brand, websites, content and digital systems into one clear presence built around how your business actually works."
-        portraitImage="/hero-banner.png"
-        portraitAlt="Kraftt team mapping brand, website, content and growth systems around a strategy table"
-        animation="subtle"
-        primaryCTA={{ ctaEnabled: true, text: 'Request a Digital Presence Audit', link: '/audit', variant: 'default', size: 'lg' }}
-        secondaryCTA={{ ctaEnabled: true, text: 'View Our Work ↗', link: '/work', variant: 'link', size: 'default' }}
-      />
-
-      <section className="home-proof-rail section-light" aria-label="Kraftt at a glance">
-        <Reveal className="home-proof-statement" direction="left">
-          <span className="home-proof-mark">K.</span>
-          <p>Digital presence for brands that take themselves seriously.</p>
-        </Reveal>
-        <div className="home-proof-items">
-          {proof.map(([number, label], index) => (
-            <Reveal className="home-proof-item" delay={index * 0.08} key={label}>
-              <strong>{number}</strong><span>{label}</span>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+      <HomeShowcase />
 
       <section className="home-gap section-light">
         <Reveal className="home-gap-heading" direction="left">
