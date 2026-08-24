@@ -77,7 +77,7 @@ export default function WorkPage() {
           </Reveal>
         </div>
       </section>
-      <AuditCTA />
+      <AuditCTA theme="light" />
       <Footer />
     </main>
   );

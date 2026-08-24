@@ -352,6 +352,8 @@ p { line-height: 1.65; }
 .cta-section { padding: clamp(92px, 12vw, 170px) clamp(24px, 11vw, 180px); text-align: center; }
 .cta-section h2 { max-width: 850px; margin: 0 auto; }
 .cta-section p:not(.eyebrow) { max-width: 620px; margin: 28px auto 34px; color: #b9afa0; font-size: 18px; }
+.cta-section-light { border-top: 1px solid var(--bone); }
+.cta-section-light p:not(.eyebrow) { color: var(--dusk); }
 
 .footer { display: grid; grid-template-columns: 1.3fr 1fr 1fr .8fr; gap: 44px; padding: 74px clamp(24px, 5vw, 80px) 26px; border-top: 1px solid #302d29; }
 .footer-brand img { width: 144px; height: auto; }
