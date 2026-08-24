@@ -2691,13 +2691,19 @@ p { line-height: 1.65; }
   position: relative;
   z-index: 1;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr) auto auto;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   min-height: 100svh;
   overflow: hidden;
   isolation: isolate;
   background: var(--parchment);
   color: var(--midnight);
 }
+
+.kraftt-hero > * { min-width: 0; }
 
 .kraftt-hero-shape {
   position: absolute;
@@ -3056,6 +3062,8 @@ p { line-height: 1.65; }
   z-index: 6;
   overflow: clip;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   border-top: 1px solid var(--midnight);
   background: var(--midnight);
   color: var(--linen);
@@ -3063,6 +3071,8 @@ p { line-height: 1.65; }
 
 .infinite-text-marquee {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   overflow: clip;
 }
 
