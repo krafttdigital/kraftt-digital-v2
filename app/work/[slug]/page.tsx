@@ -50,6 +50,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const projectCount = String(projects.length).padStart(2, '0');
   const banner = projectBanners[project.slug];
   const relatedBanner = related ? projectBanners[related.slug] : null;
+  const proofMetric = project.metrics.find((metric) => metric.kind === 'Measured') ?? project.metrics[0];
 
   return (
     <main className="project-detail-page">
@@ -183,7 +184,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       <section className={`project-detail-outcome project-detail-outcome-${project.outcomeType.toLowerCase().replace(' ', '-')}`}>
         <Reveal className="project-detail-outcome-inner" direction="scale">
-          <div className="project-detail-outcome-label"><strong>{projectNumber}</strong><span>{project.outcomeType} outcome</span></div>
+          <div className="project-detail-outcome-label">
+            <small>Proof point</small>
+            <strong>{proofMetric.value}</strong>
+            <p>{proofMetric.label}</p>
+            <span>{project.outcomeType} outcome</span>
+          </div>
           <div>
             <p className="eyebrow">What changed</p>
             <h2>{project.outcome}</h2>

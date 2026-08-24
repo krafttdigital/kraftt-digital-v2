@@ -106,7 +106,7 @@ export const projects: Project[] = [
     context: 'The firm already had an established local reputation, but prospective clients had no structured place to assess its work or make a direct enquiry.',
     findings: ['Search results did not explain the practice', 'Project proof was scattered', 'The enquiry path depended on social media'],
     approach: 'A restrained, luxury-toned site — deliberately without heavy animation — built around real project documentation and one-click WhatsApp enquiry.',
-    outcome: "Search 'Mittal Architect' today and Google's AI answer pulls directly from the site. For architects near Bathinda, Mansa, or Tapa, the firm now places in Google's top 5.",
+    outcome: "Google's AI answer now pulls directly from the site, while nearby architect searches around Bathinda, Mansa and Tapa place the firm in the top five.",
     outcomeType: 'Measured',
     evidenceNote: 'The project gallery includes the available AI-answer and local-search evidence; live positions can change over time.',
     hero: { src: `${base}/mittal-architect/mittal-homepage.png`, alt: 'Mittal Architect website homepage with a residential architecture project', width: 1917, height: 876 },
