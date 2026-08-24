@@ -106,7 +106,7 @@ export default function Home() {
           <div className="home-case-playground-count" aria-label="Six case studies"><strong>06</strong><span>Case studies</span></div>
           <div className="home-case-playground-title">
             <p className="eyebrow eyebrow-dark">Selected work</p>
-            <h2>Proof takes<br />different shapes.</h2>
+            <h2><span>Proof takes</span><span>different shapes.</span></h2>
           </div>
           <div className="home-case-playground-intro">
             <p>Six connected digital systems, each shaped around a different business gap. Every outcome is labelled by the evidence available.</p>
