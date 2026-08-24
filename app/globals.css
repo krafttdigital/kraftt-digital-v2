@@ -2691,7 +2691,7 @@ p { line-height: 1.65; }
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-rows: auto minmax(500px, 1fr) auto auto;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
   min-height: 100svh;
   overflow: hidden;
   isolation: isolate;
@@ -2791,6 +2791,7 @@ p { line-height: 1.65; }
   align-items: center;
   gap: clamp(12px, 2.5vw, 42px);
   margin: 0 auto;
+  min-height: clamp(470px, calc(100svh - 216px), 680px);
   padding: clamp(34px, 5vh, 62px) clamp(24px, 4vw, 64px) clamp(24px, 3vh, 38px);
 }
 
@@ -3085,7 +3086,7 @@ p { line-height: 1.65; }
   gap: clamp(20px, 2.4vw, 38px);
   padding-left: clamp(20px, 2.4vw, 38px);
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(23px, 1.9vw, 31px);
+  font-size: var(--marquee-font-size, clamp(23px, 1.9vw, 31px));
   white-space: nowrap;
 }
 
@@ -3144,8 +3145,10 @@ p { line-height: 1.65; }
   .kraftt-hero-main { grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); }
   .kraftt-hero-copy h1 { font-size: clamp(64px, 7.3vw, 86px); }
   .kraftt-hero-visual { min-height: 500px; }
-  .kraftt-hero-trust { grid-template-columns: repeat(4, 1fr); }
-  .kraftt-hero-trust > p { grid-column: 1 / -1; border-bottom: 1px solid var(--bone); }
+  .kraftt-hero-trust { grid-template-columns: minmax(170px, .9fr) repeat(4, minmax(0, 1fr)); }
+  .kraftt-hero-trust > p { padding-inline: 22px; font-size: 22px; }
+  .kraftt-hero-trust > div { grid-template-columns: 48px minmax(0, 1fr); padding-inline: 14px; }
+  .kraftt-hero-trust strong { font-size: 32px; }
 }
 
 @media (max-width: 900px) {
@@ -3169,11 +3172,13 @@ p { line-height: 1.65; }
     box-shadow: 0 20px 50px rgb(13 13 13 / 22%);
   }
   .kraftt-hero-mobile-nav nav a { padding: 12px; border-bottom: 1px solid #38342f; }
-  .kraftt-hero-main { grid-template-columns: 1fr; gap: 20px; padding-top: 72px; }
+  .kraftt-hero-main { grid-template-columns: 1fr; gap: 20px; min-height: 0; padding-top: 72px; }
   .kraftt-hero-copy { max-width: 700px; }
   .kraftt-hero-copy h1 { font-size: clamp(70px, 12.8vw, 104px); }
   .kraftt-hero-visual { min-height: 520px; }
   .kraftt-hero-trust { grid-template-columns: repeat(4, 1fr); }
+  .kraftt-hero-trust > p { grid-column: 1 / -1; border-bottom: 1px solid var(--bone); }
+  .kraftt-hero-trust > div { grid-template-columns: 48px minmax(0, 1fr); }
 }
 
 @media (max-width: 620px) {

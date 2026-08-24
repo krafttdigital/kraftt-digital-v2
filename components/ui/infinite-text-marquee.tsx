@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { motion, useMotionValue, useReducedMotion } from "motion/react";
+import { useState } from "react";
 
 type InfiniteTextMarqueeProps = {
   text?: string;
@@ -26,57 +26,56 @@ export const InfiniteTextMarquee: React.FC<InfiniteTextMarqueeProps> = ({
   textColor = "",
   hoverColor = "",
 }) => {
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  const [rotation, setRotation] = useState(0);
+  const cursorX = useMotionValue(-200);
+  const cursorY = useMotionValue(-200);
+  const rotation = useMotionValue(0);
   const reduceMotion = useReducedMotion();
   const maxRotation = 8;
 
-  useEffect(() => {
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
     if (!showTooltip) return;
 
-    const handleMouseMove = (event: MouseEvent) => {
-      setCursorPosition({ x: event.clientX, y: event.clientY });
+    cursorX.set(event.clientX);
+    cursorY.set(event.clientY);
 
-      const midpoint = window.innerWidth / 2;
-      const distanceFromMidpoint = Math.abs(event.clientX - midpoint);
-      const nextRotation = (distanceFromMidpoint / midpoint) * maxRotation;
-
-      setRotation(event.clientX > midpoint ? nextRotation : -nextRotation);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [showTooltip]);
+    const midpoint = window.innerWidth / 2;
+    const distanceFromMidpoint = Math.abs(event.clientX - midpoint);
+    const nextRotation = (distanceFromMidpoint / midpoint) * maxRotation;
+    rotation.set(event.clientX > midpoint ? nextRotation : -nextRotation);
+  };
 
   const repeatedText = Array(2).fill(text);
   const textStyle = {
     fontSize,
     color: textColor || undefined,
     "--marquee-hover": hoverColor || "var(--raw-umber)",
+    "--marquee-font-size": fontSize,
   } as React.CSSProperties;
 
   return (
     <>
       {showTooltip && (
-        <div
+        <motion.div
           aria-hidden="true"
           className={`following-tooltip ${isHovered ? "is-visible" : ""}`}
           style={{
-            top: cursorPosition.y,
-            left: cursorPosition.x,
-            transform: `translate(-50%, -145%) rotate(${rotation}deg)`,
+            top: cursorY,
+            left: cursorX,
+            x: "-50%",
+            y: "-145%",
+            rotateZ: rotation,
           }}
         >
           {tooltipText}
-        </div>
+        </motion.div>
       )}
 
-      <div className="infinite-text-marquee">
+      <div className="infinite-text-marquee" onPointerMove={handlePointerMove}>
         <motion.div
           className="infinite-text-marquee__track"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onPointerEnter={() => setIsHovered(true)}
+          onPointerLeave={() => setIsHovered(false)}
           animate={reduceMotion ? { x: "0%" } : { x: ["0%", "-50%"] }}
           transition={reduceMotion ? { duration: 0 } : { repeat: Infinity, duration: speed, ease: "linear" }}
         >
