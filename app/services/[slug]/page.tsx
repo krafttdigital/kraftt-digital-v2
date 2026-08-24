@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Check, Clock3, FileCheck2, Layers3, Minus, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Clock3, FileCheck2, Layers3, Minus, ShieldCheck } from 'lucide-react';
 import { Footer } from '../../components/Footer';
 import { JsonLd } from '../../components/JsonLd';
-import { ProjectCard } from '../../components/ProjectCard';
 import { Reveal } from '../../components/Reveal';
 import { SiteHeader } from '../../components/SiteHeader';
 import { projectBySlug } from '../../data/projects';
@@ -180,28 +180,58 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
       {relatedProject && (
         <section className="service-detail-related">
-          <Reveal className="service-detail-related-heading">
-            <p className="eyebrow eyebrow-dark">Related work · documented proof</p>
-            <h2>See the thinking<br /><em>inside a real engagement.</em></h2>
-            <p>Context, findings, delivery and outcomes are labelled so you can judge the work—not just the visuals.</p>
-          </Reveal>
-          <div className="service-detail-related-card"><ProjectCard project={relatedProject} /></div>
+          <div className="service-detail-related-inner">
+            <Reveal className="service-detail-related-heading" direction="left">
+              <p className="eyebrow eyebrow-dark">Related work · documented proof</p>
+              <h2>See the service<br /><em>inside real work.</em></h2>
+              <p>Review the business gap, research, delivered system and available outcome evidence—not just finished screens.</p>
+              <Link href={`/work/${relatedProject.slug}`}>Read the complete case study <ArrowRight size={15} /></Link>
+            </Reveal>
+
+            <Reveal className="service-detail-related-feature" direction="right">
+              <Link href={`/work/${relatedProject.slug}`} aria-label={`View ${relatedProject.name} case study`}>
+                <div className="service-detail-related-media">
+                  {relatedProject.hero ? (
+                    <Image src={relatedProject.hero.src} alt={relatedProject.hero.alt} fill sizes="(max-width: 900px) 94vw, 55vw" />
+                  ) : (
+                    <div><span>{relatedProject.industry}</span><strong>{relatedProject.name}</strong></div>
+                  )}
+                  <span>{relatedProject.outcomeType} proof</span>
+                </div>
+                <div className="service-detail-related-copy">
+                  <div><p>{relatedProject.industry}</p><ArrowUpRight size={19} /></div>
+                  <h3>{relatedProject.name}</h3>
+                  <p>{relatedProject.context}</p>
+                  <dl><dt>Engagement</dt><dd>{relatedProject.package}</dd></dl>
+                  <div className="service-detail-related-metrics">
+                    {relatedProject.metrics.slice(0, 2).map((metric) => (
+                      <span key={`${metric.value}-${metric.label}`}><strong>{metric.value}</strong><small>{metric.label}</small></span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            </Reveal>
+          </div>
         </section>
       )}
 
       <section className="service-detail-faq">
-        <Reveal className="service-detail-faq-heading">
-          <p className="eyebrow eyebrow-dark">Frequently asked questions</p>
-          <h2>Useful answers.<br /><em>No sales fog.</em></h2>
-          <p>Anything unique to your project is confirmed after the audit and written into the proposal.</p>
-        </Reveal>
-        <div className="service-detail-faq-list">
-          {service.faqs.map((item) => (
-            <details key={item.question}>
-              <summary><span>{item.question}</span><i aria-hidden="true">+</i></summary>
-              <p>{item.answer}</p>
-            </details>
-          ))}
+        <div className="service-detail-faq-inner">
+          <Reveal className="service-detail-faq-heading" direction="left">
+            <p className="eyebrow eyebrow-dark">Frequently asked questions</p>
+            <h2>Useful answers.<br /><em>No sales fog.</em></h2>
+            <p>Project-specific details are confirmed after the audit and written into the proposal.</p>
+            <div><strong>{String(service.faqs.length).padStart(2, '0')}</strong><span>Questions answered<br />for this service</span></div>
+            <Link href="/contact">Ask something else <ArrowRight size={15} /></Link>
+          </Reveal>
+          <div className="service-detail-faq-list">
+            {service.faqs.map((item, index) => (
+              <details key={item.question}>
+                <summary><small>0{index + 1}</small><span>{item.question}</span><i aria-hidden="true">+</i></summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
