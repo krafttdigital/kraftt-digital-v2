@@ -293,55 +293,38 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="home-choice">
-        <div className="home-choice-inner">
-          <Reveal className="home-choice-heading" direction="scale">
-            <div>
-              <p className="eyebrow eyebrow-dark">Built to be chosen</p>
-              <span>Clarity → proof → action</span>
-            </div>
-            <h2>Seen clearly.<br /><em>Chosen confidently.</em></h2>
-            <div className="home-choice-heading-intro">
-              <p>A useful digital presence helps the right person understand the offer, believe the business and know exactly what to do next.</p>
-              <Link href="/audit">Find the real gap <span aria-hidden="true">→</span></Link>
-            </div>
-          </Reveal>
+      <section className="home-conversion">
+        <Reveal className="home-conversion-heading" direction="left">
+          <p className="eyebrow eyebrow-dark">Built to be chosen</p>
+          <h2>Clarity gets attention.<br />Proof earns action.</h2>
+          <p>A useful digital presence does more than look finished. It helps the right person understand the offer, believe the business and know what to do next.</p>
+          <Link href="/audit">Start with the real gap <span aria-hidden="true">→</span></Link>
+        </Reveal>
 
-          <div className="home-choice-board">
-            <Reveal className="home-choice-main-media" direction="left">
-              <Image
-                src="/Built to be chosen image.png"
-                alt="Kraftt strategist connecting research, structure, brand expression and technology"
-                fill
-                sizes="(max-width: 760px) 92vw, 57vw"
-              />
-              <span>Research + structure</span>
-            </Reveal>
+        <Reveal className="home-conversion-main-media" direction="scale">
+          <Image
+            src="/Built to be chosen image.png"
+            alt="Kraftt strategist connecting research, structure, brand expression and technology"
+            fill
+            sizes="(max-width: 900px) 92vw, 54vw"
+          />
+          <span>Research → structure → visible trust</span>
+        </Reveal>
 
-            <Reveal className="home-choice-detail-media" direction="right">
-              <Image
-                src="/Built to be chosen image 2.png"
-                alt="Kraftt team mapping one commercial idea across connected digital surfaces"
-                fill
-                sizes="(max-width: 760px) 92vw, 35vw"
-              />
-              <span>One idea, every surface</span>
-            </Reveal>
+        <Reveal className="home-conversion-detail-media" direction="left">
+          <Image
+            src="/Built to be chosen image 2.png"
+            alt="Kraftt team mapping one commercial idea across connected digital surfaces"
+            fill
+            sizes="(max-width: 900px) 70vw, 25vw"
+          />
+          <span>One idea across every surface</span>
+        </Reveal>
 
-            <Reveal className="home-choice-insight" direction="right">
-              <p className="eyebrow">What changes</p>
-              <blockquote>Reduce the distance between first impression and confident enquiry.</blockquote>
-              <p>Brand, website, content and systems work together instead of competing for attention.</p>
-              <Link href="/work">See the work <span aria-hidden="true">↗</span></Link>
-            </Reveal>
-          </div>
-
-          <div className="home-choice-path" aria-label="The path from clarity to action">
-            <Reveal><span>01</span><div><strong>Clarity</strong><p>The offer is easy to understand.</p></div></Reveal>
-            <Reveal delay={0.05}><span>02</span><div><strong>Proof</strong><p>Confidence has visible evidence.</p></div></Reveal>
-            <Reveal delay={0.1}><span>03</span><div><strong>Action</strong><p>The next step feels obvious.</p></div></Reveal>
-          </div>
-        </div>
+        <Reveal className="home-conversion-copy" direction="right">
+          <p>Between research, structure, brand expression and technology, we reduce the distance between first impression and confident enquiry.</p>
+          <strong>One idea, consistently expressed across brand, website, content, growth and internal systems.</strong>
+        </Reveal>
       </section>
 
       <section className="home-trust">
