@@ -16,13 +16,6 @@ const categories = [
   { title: 'Digital Systems', copy: 'Dashboards and internal tools that replace repetitive operating friction.', serviceNames: ['Dashboards & Internal Tools'] },
 ];
 
-const trustSignals = [
-  { icon: '✓', value: '10+', label: 'Businesses served', copy: 'Practical work shaped around real operating gaps.' },
-  { icon: '↗', value: '08', label: 'Specialist services', copy: 'Connected across brand, web, content and systems.' },
-  { icon: '◇', value: '04', label: 'Curated bundles', copy: 'Combined scopes for businesses that need more than one surface.' },
-  { icon: '1:1', value: '01', label: 'Founder-led team', copy: 'One accountable lead from first audit to final handover.' },
-];
-
 const trustCommitments = [
   ['◎', 'Clear vision', 'Every recommendation starts with the business outcome—not a fashionable format.'],
   ['₹', 'Clear pricing', 'Starting prices, payment stages and optional additions are made visible.'],
@@ -348,23 +341,14 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="home-trust-numbers" aria-label="Kraftt trust numbers">
-            {trustSignals.map((signal, index) => (
-              <Reveal className="home-trust-number" delay={index * 0.055} key={signal.label}>
-                <div className="home-trust-icon" aria-hidden="true">{signal.icon}</div>
-                <strong>{signal.value}</strong>
-                <span>{signal.label}</span>
-                <p>{signal.copy}</p>
-              </Reveal>
-            ))}
-          </div>
-
           <div className="home-trust-story">
             <Reveal className="home-trust-vision" direction="left">
               <div className="home-trust-seal" aria-hidden="true"><span>K</span><small>Founder-led</small></div>
-              <div>
+              <div className="home-trust-vision-copy">
                 <p className="eyebrow">Our vision</p>
                 <h3>Make serious digital work easier to understand, trust and choose.</h3>
+              </div>
+              <div className="home-trust-vision-detail">
                 <p>We connect brand, websites, content and internal systems around one commercial idea: help growing businesses become easier to discover, believe and buy from.</p>
                 <Link href="/about">Meet Kraftt <span aria-hidden="true">↗</span></Link>
               </div>
