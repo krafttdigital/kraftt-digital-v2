@@ -16,6 +16,20 @@ const categories = [
   { title: 'Digital Systems', copy: 'Dashboards and internal tools that replace repetitive operating friction.', serviceNames: ['Dashboards & Internal Tools'] },
 ];
 
+const trustSignals = [
+  { icon: '✓', value: '10+', label: 'Businesses served', copy: 'Practical work shaped around real operating gaps.' },
+  { icon: '↗', value: '08', label: 'Specialist services', copy: 'Connected across brand, web, content and systems.' },
+  { icon: '◇', value: '04', label: 'Curated bundles', copy: 'Combined scopes for businesses that need more than one surface.' },
+  { icon: '1:1', value: '01', label: 'Founder-led team', copy: 'One accountable lead from first audit to final handover.' },
+];
+
+const trustCommitments = [
+  ['◎', 'Clear vision', 'Every recommendation starts with the business outcome—not a fashionable format.'],
+  ['₹', 'Clear pricing', 'Starting prices, payment stages and optional additions are made visible.'],
+  ['✓', 'Clear scope', 'Deliverables, timelines, client inputs and exclusions are written before work begins.'],
+  ['→', 'Clear handover', 'You know what is being delivered, what happens next and who remains accountable.'],
+];
+
 const processJourney = [
   {
     number: '01',
@@ -237,6 +251,7 @@ export default function Home() {
             <div className="home-services-play-intro">
               <p>Four connected categories make the choice easier. Start with the business gap, then open the service that solves it.</p>
               <div><span>04 categories</span><span>Clear starting prices</span><span>Defined deliverables</span></div>
+              <Link className="home-services-play-all" href="/services">Explore all services <span aria-hidden="true">↗</span></Link>
             </div>
           </Reveal>
 
@@ -288,7 +303,7 @@ export default function Home() {
       <section className="home-conversion">
         <Reveal className="home-conversion-heading" direction="left">
           <p className="eyebrow eyebrow-dark">Built to be chosen</p>
-          <h2>Clarity earns attention.<br />Proof turns it into action.</h2>
+          <h2>Clarity gets attention.<br />Proof earns action.</h2>
           <p>A useful digital presence does more than look finished. It helps the right person understand the offer, believe the business and know what to do next.</p>
           <Link href="/audit">Start with the real gap <span aria-hidden="true">→</span></Link>
         </Reveal>
@@ -319,19 +334,60 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <section className="home-principles section-light">
-        <Reveal className="home-principles-quote" direction="scale">
-          <p className="eyebrow eyebrow-dark">Why Kraftt</p>
-          <blockquote>Research first. Founder-led. Scope stated plainly.</blockquote>
-        </Reveal>
-        <Reveal className="home-principles-list" direction="right">
-          <p>Evidence before format.</p>
-          <p>One accountable lead.</p>
-          <p>Pricing and exclusions visible.</p>
-          <p>No ranking guarantees.</p>
-          <p>No blurred outcomes.</p>
-          <p>No manufactured proof.</p>
-        </Reveal>
+      <section className="home-trust">
+        <div className="home-trust-inner">
+          <Reveal className="home-trust-heading" direction="scale">
+            <div>
+              <p className="eyebrow">Why Kraftt</p>
+              <span>Trust, made visible</span>
+            </div>
+            <h2>Clear work.<br /><em>Clear value.</em></h2>
+            <div className="home-trust-heading-intro">
+              <p>Kraftt makes the thinking, scope, pricing and ownership clear before the project begins—so trust does not depend on a sales promise.</p>
+              <Link href="/process">See how we work <span aria-hidden="true">↗</span></Link>
+            </div>
+          </Reveal>
+
+          <div className="home-trust-numbers" aria-label="Kraftt trust numbers">
+            {trustSignals.map((signal, index) => (
+              <Reveal className="home-trust-number" delay={index * 0.055} key={signal.label}>
+                <div className="home-trust-icon" aria-hidden="true">{signal.icon}</div>
+                <strong>{signal.value}</strong>
+                <span>{signal.label}</span>
+                <p>{signal.copy}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="home-trust-story">
+            <Reveal className="home-trust-vision" direction="left">
+              <div className="home-trust-seal" aria-hidden="true"><span>K</span><small>Founder-led</small></div>
+              <div>
+                <p className="eyebrow">Our vision</p>
+                <h3>Make serious digital work easier to understand, trust and choose.</h3>
+                <p>We connect brand, websites, content and internal systems around one commercial idea: help growing businesses become easier to discover, believe and buy from.</p>
+                <Link href="/about">Meet Kraftt <span aria-hidden="true">↗</span></Link>
+              </div>
+            </Reveal>
+
+            <div className="home-trust-commitments">
+              {trustCommitments.map(([icon, title, copy], index) => (
+                <Reveal delay={index * 0.05} key={title}>
+                  <span aria-hidden="true">{icon}</span>
+                  <div><h4>{title}</h4><p>{copy}</p></div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+
+          <Reveal className="home-trust-pricing" direction="scale">
+            <div><span>Start with research</span><strong>₹999 audit</strong></div>
+            <div><span>Decide with detail</span><strong>Free proposal</strong></div>
+            <div><span>Invest with clarity</span><strong>Prices visible</strong></div>
+            <div><span>Approve with confidence</span><strong>Scope in writing</strong></div>
+            <Link href="/services">See pricing and packages <span aria-hidden="true">→</span></Link>
+          </Reveal>
+        </div>
       </section>
 
       <AuditCTA title="Make the gap clear before choosing what to build." />
