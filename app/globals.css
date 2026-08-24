@@ -2735,7 +2735,7 @@ p { line-height: 1.65; }
 }
 
 .home-case-playground::before {
-  content: 'WORK / 06';
+  content: 'WORK / 04';
   position: absolute;
   top: 7%;
   right: -1.4em;

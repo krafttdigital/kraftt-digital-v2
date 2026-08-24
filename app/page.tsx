@@ -33,7 +33,11 @@ const caseStudyBanners: Record<string, { src: string; alt: string }> = {
   'ketan-goyal': { src: '/ketan-banner.png', alt: 'Ketan Goyal personal portfolio, writing and builds collage' },
 };
 
-const selectedProjects = projects.filter((project) => caseStudyBanners[project.slug]);
+const featuredProjectSlugs = ['shree-hari-spintex', 'mittal-architect', 'kiraq-jewellery', 'elixir-beverages'];
+
+const selectedProjects = featuredProjectSlugs
+  .map((slug) => projects.find((project) => project.slug === slug))
+  .filter((project): project is NonNullable<typeof project> => Boolean(project));
 
 export default function Home() {
   return (
@@ -103,13 +107,13 @@ export default function Home() {
 
       <section className="home-case-playground section-light">
         <Reveal className="home-case-playground-heading">
-          <div className="home-case-playground-count" aria-label="Six case studies"><strong>06</strong><span>Case studies</span></div>
+          <div className="home-case-playground-count" aria-label="Four featured case studies"><strong>04</strong><span>Featured work</span></div>
           <div className="home-case-playground-title">
-            <p className="eyebrow eyebrow-dark">Selected work</p>
+            <p className="eyebrow eyebrow-dark">Featured work</p>
             <h2><span>Proof takes</span><span>different shapes.</span></h2>
           </div>
           <div className="home-case-playground-intro">
-            <p>Six connected digital systems, each shaped around a different business gap. Every outcome is labelled by the evidence available.</p>
+            <p>Four connected digital systems, each shaped around a different business gap. Every outcome is labelled by the evidence available.</p>
             <Link className="home-case-playground-all" href="/work">Explore all projects <span aria-hidden="true">↗</span></Link>
           </div>
         </Reveal>
@@ -137,7 +141,7 @@ export default function Home() {
         </div>
 
         <Reveal className="home-case-playground-footer">
-          <p><span>06</span> projects. Real context. No manufactured proof.</p>
+          <p><span>04</span> featured projects. Real context. No manufactured proof.</p>
           <Link href="/work">View the full evidence <span aria-hidden="true">→</span></Link>
         </Reveal>
       </section>
