@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { AuditCTA } from '../components/CTA';
+import { ArrowUpRight, Clock3, Layers3 } from 'lucide-react';
+import { Pricing, type ComparisonPlan, type ComparisonRow } from '@/components/ui/pricing-section-with-comparison';
 import { Footer } from '../components/Footer';
 import { Reveal } from '../components/Reveal';
 import { SiteHeader } from '../components/SiteHeader';
@@ -18,45 +19,111 @@ const grouped = services.reduce<Record<string, typeof services>>((acc, service) 
   return acc;
 }, {});
 
+const bundlePlans: ComparisonPlan[] = bundles.map((bundle, index) => ({
+  name: bundle.name,
+  eyebrow: `Bundle 0${index + 1}`,
+  description: bundle.headline,
+  price: bundle.price,
+  timeline: bundle.timeline,
+  href: `/services/bundles/${bundle.slug}`,
+  featured: bundle.slug === 'full-digital-presence',
+}));
+
+const bundleRows: ComparisonRow[] = [
+  { label: 'Brand system', values: ['Starter', 'Full identity', 'Full identity', false] },
+  { label: 'Website / store', values: ['Business website', 'Shopify Growth', 'Growth website', 'Business website'] },
+  { label: 'Social support', values: ['1 month', 'Launch designs', '3 months', '2 months'] },
+  { label: 'Search work', values: [false, '1 month', '3 months', '2 months'] },
+  { label: 'AI creative', values: [false, 'Brand Kit', false, 'Creative Pack'] },
+  { label: 'Best suited to', values: ['New businesses', 'D2C launches', 'Established firms', 'Local businesses'] },
+];
+
 export default function ServicesPage() {
   return (
-    <main>
+    <main className="services-clarity-page">
       <SiteHeader />
-      <section className="page-hero section-dark">
-        <p className="eyebrow">Services</p>
-        <h1>Choose the problem first. Then choose the right service.</h1>
-        <p>Eight focused services with published India and international pricing, delivery ranges, inclusions and boundaries.</p>
-      </section>
-
-      <section className="content-section section-light service-hub">
-        {Object.entries(grouped).map(([category, items]) => (
-          <Reveal className="service-group" key={category}>
-            <div className="service-group-heading"><p className="eyebrow eyebrow-dark">{category}</p><span>{String(items.length).padStart(2, '0')}</span></div>
-            <div className="service-list">
-              {items.map((service) => (
-                <Link key={service.slug} href={`/services/${service.slug}`}>
-                  <span>{service.name}</span><p>{service.headline}</p><b aria-hidden="true">↗</b>
-                </Link>
-              ))}
-            </div>
-          </Reveal>
-        ))}
-      </section>
-
-      <section className="content-section section-parchment-deep">
-        <Reveal className="section-heading split-heading">
-          <div><p className="eyebrow eyebrow-dark">Bundles</p><h2>Connected scopes for businesses that need more than one surface.</h2></div>
-          <p>Four pre-packaged combinations bring brand, website, commerce, content, social and search work into one accountable engagement.</p>
+      <section className="services-clarity-hero" aria-labelledby="services-page-title">
+        <Reveal className="services-clarity-hero-copy" direction="left">
+          <p className="eyebrow eyebrow-dark">Services · 08 specialist offers</p>
+          <h1 id="services-page-title">Choose the gap.<br /><em>Then the service.</em></h1>
+          <p>Clear scopes across brand, websites, commerce, content and systems—with published starting prices and no hidden category names.</p>
+          <div className="services-clarity-actions">
+            <Link href="#service-menu">Explore all services <span aria-hidden="true">↓</span></Link>
+            <Link href="#compare-bundles">Compare bundles <span aria-hidden="true">↘</span></Link>
+          </div>
         </Reveal>
-        <div className="bundle-grid">
-          {bundles.map((bundle) => (
-            <Link className="bundle-card" key={bundle.slug} href={`/services/bundles/${bundle.slug}`}>
-              <p className="eyebrow eyebrow-dark">Bundle</p><h3>{bundle.name}</h3><p>{bundle.headline}</p><span>View bundle ↗</span>
-            </Link>
+        <Reveal className="services-clarity-hero-guide" direction="right">
+          <p>Start with what feels unclear</p>
+          {Object.entries(grouped).map(([category, items], index) => (
+            <a href={`#service-group-${index + 1}`} key={category}>
+              <span>0{index + 1}</span><strong>{category}</strong><small>{items.length} service{items.length > 1 ? 's' : ''}</small>
+            </a>
+          ))}
+        </Reveal>
+      </section>
+
+      <section className="services-clarity-stats" aria-label="Service overview">
+        <div><strong>08</strong><span>Specialist services</span></div>
+        <div><strong>24</strong><span>Published service tiers</span></div>
+        <div><strong>04</strong><span>Connected bundles</span></div>
+        <div><strong>₹8K</strong><span>Lowest service entry</span></div>
+      </section>
+
+      <section className="services-clarity-menu" id="service-menu">
+        <Reveal className="services-clarity-menu-heading" direction="scale">
+          <p className="eyebrow eyebrow-dark">Service menu · clear entry points</p>
+          <h2>Eight ways to solve<br /><em>a specific problem.</em></h2>
+          <p>Open a service to compare its three packages, exact inclusions, delivery range and boundaries.</p>
+        </Reveal>
+
+        <div className="services-clarity-groups">
+          {Object.entries(grouped).map(([category, items], groupIndex) => (
+            <div id={`service-group-${groupIndex + 1}`} key={category}>
+              <Reveal className="services-clarity-group">
+                <div className="services-clarity-group-heading">
+                  <div><span>0{groupIndex + 1}</span><p>{category}</p></div>
+                  <small>{String(items.length).padStart(2, '0')} service{items.length > 1 ? 's' : ''}</small>
+                </div>
+                <div className="services-clarity-list">
+                  {items.map((service, serviceIndex) => (
+                    <Link key={service.slug} href={`/services/${service.slug}`}>
+                      <span>{String(serviceIndex + 1).padStart(2, '0')}</span>
+                      <div><h3>{service.name}</h3><p>{service.headline}</p></div>
+                      <div className="services-clarity-price"><small>Starts at</small><strong>{service.tiers[0].price}</strong></div>
+                      <div className="services-clarity-time"><Clock3 size={15} strokeWidth={1.6} /><span>{service.tiers[0].timeline}</span></div>
+                      <i aria-hidden="true"><ArrowUpRight size={18} /></i>
+                    </Link>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
           ))}
         </div>
       </section>
-      <AuditCTA title="Not sure which service fits? Start with the audit." />
+
+      <Pricing plans={bundlePlans} rows={bundleRows} />
+
+      <section className="services-clarity-choice">
+        <Reveal className="services-clarity-choice-heading" direction="left">
+          <p className="eyebrow">Still deciding?</p>
+          <h2>You do not need to diagnose the solution alone.</h2>
+          <p>The ₹999 audit gives you a researched recommendation before a larger commitment.</p>
+          <Link href="/audit">Start with the audit <span aria-hidden="true">→</span></Link>
+        </Reveal>
+        <div className="services-clarity-choice-steps">
+          {[
+            ['01', 'Audit the business', 'We study the category, competitors, current systems and visible gaps.'],
+            ['02', 'Choose the scope', 'The findings point to a focused service, a bundle or no project yet.'],
+            ['03', 'Receive the proposal', 'Deliverables, timeline, cost, payment schedule and responsibilities are written clearly.'],
+          ].map(([number, title, copy]) => (
+            <Reveal key={number}>
+              <div><span>{number}</span><Layers3 size={18} strokeWidth={1.5} /></div>
+              <h3>{title}</h3><p>{copy}</p>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       <Footer />
     </main>
   );
