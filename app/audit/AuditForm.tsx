@@ -69,7 +69,7 @@ export function AuditForm() {
     <form ref={formRef} className="audit-form" action={formspreeEndpoint} method="POST" onSubmit={handleFormspree}>
       <input type="hidden" name="_subject" value="New ₹999 Digital Presence Audit request" />
 
-      <fieldset className="audit-form-group">
+      <fieldset className="audit-form-group audit-form-group-contact">
         <legend><span>01</span><span><strong>You and the business</strong><small>Four quick details</small></span></legend>
         <div className="audit-field-grid">
           <label><span>Your name *</span><input name="name" autoComplete="name" placeholder="Your full name" required /></label>
@@ -79,7 +79,7 @@ export function AuditForm() {
         </div>
       </fieldset>
 
-      <fieldset className="audit-form-group">
+      <fieldset className="audit-form-group audit-form-group-business">
         <legend><span>02</span><span><strong>What feels blocked?</strong><small>Choose the closest answer</small></span></legend>
         <div className="audit-field-grid">
           <label><span>Business category *</span><select name="category" defaultValue="" required><option value="" disabled>Select a category</option><option>Consumer brand / E-commerce</option><option>Professional services</option><option>Manufacturing / B2B</option><option>Personal brand</option><option>Other</option></select></label>
@@ -89,7 +89,7 @@ export function AuditForm() {
         </div>
       </fieldset>
 
-      <fieldset className="audit-form-group">
+      <fieldset className="audit-form-group audit-form-group-note">
         <legend><span>03</span><span><strong>One short note</strong><small>Two or three lines are enough</small></span></legend>
         <div className="audit-field-grid">
           <label><span>Desired timeline</span><select name="timeline" defaultValue=""><option value="">Still exploring</option><option>Within 30 days</option><option>1–3 months</option><option>3–6 months</option></select></label>
