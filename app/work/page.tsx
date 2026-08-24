@@ -9,18 +9,23 @@ import { WorkGrid } from './WorkGrid';
 
 export const metadata: Metadata = {
   title: 'Work | Kraftt Digital',
-  description: 'Six Kraftt projects across architecture, manufacturing, D2C, beverage, security and founder-led work.',
+  description: 'Eight Kraftt case studies across professional services, manufacturing, architecture, D2C, FMCG, security and founder-led work.',
   alternates: { canonical: '/work' },
 };
 
 export default function WorkPage() {
+  const projectCount = String(projects.length).padStart(2, '0');
+  const measuredCount = String(projects.filter((project) => project.outcomeType === 'Measured').length).padStart(2, '0');
+  const qualitativeCount = String(projects.filter((project) => project.outcomeType === 'Qualitative').length).padStart(2, '0');
+  const founderCount = String(projects.filter((project) => project.outcomeType === 'Founder note').length).padStart(2, '0');
+
   return (
     <main className="work-page">
       <SiteHeader />
       <section className="work-page-hero">
         <div className="work-page-hero-inner">
           <Reveal className="work-page-hero-count" direction="left">
-            <strong>06</strong>
+            <strong>{projectCount}</strong>
             <span>Case studies</span>
           </Reveal>
 
@@ -30,22 +35,22 @@ export default function WorkPage() {
           </Reveal>
 
           <Reveal className="work-page-hero-intro" direction="right">
-            <p>Six digital systems shaped around six different business gaps. Every project is labelled by what it can honestly prove.</p>
+            <p>Eight digital systems shaped around different business gaps. Every project is labelled by what it can honestly prove.</p>
             <a href="#work-index">Browse the work <span aria-hidden="true">↓</span></a>
           </Reveal>
         </div>
 
         <Reveal className="work-page-evidence" direction="up">
           <p>Evidence, made clear</p>
-          <div><strong>02</strong><span>Measured outcomes</span></div>
-          <div><strong>03</strong><span>Qualitative outcomes</span></div>
-          <div><strong>01</strong><span>Founder note</span></div>
+          <div><strong>{measuredCount}</strong><span>Measured outcomes</span></div>
+          <div><strong>{qualitativeCount}</strong><span>Qualitative outcomes</span></div>
+          <div><strong>{founderCount}</strong><span>Founder note</span></div>
         </Reveal>
       </section>
 
       <section className="work-page-index" id="work-index">
         <Reveal className="work-page-index-heading">
-          <div><p className="eyebrow eyebrow-dark">Project index</p><span>01 — 06</span></div>
+          <div><p className="eyebrow eyebrow-dark">Project index</p><span>01 — {projectCount}</span></div>
           <h2>Different industries.<br /><em>The same discipline.</em></h2>
           <p>Filter by industry, then open any project to see the context, findings, approach and evidence behind the outcome.</p>
         </Reveal>

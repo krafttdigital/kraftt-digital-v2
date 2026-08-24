@@ -16,6 +16,8 @@ const projectBanners: Record<string, { src: string; alt: string }> = {
   'elixir-beverages': { src: '/elixir-banner.png', alt: 'Elixir Beverages brand identity and pre-launch website collage' },
   'aegis-squad': { src: '/aegis-banner.png', alt: 'Aegis Squad services website and search presence collage' },
   'ketan-goyal': { src: '/ketan-banner.png', alt: 'Ketan Goyal portfolio, writing and digital builds collage' },
+  'bharat-bhushan-singla': { src: '/bbs-banner.png', alt: 'Bharat Bhushan Singla legal website, case archive and consultation system collage' },
+  'the-vibed-vines': { src: '/tvv-banner.png', alt: 'The Vibed Vines streetwear storefront, catalogue and checkout system collage' },
 };
 
 export const dynamic = 'force-static';
@@ -44,7 +46,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const project = projectBySlug(slug);
   if (!project) notFound();
   const related = projectBySlug(project.relatedProjectSlug);
-  const projectNumber = projects.findIndex((item) => item.slug === project.slug) + 1;
+  const projectNumber = String(projects.findIndex((item) => item.slug === project.slug) + 1).padStart(2, '0');
+  const projectCount = String(projects.length).padStart(2, '0');
   const banner = projectBanners[project.slug];
   const relatedBanner = related ? projectBanners[related.slug] : null;
 
@@ -55,7 +58,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="project-detail-hero-inner">
           <Reveal className="project-detail-kicker" direction="left">
             <Link href="/work"><span aria-hidden="true">←</span> All work</Link>
-            <span>Case study · 0{projectNumber} / 06</span>
+            <span>Case study · {projectNumber} / {projectCount}</span>
           </Reveal>
 
           <Reveal className="project-detail-heading" direction="scale">
@@ -74,7 +77,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
           <Reveal className="project-detail-hero-media" direction="scale">
             <Image src={banner.src} alt={banner.alt} fill priority sizes="(max-width: 760px) 94vw, 88vw" />
-            <strong>0{projectNumber}</strong>
+            <strong>{projectNumber}</strong>
             <span>View the project ↓</span>
           </Reveal>
 
@@ -180,7 +183,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       <section className={`project-detail-outcome project-detail-outcome-${project.outcomeType.toLowerCase().replace(' ', '-')}`}>
         <Reveal className="project-detail-outcome-inner" direction="scale">
-          <div className="project-detail-outcome-label"><strong>0{projectNumber}</strong><span>{project.outcomeType} outcome</span></div>
+          <div className="project-detail-outcome-label"><strong>{projectNumber}</strong><span>{project.outcomeType} outcome</span></div>
           <div>
             <p className="eyebrow">What changed</p>
             <h2>{project.outcome}</h2>

@@ -13,6 +13,8 @@ const projectBanners: Record<string, { src: string; alt: string }> = {
   'elixir-beverages': { src: '/elixir-banner.png', alt: 'Elixir Beverages brand identity and pre-launch website collage' },
   'aegis-squad': { src: '/aegis-banner.png', alt: 'Aegis Squad services website and search presence collage' },
   'ketan-goyal': { src: '/ketan-banner.png', alt: 'Ketan Goyal portfolio, writing and digital builds collage' },
+  'bharat-bhushan-singla': { src: '/bbs-banner.png', alt: 'Bharat Bhushan Singla legal website, case archive and consultation system collage' },
+  'the-vibed-vines': { src: '/tvv-banner.png', alt: 'The Vibed Vines streetwear storefront, catalogue and checkout system collage' },
 };
 
 export function WorkGrid({ projects }: { projects: Project[] }) {
@@ -33,14 +35,14 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
       <div className="work-page-grid" aria-live="polite">
         {visible.map((project, index) => {
           const banner = projectBanners[project.slug];
-          const projectNumber = projects.findIndex((item) => item.slug === project.slug) + 1;
+          const projectNumber = String(projects.findIndex((item) => item.slug === project.slug) + 1).padStart(2, '0');
 
           return (
             <Reveal className={`work-page-card work-page-card-${index + 1}`} direction={index % 2 ? 'left' : 'right'} delay={index * 0.045} key={project.slug}>
               <Link href={`/work/${project.slug}`} aria-label={`View ${project.name} case study`}>
                 <div className="work-page-card-media">
                   <Image src={banner.src} alt={banner.alt} fill priority={index < 2} sizes="(max-width: 760px) 94vw, (max-width: 1100px) 47vw, 62vw" />
-                  <strong>0{projectNumber}</strong>
+                  <strong>{projectNumber}</strong>
                   <span className="work-page-card-arrow" aria-hidden="true">↗</span>
                 </div>
 
