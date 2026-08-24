@@ -223,26 +223,66 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <section className="home-services section-light">
-        <Reveal className="home-services-heading" direction="left">
-          <p className="eyebrow eyebrow-dark">What we build</p>
-          <h2>Start with the business problem. Choose the right surface second.</h2>
-        </Reveal>
-        <div className="home-service-index">
-          {categories.map((category, index) => (
-            <Reveal className="home-service-row" delay={index * 0.06} key={category.title}>
-              <span className="home-service-number">0{index + 1}</span>
-              <div><h3>{category.title}</h3><p>{category.copy}</p></div>
-              <div className="home-service-links">
-                {category.serviceNames.map((name) => {
-                  const service = services.find((item) => item.name === name);
-                  return service ? <Link key={service.slug} href={`/services/${service.slug}`}>{service.name}<span>↗</span></Link> : null;
-                })}
-              </div>
-            </Reveal>
-          ))}
+      <section className="home-services-play section-light">
+        <div className="home-services-play-inner">
+          <Reveal className="home-services-play-heading" direction="scale">
+            <div className="home-services-play-count" aria-label="Eight specialist services">
+              <strong>08</strong>
+              <span>Specialist<br />services</span>
+            </div>
+            <div className="home-services-play-title">
+              <p className="eyebrow eyebrow-dark">What we build</p>
+              <h2>Choose the system.<br /><em>Not more noise.</em></h2>
+            </div>
+            <div className="home-services-play-intro">
+              <p>Four connected categories make the choice easier. Start with the business gap, then open the service that solves it.</p>
+              <div><span>04 categories</span><span>Clear starting prices</span><span>Defined deliverables</span></div>
+            </div>
+          </Reveal>
+
+          <div className="home-services-play-grid">
+            {categories.map((category, index) => {
+              const categoryServices = category.serviceNames
+                .map((name) => services.find((item) => item.name === name))
+                .filter((service): service is NonNullable<typeof service> => Boolean(service));
+
+              return (
+                <Reveal className={`home-service-play-card home-service-play-card-${index + 1}`} delay={index * 0.06} key={category.title}>
+                  <div className="home-service-play-card-top">
+                    <span>0{index + 1}</span>
+                    <small>{String(categoryServices.length).padStart(2, '0')} {categoryServices.length === 1 ? 'service' : 'services'}</small>
+                  </div>
+                  <div className="home-service-play-card-copy">
+                    <h3>{category.title}</h3>
+                    <p>{category.copy}</p>
+                  </div>
+                  <div className="home-service-play-links">
+                    {categoryServices.map((service, serviceIndex) => (
+                      <Link key={service.slug} href={`/services/${service.slug}`}>
+                        <span>{index + 1}.{serviceIndex + 1}</span>
+                        <strong>{service.name}</strong>
+                        <small>From {service.tiers[0].price.split(' / ')[0]}</small>
+                        <i aria-hidden="true">↗</i>
+                      </Link>
+                    ))}
+                  </div>
+                  <span className="home-service-play-letter" aria-hidden="true">{category.title.charAt(0)}</span>
+                </Reveal>
+              );
+            })}
+          </div>
+
+          <Reveal className="home-services-play-footer">
+            <div>
+              <span>Not sure which service fits?</span>
+              <p>The ₹999 audit finds the real gap before you invest in a solution.</p>
+            </div>
+            <div>
+              <Link href="/audit">Start with an audit <span aria-hidden="true">→</span></Link>
+              <Link href="/services">Explore all services <span aria-hidden="true">↗</span></Link>
+            </div>
+          </Reveal>
         </div>
-        <Reveal className="home-services-footer"><Link className="button button-outline-dark" href="/services">View services, pricing and packages</Link></Reveal>
       </section>
 
       <section className="home-conversion">
