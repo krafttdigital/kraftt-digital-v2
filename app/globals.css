@@ -4796,6 +4796,8 @@ p { line-height: 1.65; }
 .work-page-card-4 { grid-column: 6 / 13; margin-top: clamp(34px, 4vw, 66px); }
 .work-page-card-5 { grid-column: 1 / 9; }
 .work-page-card-6 { grid-column: 9 / 13; margin-top: clamp(68px, 7vw, 112px); }
+.work-page-card-7 { grid-column: 1 / 8; }
+.work-page-card-8 { grid-column: 8 / 13; margin-top: clamp(64px, 7vw, 104px); }
 .work-page-card > a { display: block; }
 
 .work-page-card-media {
@@ -4813,7 +4815,8 @@ p { line-height: 1.65; }
 .work-page-card:nth-child(even) .work-page-card-media { transform: rotate(.48deg); }
 .work-page-card-2 .work-page-card-media,
 .work-page-card-3 .work-page-card-media,
-.work-page-card-6 .work-page-card-media { aspect-ratio: 1.32; }
+.work-page-card-6 .work-page-card-media,
+.work-page-card-8 .work-page-card-media { aspect-ratio: 1.32; }
 .work-page-card-media::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 58%, rgb(13 13 13 / 28%)); opacity: 0; transition: opacity 260ms ease; }
 .work-page-card-media img { object-fit: cover; transition: transform 750ms cubic-bezier(.22, 1, .36, 1), filter 350ms ease; }
 .work-page-card:hover .work-page-card-media { box-shadow: 0 34px 82px rgb(13 13 13 / 16%); transform: translateY(-6px) rotate(0); }
@@ -4882,7 +4885,8 @@ p { line-height: 1.65; }
 .work-page-card-copy h3 { margin: 17px 0 12px; font-size: clamp(38px, 4vw, 61px); line-height: .92; }
 .work-page-card-2 .work-page-card-copy h3,
 .work-page-card-3 .work-page-card-copy h3,
-.work-page-card-6 .work-page-card-copy h3 { font-size: clamp(34px, 3.2vw, 48px); }
+.work-page-card-6 .work-page-card-copy h3,
+.work-page-card-8 .work-page-card-copy h3 { font-size: clamp(34px, 3.2vw, 48px); }
 .work-page-card-copy > p { display: -webkit-box; max-width: 620px; margin: 0; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; color: var(--dusk); font-size: 13px; line-height: 1.55; }
 .work-page-card-link { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--bone); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
 .work-page-card-link span:last-child { color: var(--raw-umber); font-size: 18px; transition: transform 180ms ease; }
@@ -4927,17 +4931,22 @@ p { line-height: 1.65; }
   .work-page-card-3,
   .work-page-card-4,
   .work-page-card-5,
-  .work-page-card-6 { grid-column: auto; margin-top: 0; }
+  .work-page-card-6,
+  .work-page-card-7,
+  .work-page-card-8 { grid-column: auto; margin-top: 0; }
   .work-page-card-1 .work-page-card-media,
   .work-page-card-2 .work-page-card-media,
   .work-page-card-3 .work-page-card-media,
   .work-page-card-4 .work-page-card-media,
   .work-page-card-5 .work-page-card-media,
-  .work-page-card-6 .work-page-card-media { aspect-ratio: 1.46; }
+  .work-page-card-6 .work-page-card-media,
+  .work-page-card-7 .work-page-card-media,
+  .work-page-card-8 .work-page-card-media { aspect-ratio: 1.46; }
   .work-page-card-copy h3,
   .work-page-card-2 .work-page-card-copy h3,
   .work-page-card-3 .work-page-card-copy h3,
-  .work-page-card-6 .work-page-card-copy h3 { font-size: clamp(34px, 4.2vw, 48px); }
+  .work-page-card-6 .work-page-card-copy h3,
+  .work-page-card-8 .work-page-card-copy h3 { font-size: clamp(34px, 4.2vw, 48px); }
 }
 
 @media (max-width: 760px) {
@@ -4967,12 +4976,15 @@ p { line-height: 1.65; }
   .work-page-card-3 .work-page-card-media,
   .work-page-card-4 .work-page-card-media,
   .work-page-card-5 .work-page-card-media,
-  .work-page-card-6 .work-page-card-media { aspect-ratio: 1.42; }
+  .work-page-card-6 .work-page-card-media,
+  .work-page-card-7 .work-page-card-media,
+  .work-page-card-8 .work-page-card-media { aspect-ratio: 1.42; }
   .work-page-card-copy { width: calc(100% - 16px); margin-top: -24px; padding: 22px; }
   .work-page-card-copy h3,
   .work-page-card-2 .work-page-card-copy h3,
   .work-page-card-3 .work-page-card-copy h3,
-  .work-page-card-6 .work-page-card-copy h3 { font-size: 38px; }
+  .work-page-card-6 .work-page-card-copy h3,
+  .work-page-card-8 .work-page-card-copy h3 { font-size: 38px; }
   .work-page-card-media > strong { top: 11px; left: 11px; width: 56px; height: 56px; font-size: 27px; }
   .work-page-card-arrow { right: 11px; bottom: 11px; opacity: 1; transform: none; }
   .work-page-method { padding: 88px 19px 96px; }
