@@ -16,12 +16,68 @@ const categories = [
   { title: 'Digital Systems', copy: 'Dashboards and internal tools that replace repetitive operating friction.', serviceNames: ['Dashboards & Internal Tools'] },
 ];
 
-const processStages = [
-  ['Audit', 'Find the visible gaps.'],
-  ['Clarify', 'Agree on the real problem.'],
-  ['Propose', 'Set scope, price and timeline.'],
-  ['Onboard', 'Confirm payment and inputs.'],
-  ['Deliver', 'Build, review and launch.'],
+const processJourney = [
+  {
+    number: '01',
+    phase: 'Understand',
+    status: 'Paid · ₹999',
+    title: 'Business audit',
+    copy: 'We study the business, category, current systems and competitors, then document the gaps, opportunities and solutions worth considering.',
+    image: '/01-audit.png',
+    alt: 'Illustration representing Kraftt’s business audit and research stage',
+  },
+  {
+    number: '02',
+    phase: 'Understand',
+    status: 'Optional',
+    title: 'Audit clarification call',
+    copy: 'If anything is unclear, we walk through the audit, explain the actual problem and guide you towards what the business really needs.',
+    image: '/02-discovery-call.png',
+    alt: 'Illustration representing an audit clarification call',
+  },
+  {
+    number: '03',
+    phase: 'Decide',
+    status: 'Free',
+    title: 'Detailed proposal',
+    copy: 'If there is a fit, we define the opportunity, deliverables, timeline, cost breakup, payment schedule, terms and everything needed from your side.',
+    image: '/04-proposal.png',
+    alt: 'Illustration representing Kraftt’s detailed project proposal',
+  },
+  {
+    number: '04',
+    phase: 'Decide',
+    status: 'Optional',
+    title: 'Proposal walkthrough',
+    copy: 'When useful, we explain every commitment in the proposal—including strategy, price, timeline, payment terms and next steps.',
+    image: '/03-clarify.png',
+    alt: 'Illustration representing a proposal clarification and follow-up call',
+  },
+  {
+    number: '05',
+    phase: 'Confirm',
+    status: 'On acceptance',
+    title: 'Advance payment',
+    copy: 'Once the proposal is accepted, the agreed advance confirms the engagement and reserves the work.',
+  },
+  {
+    number: '06',
+    phase: 'Onboard',
+    status: 'After payment',
+    title: 'Client onboarding',
+    copy: 'We send the agreement, invoice and welcome letter, then hold a final call to lock the findings, inputs and requirements.',
+    image: '/05-kickoff-onboard.png',
+    alt: 'Illustration representing client onboarding and project kickoff',
+  },
+  {
+    number: '07',
+    phase: 'Build',
+    status: 'Work begins',
+    title: 'Kraftt gets to work',
+    copy: 'We analyse the business, brand, assets, strategy, competitors and offer in depth before moving into professional production and delivery.',
+    image: '/06-deliver.png',
+    alt: 'Illustration representing Kraftt beginning production and delivery',
+  },
 ];
 
 const caseStudyBanners: Record<string, { src: string; alt: string }> = {
@@ -51,57 +107,78 @@ export default function Home() {
       }} />
       <HomeShowcase />
 
-      <section className="home-process-compact">
-        <div className="home-process-compact-inner">
-          <Reveal className="home-process-compact-heading" direction="scale">
-            <p className="eyebrow">A defined way of working</p>
+      <section className="home-process-journey">
+        <div className="home-process-journey-inner">
+          <Reveal className="home-process-journey-heading" direction="scale">
             <div>
-              <h2><span>Clear thinking first.</span><span>Better outcomes follow.</span></h2>
-              <Link href="/process" className="home-process-compact-cta">Explore the process <span aria-hidden="true">↗</span></Link>
+              <p className="eyebrow">How engagement begins</p>
+              <span className="home-process-journey-index">01—07</span>
+            </div>
+            <div>
+              <h2>Research first.<br /><em>Commit with clarity.</em></h2>
+              <p>Seven transparent steps take the work from understanding your business to starting delivery—with paid, free and optional moments clearly marked.</p>
+              <Link href="/process" className="home-process-journey-link">Explore the full process <span aria-hidden="true">↗</span></Link>
             </div>
           </Reveal>
 
-          <div className="home-process-compact-phases">
-            <Reveal className="home-process-compact-phase" direction="left">
-              <div className="home-process-compact-art">
+          <div className="home-process-journey-layout">
+            <Reveal className="home-process-audit-card" direction="left">
+              <div className="home-process-audit-topline">
+                <span>{processJourney[0].number} · {processJourney[0].phase}</span>
+                <strong>{processJourney[0].status}</strong>
+              </div>
+              <div className="home-process-audit-art">
                 <Image
-                  src="/kraftt-audit-section-illustration.png"
-                  alt="Kraftt audit illustration showing a website connected to trust, quality and growth signals"
+                  src={processJourney[0].image!}
+                  alt={processJourney[0].alt!}
                   fill
-                  sizes="(max-width: 760px) 88vw, 38vw"
+                  sizes="(max-width: 900px) 88vw, 38vw"
                 />
               </div>
-              <div className="home-process-compact-copy">
-                <span>01 · Audit</span>
-                <h3>Find what makes the business hard to choose.</h3>
-                <p>We review search, brand, proof and enquiry paths before recommending what to build.</p>
+              <div className="home-process-audit-copy">
+                <p className="eyebrow">The starting point</p>
+                <h3>Research before recommendation.</h3>
+                <p>{processJourney[0].copy}</p>
+                <div className="home-process-audit-reason">
+                  <span>Why the audit is paid</span>
+                  <p>The ₹999 fee protects the time needed for genuine research and keeps the audit valuable for both sides. It is paid analysis—not a sales call.</p>
+                </div>
+                <Link href="/audit">Request the ₹999 audit <span aria-hidden="true">→</span></Link>
               </div>
             </Reveal>
 
-            <Reveal className="home-process-compact-phase" direction="right">
-              <div className="home-process-compact-art">
-                <Image
-                  src="/kraftt-clarify-propose-section-illustration.png"
-                  alt="Kraftt clarify and propose illustration showing a connected path from discovery to delivery"
-                  fill
-                  sizes="(max-width: 760px) 88vw, 38vw"
-                />
-              </div>
-              <div className="home-process-compact-copy">
-                <span>02 · Clarify and propose</span>
-                <h3>Turn findings into one clear direction.</h3>
-                <p>Scope, investment, timeline and exclusions are made visible before the work begins.</p>
-              </div>
-            </Reveal>
-          </div>
-
-          <div className="home-process-compact-stages" aria-label="Kraftt delivery stages">
-            {processStages.map(([stage, copy], index) => (
-              <Reveal key={stage} delay={index * 0.05}>
-                <span>0{index + 1}</span><strong>{stage}</strong><p>{copy}</p>
+            <div className="home-process-path" aria-label="Kraftt client engagement journey">
+              <Reveal className="home-process-path-intro" direction="right">
+                <p className="eyebrow">What follows</p>
+                <h3>A clear handoff at every stage.</h3>
+                <p>Calls only happen when they help. Commitments are documented before money changes hands.</p>
               </Reveal>
-            ))}
+
+              {processJourney.slice(1).map((step, index) => (
+                <Reveal className={`home-process-path-step${step.image ? '' : ' home-process-path-step-text'}`} delay={index * 0.045} key={step.number}>
+                  <div className="home-process-path-marker"><span>{step.number}</span></div>
+                  <div className="home-process-path-copy">
+                    <div className="home-process-path-meta"><span>{step.phase}</span><strong>{step.status}</strong></div>
+                    <h4>{step.title}</h4>
+                    <p>{step.copy}</p>
+                  </div>
+                  {step.image ? (
+                    <div className="home-process-path-art">
+                      <Image src={step.image} alt={step.alt!} fill sizes="(max-width: 760px) 36vw, 180px" />
+                    </div>
+                  ) : (
+                    <div className="home-process-path-payment" aria-hidden="true"><span>₹</span><small>Scope confirmed</small></div>
+                  )}
+                </Reveal>
+              ))}
+            </div>
           </div>
+
+          <Reveal className="home-process-value-note" direction="scale">
+            <span>What your investment covers</span>
+            <p>Kraftt pricing reflects business research, competitor analysis, strategic thinking, professional execution and accountable delivery—not only the visible output.</p>
+            <Link href="/services">See services and packages <span aria-hidden="true">→</span></Link>
+          </Reveal>
         </div>
       </section>
 
