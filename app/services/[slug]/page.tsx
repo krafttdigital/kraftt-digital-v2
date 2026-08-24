@@ -11,6 +11,13 @@ import { projectBySlug } from '../../data/projects';
 import { serviceBySlug, services } from '../../data/services';
 import { siteUrl, whatsappUrl } from '../../data/site';
 
+const projectProofBanners: Record<string, { src: string; alt: string }> = {
+  'mittal-architect': { src: '/mittal-banner.png', alt: 'Mittal Architect website, project portfolio and search visibility case study collage' },
+  'shree-hari-spintex': { src: '/shsl-banner.png', alt: 'Shree Hari Spintex industrial website and search presence case study collage' },
+  'kiraq-jewellery': { src: '/kiraq-banner.png', alt: 'Kiraq Jewellery brand, storefront and product management case study collage' },
+  'elixir-beverages': { src: '/elixir-banner.png', alt: 'Elixir Beverages identity and pre-launch website case study collage' },
+};
+
 export const dynamic = 'force-static';
 export const dynamicParams = false;
 
@@ -36,6 +43,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
   const service = serviceBySlug(slug);
   if (!service) notFound();
   const relatedProject = projectBySlug(service.relatedProjectSlug);
+  const relatedBanner = relatedProject ? projectProofBanners[relatedProject.slug] : undefined;
   const serviceNumber = services.findIndex((item) => item.slug === service.slug) + 1;
   const serviceMessage = whatsappUrl(`Hi Kraftt, I'd like to discuss ${service.name}.`);
 
@@ -191,8 +199,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             <Reveal className="service-detail-related-feature" direction="right">
               <Link href={`/work/${relatedProject.slug}`} aria-label={`View ${relatedProject.name} case study`}>
                 <div className="service-detail-related-media">
-                  {relatedProject.hero ? (
-                    <Image src={relatedProject.hero.src} alt={relatedProject.hero.alt} fill sizes="(max-width: 900px) 94vw, 55vw" />
+                  {relatedBanner ? (
+                    <Image src={relatedBanner.src} alt={relatedBanner.alt} fill sizes="(max-width: 900px) 94vw, 58vw" />
+                  ) : relatedProject.hero ? (
+                    <Image src={relatedProject.hero.src} alt={relatedProject.hero.alt} fill sizes="(max-width: 900px) 94vw, 58vw" />
                   ) : (
                     <div><span>{relatedProject.industry}</span><strong>{relatedProject.name}</strong></div>
                   )}
