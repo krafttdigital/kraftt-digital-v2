@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { InfiniteTextMarquee } from '@/components/ui/infinite-text-marquee';
-import { navItems } from '../data/site';
-import { BrandWordmark } from './BrandWordmark';
 
 const trustPillars = [
   ['10+', 'Clients served'],
@@ -15,28 +13,6 @@ export function HomeShowcase() {
   return (
     <section className="kraftt-hero" aria-labelledby="home-showcase-title">
       <div className="kraftt-hero-shape" aria-hidden="true" />
-
-      <header className="kraftt-hero-nav">
-        <Link href="/" aria-label="Kraftt Digital home" className="kraftt-hero-logo">
-          <BrandWordmark />
-        </Link>
-
-        <nav className="kraftt-hero-desktop-nav" aria-label="Primary navigation">
-          {navItems.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
-        </nav>
-
-        <Link className="kraftt-hero-audit" href="/audit">
-          Request an Audit <span aria-hidden="true">↗</span>
-        </Link>
-
-        <details className="kraftt-hero-mobile-nav">
-          <summary aria-label="Open navigation">Menu</summary>
-          <nav aria-label="Mobile navigation">
-            {navItems.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
-            <Link href="/audit">Request an Audit</Link>
-          </nav>
-        </details>
-      </header>
 
       <div className="kraftt-hero-main">
         <div className="kraftt-hero-copy">

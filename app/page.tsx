@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import { HomeShowcase } from './components/HomeShowcase';
 import { JsonLd } from './components/JsonLd';
 import { Reveal } from './components/Reveal';
+import { SiteHeader } from './components/SiteHeader';
 import { projects } from './data/projects';
 import { services } from './data/services';
 import { siteUrl } from './data/site';
@@ -112,6 +113,7 @@ export default function Home() {
         url: siteUrl,
         description: 'Kraftt connects brand, websites, content and digital systems to make businesses easier to discover, trust and choose.',
       }} />
+      <SiteHeader overlay />
       <HomeShowcase />
 
       <section className="home-process-journey">

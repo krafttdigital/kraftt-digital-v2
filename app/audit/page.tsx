@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
-import { whatsappUrl } from '../data/site';
+import { SiteHeader } from '../components/SiteHeader';
 import { AuditForm } from './AuditForm';
 
 export const metadata: Metadata = {
@@ -27,10 +26,7 @@ const deliverables = [
 export default function AuditPage() {
   return (
     <main className="audit-page">
-      <header className="audit-header">
-        <Link href="/" aria-label="Kraftt Digital home"><Image src="/assets/brand/kraftt-primary-dark.png" alt="Kraftt Digital" width={915} height={457} priority /></Link>
-        <div><a href={whatsappUrl('Hi Kraftt, I have a question about the Digital Presence Audit.')} target="_blank" rel="noreferrer">Ask on WhatsApp</a><Link href="/">Back to site</Link></div>
-      </header>
+      <SiteHeader />
 
       <section className="audit-hero">
         <div className="audit-hero-copy">

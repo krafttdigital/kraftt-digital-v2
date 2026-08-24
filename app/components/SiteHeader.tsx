@@ -25,8 +25,8 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
         {navItems.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
       </nav>
 
-      <Link className="button button-light header-cta" href="/audit">
-        Request an Audit
+      <Link className="header-cta" href="/audit">
+        Request an Audit <span aria-hidden="true">↗</span>
       </Link>
 
       <details className="mobile-menu">
