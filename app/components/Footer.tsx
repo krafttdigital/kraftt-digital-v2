@@ -1,13 +1,15 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { bundles } from '../data/bundles';
 import { services } from '../data/services';
+import { BrandWordmark } from './BrandWordmark';
 
 export function Footer() {
   return (
     <footer className="footer section-dark">
       <div className="footer-brand">
-        <Image src="/assets/brand/kraftt-primary-light.png" alt="Kraftt Digital" width={2048} height={1024} />
+        <Link className="footer-logo" href="/" aria-label="Kraftt Digital home">
+          <BrandWordmark inverse />
+        </Link>
         <p>Brand, websites, content and digital systems — connected around the business.</p>
         <Link className="button button-accent footer-cta" href="/audit">Request a Digital Presence Audit</Link>
       </div>
