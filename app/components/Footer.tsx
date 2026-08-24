@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { bundles } from '../data/bundles';
 import { services } from '../data/services';
+import { contactEmail, contactPhone, contactPhoneHref, whatsappUrl } from '../data/site';
 import { BrandWordmark } from './BrandWordmark';
 
 export function Footer() {
@@ -12,6 +13,11 @@ export function Footer() {
         </Link>
         <p>Brand, websites, content and digital systems — connected around the business.</p>
         <Link className="button button-accent footer-cta" href="/audit">Request a Digital Presence Audit</Link>
+        <div className="footer-contact-links" aria-label="Contact Kraftt Digital">
+          <a href={`mailto:${contactEmail}`}><span>Email</span><strong>{contactEmail}</strong></a>
+          <a href={contactPhoneHref}><span>Call</span><strong>{contactPhone}</strong></a>
+          <a href={whatsappUrl('Hi Kraftt, I would like to discuss a digital presence project.')} target="_blank" rel="noreferrer"><span>WhatsApp</span><strong>{contactPhone}</strong></a>
+        </div>
         <div className="footer-socials" aria-label="Kraftt Digital social profiles">
           <a href="https://www.instagram.com/krafttdigital" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
           <a href="https://www.linkedin.com/company/krafttdigital" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>

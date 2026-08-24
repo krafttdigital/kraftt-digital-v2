@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Footer } from '../components/Footer';
 import { SiteHeader } from '../components/SiteHeader';
-import { whatsappUrl } from '../data/site';
+import { contactEmail, contactPhone, contactPhoneHref, whatsappUrl } from '../data/site';
 
 export const metadata: Metadata = {
   title: 'Contact | Kraftt Digital',
@@ -17,6 +17,17 @@ export default function ContactPage() {
       <section className="page-hero section-dark">
         <p className="eyebrow">Contact</p><h1>Bring the business problem. We will help make the next step clear.</h1>
         <p>For a structured starting point, request the audit. For a specific scope, open a WhatsApp conversation.</p>
+      </section>
+      <section className="contact-direct-strip section-dark" aria-label="Direct contact options">
+        <a href={`mailto:${contactEmail}`}>
+          <small>Email</small><strong>{contactEmail}</strong><span aria-hidden="true">↗</span>
+        </a>
+        <a href={contactPhoneHref}>
+          <small>Call</small><strong>{contactPhone}</strong><span aria-hidden="true">↗</span>
+        </a>
+        <a href={whatsappUrl('Hi Kraftt, I would like to discuss a digital presence project.')} target="_blank" rel="noreferrer">
+          <small>WhatsApp</small><strong>{contactPhone}</strong><span aria-hidden="true">↗</span>
+        </a>
       </section>
       <section className="content-section contact-grid section-light">
         <Link href="/audit"><p className="eyebrow eyebrow-dark">Primary</p><h2>Request a Digital Presence Audit</h2><span>Start the ₹999 review ↗</span></Link>
