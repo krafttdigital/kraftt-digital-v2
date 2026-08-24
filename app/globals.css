@@ -46,20 +46,34 @@ body {
 a { color: inherit; text-decoration: none; }
 
 .site-header {
-  position: relative;
-  z-index: 10;
-  inset: 0 0 auto;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: grid;
   grid-template-columns: 170px 1fr auto;
   align-items: center;
   min-height: 96px;
   padding: 20px clamp(24px, 5vw, 80px);
-  border-bottom: 1px solid rgb(232 220 200 / 18%);
-  background: var(--midnight);
-  color: var(--linen);
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  color: var(--midnight);
+  transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, color 220ms ease;
 }
 
-.site-header-overlay { position: absolute; background: transparent; }
+.site-header-overlay { background: transparent; }
+
+.site-header-scrolled {
+  border-bottom-color: rgb(232 220 200 / 16%);
+  background: rgb(13 13 13 / 94%);
+  color: var(--linen);
+  box-shadow: 0 12px 35px rgb(13 13 13 / 16%);
+  backdrop-filter: blur(14px);
+}
+
+.site-header-scrolled .brand-wordmark { color: var(--linen); }
+.site-header-scrolled .brand-wordmark small { color: var(--sand); }
+.site-header:not(.site-header-scrolled) .header-cta { border-color: var(--midnight); color: var(--midnight); }
+.site-header:not(.site-header-scrolled) .header-cta:hover { background: var(--midnight); color: var(--linen); }
 
 .brand-link img { width: 132px; height: auto; display: block; }
 
@@ -560,7 +574,19 @@ p { line-height: 1.65; }
 :focus-visible { outline: 2px solid var(--sand); outline-offset: 4px; }
 
 @media (max-width: 900px) {
-  .site-header { grid-template-columns: 1fr auto auto; min-height: 78px; }
+  .site-header {
+    grid-template-columns: 1fr auto auto;
+    min-height: 78px;
+    border-bottom-color: rgb(232 220 200 / 16%);
+    background: rgb(13 13 13 / 96%);
+    color: var(--linen);
+    box-shadow: 0 10px 28px rgb(13 13 13 / 14%);
+    backdrop-filter: blur(14px);
+  }
+  .site-header .brand-wordmark { color: var(--linen); }
+  .site-header .brand-wordmark small { color: var(--sand); }
+  .site-header:not(.site-header-scrolled) .header-cta { border-color: var(--linen); color: var(--linen); }
+  .site-header:not(.site-header-scrolled) .header-cta:hover { background: var(--linen); color: var(--midnight); }
   .site-header .desktop-nav { display: none; }
   .hero { min-height: 820px; grid-template-columns: 1fr; align-items: end; padding-top: 150px; }
   .system-card { max-width: 620px; }

@@ -1,12 +1,24 @@
+'use client';
+
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { navItems } from '../data/site';
 import { BrandWordmark } from './BrandWordmark';
 
 export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateHeader = () => setIsScrolled(window.scrollY > 24);
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    return () => window.removeEventListener('scroll', updateHeader);
+  }, []);
+
   return (
-    <header className={`site-header${overlay ? ' site-header-overlay' : ''}`}>
+    <header className={`site-header${overlay ? ' site-header-overlay' : ''}${isScrolled ? ' site-header-scrolled' : ''}`}>
       <Link href="/" aria-label="Kraftt Digital home" className="brand-link">
-        <BrandWordmark inverse />
+        <BrandWordmark />
       </Link>
 
       <nav className="desktop-nav" aria-label="Primary navigation">
