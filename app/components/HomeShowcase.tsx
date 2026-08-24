@@ -4,9 +4,10 @@ import { navItems } from '../data/site';
 import { BrandWordmark } from './BrandWordmark';
 
 const trustPillars = [
-  ['01', 'Research first'],
-  ['02', 'Founder-led'],
-  ['03', 'Scope stated plainly'],
+  ['10+', 'Clients served'],
+  ['08', 'Specialist services'],
+  ['04', 'Ready-to-start bundles'],
+  ['01', 'Founder-led contact'],
 ];
 
 const capabilities = ['Brand', 'Websites', 'Commerce', 'Content', 'Growth', 'Systems'];
