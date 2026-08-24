@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { InfiniteTextMarquee } from '@/components/ui/infinite-text-marquee';
 import { navItems } from '../data/site';
 import { BrandWordmark } from './BrandWordmark';
 
@@ -9,8 +10,6 @@ const trustPillars = [
   ['04', 'Ready-to-start bundles'],
   ['01', 'Founder-led contact'],
 ];
-
-const capabilities = ['Brand', 'Websites', 'Commerce', 'Content', 'Growth', 'Systems'];
 
 export function HomeShowcase() {
   return (
@@ -81,15 +80,16 @@ export function HomeShowcase() {
       </div>
 
       <div className="kraftt-hero-marquee" aria-label="Kraftt capabilities">
-        <div className="kraftt-hero-marquee-track">
-          {[0, 1].map((group) => (
-            <div className="kraftt-hero-marquee-group" aria-hidden={group === 1} key={group}>
-              {capabilities.map((item) => (
-                <span key={`${group}-${item}`}>{item}<b aria-hidden="true">✦</b></span>
-              ))}
-            </div>
-          ))}
-        </div>
+        <InfiniteTextMarquee
+          text="Brand · Websites · Commerce · Content · Growth · Systems"
+          link="/services"
+          speed={28}
+          tooltipText="Explore our services ↗"
+          fontSize="clamp(1.45rem, 2vw, 2rem)"
+          textColor="var(--linen)"
+          hoverColor="var(--sand)"
+          showTooltip
+        />
       </div>
     </section>
   );
