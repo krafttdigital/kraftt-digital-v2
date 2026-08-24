@@ -17,11 +17,11 @@ const categories = [
 ];
 
 const processStages = [
-  ['Audit', 'Study the business, category, competitors and visible gaps.'],
-  ['Clarify', 'Explain the findings and agree on the real problem.'],
-  ['Propose', 'Set the scope, investment, timeline and boundaries.'],
-  ['Onboard', 'Confirm payment, responsibilities and final inputs.'],
-  ['Deliver', 'Research deeply, build carefully, review and launch.'],
+  ['Audit', 'Find the visible gaps.'],
+  ['Clarify', 'Agree on the real problem.'],
+  ['Propose', 'Set scope, price and timeline.'],
+  ['Onboard', 'Confirm payment and inputs.'],
+  ['Deliver', 'Build, review and launch.'],
 ];
 
 const selectedProjects = ['mittal-architect', 'shree-hari-spintex', 'kiraq-jewellery']
@@ -40,62 +40,58 @@ export default function Home() {
       }} />
       <HomeShowcase />
 
-      <section className="home-process-story">
-        <Reveal className="home-process-story-heading" direction="scale">
-          <p className="eyebrow">A defined way of working</p>
-          <h2>Clear thinking first.<br />Better outcomes follow.</h2>
-        </Reveal>
-
-        <div className="home-process-story-scene">
-          <div className="home-process-story-path" aria-hidden="true"><i /><i /><i /></div>
-
-          <Reveal className="home-process-story-row home-process-story-row-first" direction="left">
-            <div className="home-process-story-media home-process-story-illustration">
-              <Image
-                src="/kraftt-audit-section-illustration.png"
-                alt="Kraftt audit illustration showing a website connected to trust, quality and growth signals"
-                fill
-                sizes="(max-width: 900px) 92vw, 45vw"
-              />
-              <span>Audit the visible gap</span>
-            </div>
-            <div className="home-process-story-copy">
-              <span>01 · Audit</span>
-              <h3>Find the gaps that make a good business difficult to choose.</h3>
-              <p>We study the business, category, competitors, search presence, brand signals and enquiry path before recommending a format.</p>
+      <section className="home-process-compact">
+        <div className="home-process-compact-inner">
+          <Reveal className="home-process-compact-heading" direction="scale">
+            <p className="eyebrow">A defined way of working</p>
+            <div>
+              <h2><span>Clear thinking first.</span><span>Better outcomes follow.</span></h2>
+              <Link href="/process" className="home-process-compact-cta">Explore the process <span aria-hidden="true">↗</span></Link>
             </div>
           </Reveal>
 
-          <Reveal className="home-process-story-row home-process-story-row-second" direction="right">
-            <div className="home-process-story-copy">
-              <span>02 · Clarify and propose</span>
-              <h3>Turn findings into one focused commercial direction.</h3>
-              <p>The scope, investment, timeline and exclusions are made visible. Every surface then carries the same idea—from identity to enquiry.</p>
-              <Link href="/process">See the complete process <b aria-hidden="true">↗</b></Link>
-            </div>
-            <div className="home-process-story-media home-process-story-illustration">
-              <Image
-                src="/kraftt-clarify-propose-section-illustration.png"
-                alt="Kraftt clarify and propose illustration showing a connected path from discovery to delivery"
-                fill
-                sizes="(max-width: 900px) 92vw, 45vw"
-              />
-              <span>Clarify + propose</span>
-            </div>
-          </Reveal>
-        </div>
-
-        <div className="home-process-story-stages" aria-label="Kraftt delivery stages">
-          {processStages.map(([stage, copy], index) => (
-            <Reveal key={stage} delay={index * 0.06}>
-              <span>0{index + 1}</span><strong>{stage}</strong><p>{copy}</p>
+          <div className="home-process-compact-phases">
+            <Reveal className="home-process-compact-phase" direction="left">
+              <div className="home-process-compact-art">
+                <Image
+                  src="/kraftt-audit-section-illustration.png"
+                  alt="Kraftt audit illustration showing a website connected to trust, quality and growth signals"
+                  fill
+                  sizes="(max-width: 760px) 88vw, 38vw"
+                />
+              </div>
+              <div className="home-process-compact-copy">
+                <span>01 · Audit</span>
+                <h3>Find what makes the business hard to choose.</h3>
+                <p>We review search, brand, proof and enquiry paths before recommending what to build.</p>
+              </div>
             </Reveal>
-          ))}
-        </div>
 
-        <Reveal className="home-process-story-explore" direction="scale">
-          <Link href="/process">Explore the process <span aria-hidden="true">↗</span></Link>
-        </Reveal>
+            <Reveal className="home-process-compact-phase" direction="right">
+              <div className="home-process-compact-art">
+                <Image
+                  src="/kraftt-clarify-propose-section-illustration.png"
+                  alt="Kraftt clarify and propose illustration showing a connected path from discovery to delivery"
+                  fill
+                  sizes="(max-width: 760px) 88vw, 38vw"
+                />
+              </div>
+              <div className="home-process-compact-copy">
+                <span>02 · Clarify and propose</span>
+                <h3>Turn findings into one clear direction.</h3>
+                <p>Scope, investment, timeline and exclusions are made visible before the work begins.</p>
+              </div>
+            </Reveal>
+          </div>
+
+          <div className="home-process-compact-stages" aria-label="Kraftt delivery stages">
+            {processStages.map(([stage, copy], index) => (
+              <Reveal key={stage} delay={index * 0.05}>
+                <span>0{index + 1}</span><strong>{stage}</strong><p>{copy}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="home-case-studies section-light">
