@@ -4932,6 +4932,7 @@ p { line-height: 1.65; }
 .work-page-card-3 .work-page-card-copy h3,
 .work-page-card-6 .work-page-card-copy h3,
 .work-page-card-8 .work-page-card-copy h3 { font-size: clamp(34px, 3.2vw, 48px); }
+.work-page-card-niche { display: block; margin: 0 0 14px; color: var(--raw-umber); font-size: 9px; font-weight: 600; letter-spacing: .08em; line-height: 1.45; text-transform: uppercase; }
 .work-page-card-copy > p { display: -webkit-box; max-width: 620px; margin: 0; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; color: var(--dusk); font-size: 13px; line-height: 1.55; }
 .work-page-card-link { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--bone); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
 .work-page-card-link span:last-child { color: var(--raw-umber); font-size: 18px; transition: transform 180ms ease; }

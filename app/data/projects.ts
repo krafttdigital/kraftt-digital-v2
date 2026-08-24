@@ -19,10 +19,17 @@ export type ProjectSolution = {
   detail: string;
 };
 
+export type WorkCategory =
+  | 'Consumer Brands'
+  | 'Professional Services'
+  | 'Manufacturing & B2B'
+  | 'Personal Brands';
+
 export type Project = {
   slug: string;
   name: string;
   liveUrl: string;
+  workCategory: WorkCategory;
   industry: string;
   relationshipLabel?: string;
   package: string;
@@ -49,7 +56,8 @@ export const projects: Project[] = [
     slug: 'shree-hari-spintex',
     name: 'Shree Hari Spintex',
     liveUrl: 'https://shreeharispintex.com',
-    industry: 'Textile / Industrial',
+    workCategory: 'Manufacturing & B2B',
+    industry: 'Textile Manufacturing',
     package: 'Website Growth (₹45,000) + Social (LinkedIn)',
     metrics: [
       { icon: '◷', value: '10–15', label: 'Days to launch', note: 'Completed and made live with Managing Director approval.', kind: 'Delivery' },
@@ -88,7 +96,8 @@ export const projects: Project[] = [
     slug: 'mittal-architect',
     name: 'Mittal Architect',
     liveUrl: 'https://mittalarchitect.in',
-    industry: 'Architecture',
+    workCategory: 'Professional Services',
+    industry: 'Architecture & Interior Design',
     package: 'Website Growth (₹45,000)',
     metrics: [
       { icon: '↗', value: 'Top 5', label: 'Nearby searches', note: 'Reported for architects across Bathinda, Mansa, Tapa and nearby cities.', kind: 'Measured' },
@@ -127,7 +136,8 @@ export const projects: Project[] = [
     slug: 'kiraq-jewellery',
     name: 'Kiraq Jewellery',
     liveUrl: 'https://kiraq.in',
-    industry: 'D2C E-commerce',
+    workCategory: 'Consumer Brands',
+    industry: 'Jewellery & Lifestyle E-commerce',
     package: 'Brand Identity + Website Business (₹25,000) + Social Starter + AI Ad Creatives',
     metrics: [
       { icon: '◎', value: '05', label: 'Social platforms', note: 'Instagram, Facebook, Threads, Pinterest and YouTube were set up.', kind: 'Scope' },
@@ -165,7 +175,8 @@ export const projects: Project[] = [
     slug: 'elixir-beverages',
     name: 'Elixir Beverages',
     liveUrl: 'https://elixirbeverages.in',
-    industry: 'FMCG D2C, pre-launch',
+    workCategory: 'Consumer Brands',
+    industry: 'FMCG & Beverage Brand',
     package: 'Brand Identity + Website Starter',
     metrics: [
       { icon: '◇', value: '04+', label: 'Extra logo directions', note: 'Four additional systems were curated after the first custom direction.', kind: 'Scope' },
@@ -203,7 +214,8 @@ export const projects: Project[] = [
     slug: 'bharat-bhushan-singla',
     name: 'Bharat Bhushan Singla',
     liveUrl: 'https://bharatbhushansingla.me',
-    industry: 'Legal Services',
+    workCategory: 'Professional Services',
+    industry: 'Legal & Professional Services',
     package: 'Professional services website · multi-page legal platform',
     metrics: [
       { icon: '§', value: '06', label: 'Practice areas', note: 'Civil, criminal, family, property, commercial and consumer matters are clearly separated.', kind: 'Scope' },
@@ -241,7 +253,8 @@ export const projects: Project[] = [
     slug: 'the-vibed-vines',
     name: 'The Vibed Vines',
     liveUrl: 'https://thevibedvines.com',
-    industry: 'Streetwear E-commerce',
+    workCategory: 'Consumer Brands',
+    industry: 'Fashion & Streetwear E-commerce',
     package: 'Custom e-commerce storefront · anime streetwear',
     metrics: [
       { icon: '▦', value: '89', label: 'Catalog products', note: 'The documented shop interface supports a substantial multi-category streetwear catalogue.', kind: 'Scope' },
@@ -281,7 +294,8 @@ export const projects: Project[] = [
     slug: 'aegis-squad',
     name: 'Aegis Squad',
     liveUrl: 'https://aegissquad.com',
-    industry: 'Security',
+    workCategory: 'Professional Services',
+    industry: 'Security, Manpower & Facility Services',
     relationshipLabel: 'Early work, completed before Kraftt was founded.',
     package: 'Lean multi-page website build · pre-Kraftt founder work',
     metrics: [
@@ -315,7 +329,8 @@ export const projects: Project[] = [
     slug: 'ketan-goyal',
     name: 'Ketan Goyal',
     liveUrl: 'https://ketangoyal.me',
-    industry: 'Founder / Personal Brand',
+    workCategory: 'Personal Brands',
+    industry: 'Founder Portfolio & Publishing Platform',
     relationshipLabel: 'Internal venture / founder project — not a client engagement.',
     package: 'Internal venture',
     metrics: [

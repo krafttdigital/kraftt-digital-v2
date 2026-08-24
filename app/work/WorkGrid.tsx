@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Reveal } from '../components/Reveal';
-import type { Project } from '../data/projects';
+import type { Project, WorkCategory } from '../data/projects';
 
 const projectBanners: Record<string, { src: string; alt: string }> = {
   'shree-hari-spintex': { src: '/shsl-banner.png', alt: 'Shree Hari Spintex website, search and local discovery project collage' },
@@ -18,16 +18,22 @@ const projectBanners: Record<string, { src: string; alt: string }> = {
 };
 
 export function WorkGrid({ projects }: { projects: Project[] }) {
-  const filters = ['All', ...Array.from(new Set(projects.map((project) => project.industry.split(',')[0])))];
-  const [active, setActive] = useState('All');
-  const visible = active === 'All' ? projects : projects.filter((project) => project.industry.startsWith(active));
+  const filters = ['All Projects', 'Consumer Brands', 'Professional Services', 'Manufacturing & B2B', 'Personal Brands'] as const;
+  const [active, setActive] = useState<(typeof filters)[number]>('All Projects');
+  const visible = active === 'All Projects'
+    ? projects
+    : projects.filter((project) => project.workCategory === active);
+
+  const projectCount = (filter: (typeof filters)[number]) => filter === 'All Projects'
+    ? projects.length
+    : projects.filter((project) => project.workCategory === (filter as WorkCategory)).length;
 
   return (
     <>
-      <div className="work-page-filters" aria-label="Filter work by industry">
+      <div className="work-page-filters" aria-label="Filter work by business category">
         {filters.map((filter) => (
           <button key={filter} className={active === filter ? 'active' : ''} type="button" onClick={() => setActive(filter)} aria-pressed={active === filter}>
-            <span>{filter}</span><small>{filter === 'All' ? projects.length : projects.filter((project) => project.industry.startsWith(filter)).length}</small>
+            <span>{filter}</span><small>{projectCount(filter)}</small>
           </button>
         ))}
       </div>
@@ -47,8 +53,9 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
                 </div>
 
                 <div className="work-page-card-copy">
-                  <div className="work-page-card-meta"><span>{project.industry}</span><span>{project.outcomeType}</span></div>
+                  <div className="work-page-card-meta"><span>{project.workCategory}</span><span>{project.outcomeType}</span></div>
                   <h3>{project.name}</h3>
+                  <span className="work-page-card-niche">{project.industry}</span>
                   <p>{project.context}</p>
                   <div className="work-page-card-link"><span>View case study</span><span aria-hidden="true">→</span></div>
                   {project.relationshipLabel && <small>{project.relationshipLabel}</small>}
