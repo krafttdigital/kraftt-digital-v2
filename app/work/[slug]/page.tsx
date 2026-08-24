@@ -64,7 +64,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <span>{project.outcomeType} outcome</span>
             </div>
             <h1>{project.name}</h1>
-            <p>{project.context}</p>
+            <div className="project-detail-heading-summary">
+              <p>{project.context}</p>
+              <dl><dt>Engagement</dt><dd>{project.package}</dd></dl>
+            </div>
           </Reveal>
 
           {project.relationshipLabel && <Reveal className="project-detail-relationship"><strong>{project.relationshipLabel}</strong></Reveal>}
@@ -75,10 +78,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <span>View the project ↓</span>
           </Reveal>
 
-          <Reveal className="project-detail-facts">
-            <div><span>Industry</span><strong>{project.industry}</strong></div>
-            <div><span>Engagement</span><strong>{project.package}</strong></div>
-            <div><span>Evidence label</span><strong>{project.outcomeType}</strong></div>
+          <Reveal className="project-detail-metrics">
+            {project.metrics.map((metric) => (
+              <div key={`${metric.value}-${metric.label}`}>
+                <span className="project-detail-metric-icon" aria-hidden="true">{metric.icon}</span>
+                <small>{metric.kind}</small>
+                <strong>{metric.value}</strong>
+                <h2>{metric.label}</h2>
+                <p>{metric.note}</p>
+              </div>
+            ))}
           </Reveal>
         </div>
       </section>
@@ -86,30 +95,54 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <section className="project-detail-story">
         <div className="project-detail-story-inner">
           <Reveal className="project-detail-section-heading">
-            <div><p className="eyebrow eyebrow-dark">Inside the work</p><span>Context → decision → delivery</span></div>
-            <h2>The thinking<br /><em>behind the surface.</em></h2>
-            <p>A concise record of what the business needed, what the research found and how the work was shaped around it.</p>
+            <div><p className="eyebrow eyebrow-dark">Inside the work</p><span>Gap → research → system</span></div>
+            <h2>From business gap<br /><em>to working system.</em></h2>
+            <p>Scan the case in order: what was wrong, what we learned, what we compared and what Kraftt built.</p>
           </Reveal>
 
-          <div className="project-detail-story-grid">
-            <Reveal className="project-detail-story-card project-detail-story-context" direction="left">
-              <div><span>01</span><p className="eyebrow eyebrow-dark">Business context</p></div>
-              <h3>{project.context}</h3>
+          <div className="project-detail-system">
+            <Reveal className="project-detail-brief" direction="left">
+              <div className="project-detail-card-heading"><span>01</span><div><p className="eyebrow eyebrow-dark">Business brief</p><h3>What needed to change</h3></div></div>
+              <div className="project-detail-brief-points">
+                <div><span aria-hidden="true">!</span><div><strong>The gap</strong><p>{project.problem}</p></div></div>
+                <div><span aria-hidden="true">◎</span><div><strong>The goal</strong><p>{project.context}</p></div></div>
+              </div>
             </Reveal>
 
-            <Reveal className="project-detail-story-card project-detail-story-problem" direction="right">
-              <div><span>02</span><p className="eyebrow eyebrow-dark">The problem</p></div>
-              <h3>{project.problem}</h3>
+            <Reveal className="project-detail-findings" direction="right">
+              <div className="project-detail-card-heading"><span>02</span><div><p className="eyebrow">Audit findings</p><h3>What the research exposed</h3></div></div>
+              <ol>
+                {project.findings.map((finding, index) => (
+                  <li key={finding}><span>0{index + 1}</span><p>{finding}</p><i aria-hidden="true">↳</i></li>
+                ))}
+              </ol>
             </Reveal>
 
-            <Reveal className="project-detail-story-card project-detail-story-findings">
-              <div><span>03</span><p className="eyebrow">Research findings</p></div>
-              <ul>{project.findings.map((finding) => <li key={finding}>{finding}</li>)}</ul>
+            {project.competitors.length > 0 && (
+              <Reveal className="project-detail-landscape">
+                <div className="project-detail-card-heading"><span>03</span><div><p className="eyebrow eyebrow-dark">Comparison set</p><h3>Who shaped the benchmark</h3></div></div>
+                <div>{project.competitors.map((competitor) => <span key={competitor}>{competitor}</span>)}</div>
+                <p>Used as a research landscape—not as a design template.</p>
+              </Reveal>
+            )}
+
+            <Reveal className="project-detail-solution" direction="scale">
+              <div className="project-detail-card-heading"><span>{project.competitors.length > 0 ? '04' : '03'}</span><div><p className="eyebrow eyebrow-dark">Kraftt system</p><h3>What we built and why</h3></div></div>
+              <div className="project-detail-solution-grid">
+                {project.solutionPoints.map((item) => (
+                  <div key={item.title}><span aria-hidden="true">{item.icon}</span><div><strong>{item.title}</strong><p>{item.detail}</p></div></div>
+                ))}
+              </div>
             </Reveal>
 
-            <Reveal className="project-detail-story-card project-detail-story-approach" direction="scale">
-              <div><span>04</span><p className="eyebrow eyebrow-dark">Approach / strategy</p></div>
-              <h3>{project.approach}</h3>
+            <Reveal className="project-detail-delivery-rail">
+              <div><span>01</span><strong>Understand</strong><small>Business and category</small></div>
+              <i aria-hidden="true">→</i>
+              <div><span>02</span><strong>Compare</strong><small>Market and competitors</small></div>
+              <i aria-hidden="true">→</i>
+              <div><span>03</span><strong>Structure</strong><small>Scope and system</small></div>
+              <i aria-hidden="true">→</i>
+              <div><span>04</span><strong>Deliver</strong><small>Build, review and launch</small></div>
             </Reveal>
           </div>
         </div>

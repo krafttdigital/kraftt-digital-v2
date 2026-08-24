@@ -5,12 +5,29 @@ export type ProjectImage = {
   height: number;
 };
 
+export type ProjectMetric = {
+  icon: string;
+  value: string;
+  label: string;
+  note: string;
+  kind: 'Measured' | 'Delivery' | 'Scope' | 'Qualitative';
+};
+
+export type ProjectSolution = {
+  icon: string;
+  title: string;
+  detail: string;
+};
+
 export type Project = {
   slug: string;
   name: string;
   industry: string;
   relationshipLabel?: string;
   package: string;
+  metrics: ProjectMetric[];
+  competitors: string[];
+  solutionPoints: ProjectSolution[];
   problem: string;
   context: string;
   findings: string[];
@@ -32,6 +49,21 @@ export const projects: Project[] = [
     name: 'Shree Hari Spintex',
     industry: 'Textile / Industrial',
     package: 'Website Growth (₹45,000) + Social (LinkedIn)',
+    metrics: [
+      { icon: '◷', value: '10–15', label: 'Days to launch', note: 'Completed and made live with Managing Director approval.', kind: 'Delivery' },
+      { icon: '⌖', value: 'Top 5', label: 'Google Maps', note: 'Reported for “spinning mills in Punjab” after launch.', kind: 'Measured' },
+      { icon: '↗', value: 'Top 15', label: 'Google Search', note: 'Reported for the same regional category after launch.', kind: 'Measured' },
+      { icon: '☎', value: 'Direct', label: 'Office enquiries', note: 'Management reported calls and clients reaching the office directly.', kind: 'Qualitative' },
+    ],
+    competitors: ['Nahar Spinning Mills', 'Vardhman Group', 'Trident Group', 'Square Corporations', 'Bansal Spinning Mills'],
+    solutionPoints: [
+      { icon: '▦', title: 'Industrial website', detail: 'A new multi-page structure using clear brand colours and product-led navigation.' },
+      { icon: '→', title: 'Working enquiry paths', detail: 'Clear CTAs, contact forms, email routing and WhatsApp integration.' },
+      { icon: '✓', title: 'Trust made visible', detail: 'Industry imagery, product proof, quality standards and trust banners.' },
+      { icon: '⌁', title: 'Search foundation', detail: 'SEO structure, JSON-LD, AEO, GEO and Search Console setup.' },
+      { icon: '⌖', title: 'Local discovery', detail: 'Embedded location and an improved Google Maps business presence.' },
+      { icon: '◎', title: 'Approved launch', detail: 'Final review, Managing Director approval and live deployment.' },
+    ],
     problem: 'A real manufacturer with a broken website — dead contact forms, no product photography, almost no Google Maps presence.',
     context: 'An established cotton spinning manufacturer needed its online presence to match the scale and legitimacy of the business itself.',
     findings: ['The main enquiry route was failing', 'The site did not present the manufacturing operation clearly', 'Search and Maps signals were too weak for regional discovery'],
@@ -55,6 +87,21 @@ export const projects: Project[] = [
     name: 'Mittal Architect',
     industry: 'Architecture',
     package: 'Website Growth (₹45,000)',
+    metrics: [
+      { icon: '↗', value: 'Top 5', label: 'Nearby searches', note: 'Reported for architects across Bathinda, Mansa, Tapa and nearby cities.', kind: 'Measured' },
+      { icon: '→', value: '01 click', label: 'WhatsApp route', note: 'Visitors land in WhatsApp with a prepared enquiry message.', kind: 'Delivery' },
+      { icon: '⌁', value: '03', label: 'Search layers', note: 'SEO, AEO and GEO were structured into the website.', kind: 'Scope' },
+      { icon: '✓', value: 'First go', label: 'Proposal approval', note: 'The initial website proposal was accepted before production began.', kind: 'Qualitative' },
+    ],
+    competitors: ['Architects in Bathinda', 'Architects in Mansa', 'Architects in Tapa', 'Instagram-first local practices'],
+    solutionPoints: [
+      { icon: '◇', title: 'Luxury visual direction', detail: 'A restrained premium tone instead of unnecessary motion on every section.' },
+      { icon: '▦', title: 'Project proof', detail: 'Detailed project pages with concise descriptions and real project imagery.' },
+      { icon: '◎', title: 'Vastu expertise', detail: 'A dedicated visual section explaining the firm’s Vastu specialisation.' },
+      { icon: '≡', title: 'Clear service system', detail: 'Separate service and gallery pages to make the practice easier to assess.' },
+      { icon: '→', title: 'One-click enquiry', detail: 'WhatsApp integration with a pre-written message ready to send.' },
+      { icon: '⌁', title: 'Search visibility', detail: 'SEO, AEO and GEO optimisation built into the site structure.' },
+    ],
     problem: 'A respected local architect with no real online presence beyond an Instagram account with no project proof.',
     context: 'The firm already had an established local reputation, but prospective clients had no structured place to assess its work or make a direct enquiry.',
     findings: ['Search results did not explain the practice', 'Project proof was scattered', 'The enquiry path depended on social media'],
@@ -78,6 +125,21 @@ export const projects: Project[] = [
     name: 'Kiraq Jewellery',
     industry: 'D2C E-commerce',
     package: 'Brand Identity + Website Business (₹25,000) + Social Starter + AI Ad Creatives',
+    metrics: [
+      { icon: '◎', value: '05', label: 'Social platforms', note: 'Instagram, Facebook, Threads, Pinterest and YouTube were set up.', kind: 'Scope' },
+      { icon: '▦', value: '01', label: 'Self-serve admin', note: 'Products, pricing, descriptions and reviews can be managed internally.', kind: 'Delivery' },
+      { icon: '₹', value: '₹25K', label: 'Website package', note: 'Custom Business website package, alongside identity and launch support.', kind: 'Scope' },
+      { icon: '✓', value: '01', label: 'Connected launch', note: 'Identity, store, social setup and AI creatives launched as one system.', kind: 'Qualitative' },
+    ],
+    competitors: ['Salty.in', 'JewelMars.in', 'Yellow Chimes', 'Influencer-led jewellery brands'],
+    solutionPoints: [
+      { icon: '◇', title: 'Luxury identity', detail: 'A complete identity system shaped around the founder’s vision and category research.' },
+      { icon: '▦', title: 'Custom storefront', detail: 'A tailored e-commerce experience created to minimise recurring platform spend.' },
+      { icon: '⌘', title: 'Admin control', detail: 'Internal tools to add products, update copy and pricing, and manage reviews.' },
+      { icon: '◎', title: 'Five-platform setup', detail: 'Launch-ready social presence across the brand’s priority channels.' },
+      { icon: '✦', title: 'Creative production', detail: 'AI-assisted ad creatives and product presentation aligned to the identity.' },
+      { icon: '↻', title: 'Post-launch care', detail: 'Ongoing attention to products, bugs, loading performance and analytics.' },
+    ],
     problem: 'A new jewellery brand with no identity, no store, and no way to sell online.',
     context: 'Kiraq needed the brand, storefront and supporting social surfaces to begin from the same commercial idea.',
     findings: ['There was no usable identity system', 'No product catalogue was available online', 'Ordering and store administration needed clear workflows'],
@@ -100,6 +162,21 @@ export const projects: Project[] = [
     name: 'Elixir Beverages',
     industry: 'FMCG D2C, pre-launch',
     package: 'Brand Identity + Website Starter',
+    metrics: [
+      { icon: '◇', value: '04+', label: 'Extra logo directions', note: 'Four additional systems were curated after the first custom direction.', kind: 'Scope' },
+      { icon: '→', value: '02', label: 'Enquiry routes', note: 'Website forms route to Gmail, with WhatsApp access to the founder.', kind: 'Delivery' },
+      { icon: '◎', value: '01', label: 'Brand guideline system', note: 'The selected logo was developed into a usable identity system.', kind: 'Delivery' },
+      { icon: '◷', value: 'Pre-launch', label: 'Market stage', note: 'The site was built to create trust before commerce was active.', kind: 'Qualitative' },
+    ],
+    competitors: ['Botanical beverage brands', 'Premium FMCG launches', 'D2C refreshment brands', 'Motion-led product websites'],
+    solutionPoints: [
+      { icon: '◎', title: 'Deep discovery', detail: 'Brand, product, audience, launch timing and founder preferences clarified first.' },
+      { icon: '◇', title: 'Logo exploration', detail: 'A custom concept plus additional directions before honouring the client’s chosen mark.' },
+      { icon: '▦', title: 'Brand guidelines', detail: 'Colour, typography and application rules built around the approved logo.' },
+      { icon: '✦', title: 'Motion-led website', detail: 'A scroll-animated digital experience shaped around the client’s brief.' },
+      { icon: '→', title: 'Direct enquiries', detail: 'Working forms to Gmail and WhatsApp access to the founder.' },
+      { icon: '✓', title: 'Approved launch', detail: 'Client review, requested refinements and a live pre-launch presence.' },
+    ],
     problem: 'A pre-launch beverage brand with an unresolved logo and no site.',
     context: 'The brand needed a credible pre-launch surface before the product itself was ready to ship.',
     findings: ['The preferred logo direction needed usable rules', 'The visual system was not documented', 'The site needed to build interest without implying live commerce'],
@@ -123,6 +200,19 @@ export const projects: Project[] = [
     industry: 'Security',
     relationshipLabel: 'Early work, completed before Kraftt was founded.',
     package: 'Lean multi-page website build · pre-Kraftt founder work',
+    metrics: [
+      { icon: '▦', value: '01 → multi', label: 'Site structure', note: 'A single-page site was reorganised into a clearer multi-page experience.', kind: 'Delivery' },
+      { icon: '→', value: '01', label: 'Working contact path', note: 'A real email contact form replaced the missing enquiry route.', kind: 'Delivery' },
+      { icon: '✓', value: '03', label: 'Core gaps addressed', note: 'Structure, service clarity and conversion paths were the priority fixes.', kind: 'Scope' },
+      { icon: '◷', value: 'Pre-Kraftt', label: 'Relationship', note: 'Founder work completed before Kraftt existed as a studio.', kind: 'Qualitative' },
+    ],
+    competitors: ['G4S', 'SIS India', 'Established security-service websites'],
+    solutionPoints: [
+      { icon: '▦', title: 'Multi-page structure', detail: 'Services and company information separated into clearer destinations.' },
+      { icon: '≡', title: 'Service clarity', detail: 'A more understandable presentation of the security and manpower offer.' },
+      { icon: '→', title: 'Conversion route', detail: 'Clear CTAs and a working contact form connected to email.' },
+      { icon: '₹', title: 'Lean delivery', detail: 'A minimum-investment build focused on the highest-value structural fixes.' },
+    ],
     problem: 'A single-page, AI-generated site with no service clarity and no working contact path.',
     context: 'This was an early founder project completed before Kraftt existed as a studio.',
     findings: ['Services were not separated clearly', 'The single page could not support deeper information', 'Visitors had no reliable contact route'],
@@ -143,6 +233,19 @@ export const projects: Project[] = [
     industry: 'Founder / Personal Brand',
     relationshipLabel: 'Internal venture / founder project — not a client engagement.',
     package: 'Internal venture',
+    metrics: [
+      { icon: '≡', value: '06', label: 'Content themes', note: 'Projects, journey, exploration, goals, learning and builds.', kind: 'Scope' },
+      { icon: '◎', value: '01', label: 'Founder trust surface', note: 'One place to understand who leads Kraftt and how the work is approached.', kind: 'Qualitative' },
+      { icon: '◷', value: 'Living', label: 'Portfolio format', note: 'Designed to grow as experiments, lessons and projects are added.', kind: 'Delivery' },
+      { icon: '✓', value: 'Internal', label: 'Relationship', note: 'Clearly labelled as a founder venture, not client proof.', kind: 'Qualitative' },
+    ],
+    competitors: [],
+    solutionPoints: [
+      { icon: '▦', title: 'Work archive', detail: 'A structured place for completed projects and practical builds.' },
+      { icon: '↗', title: 'Founder journey', detail: 'Context on experience, direction and how the studio came to exist.' },
+      { icon: '✦', title: 'Current exploration', detail: 'A living record of daily learning, experiments and new ideas.' },
+      { icon: '◎', title: 'Trust through context', detail: 'Clients can understand the person leading the strategy and delivery.' },
+    ],
     problem: 'The founder’s work, experiments, learning and direction had no single place where a prospective client could understand the person behind Kraftt.',
     context: 'Ketan Goyal’s portfolio is an internal founder project documenting completed work, personal exploration, future goals, learning and builds.',
     findings: ['Project work and personal context were scattered', 'Prospective clients needed a clearer view of who leads the work', 'A living portfolio could create context that a static biography could not'],
