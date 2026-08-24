@@ -24,9 +24,16 @@ const processStages = [
   ['Deliver', 'Build, review and launch.'],
 ];
 
-const selectedProjects = ['mittal-architect', 'shree-hari-spintex', 'kiraq-jewellery']
-  .map((slug) => projects.find((project) => project.slug === slug))
-  .filter((project): project is NonNullable<typeof project> => Boolean(project));
+const caseStudyBanners: Record<string, { src: string; alt: string }> = {
+  'shree-hari-spintex': { src: '/shsl-banner.png', alt: 'Shree Hari Spintex website, search and local discovery project collage' },
+  'mittal-architect': { src: '/mittal-banner.png', alt: 'Mittal Architect website, project portfolio and search visibility collage' },
+  'kiraq-jewellery': { src: '/kiraq-banner.png', alt: 'Kiraq Jewellery identity, storefront and administration system collage' },
+  'elixir-beverages': { src: '/elixir-banner.png', alt: 'Elixir Beverages brand identity and pre-launch website collage' },
+  'aegis-squad': { src: '/aegis-banner.png', alt: 'Aegis Squad services website and search presence collage' },
+  'ketan-goyal': { src: '/ketan-banner.png', alt: 'Ketan Goyal personal portfolio, writing and builds collage' },
+};
+
+const selectedProjects = projects.filter((project) => caseStudyBanners[project.slug]);
 
 export default function Home() {
   return (
@@ -94,28 +101,45 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="home-case-studies section-light">
-        <Reveal className="home-case-studies-heading">
-          <div><p className="eyebrow eyebrow-dark">Selected work</p><h2>Real businesses.<br />Visible before-and-after.</h2></div>
-          <div><p>Every outcome is labelled by the evidence available—measured, qualitative or founder note.</p><Link className="text-link text-link-dark" href="/work">Explore all six projects ↗</Link></div>
+      <section className="home-case-playground section-light">
+        <Reveal className="home-case-playground-heading">
+          <div className="home-case-playground-count" aria-label="Six case studies"><strong>06</strong><span>Case studies</span></div>
+          <div className="home-case-playground-title">
+            <p className="eyebrow eyebrow-dark">Selected work</p>
+            <h2>Proof takes<br />different shapes.</h2>
+          </div>
+          <div className="home-case-playground-intro">
+            <p>Six connected digital systems, each shaped around a different business gap. Every outcome is labelled by the evidence available.</p>
+            <Link className="home-case-playground-all" href="/work">Explore all projects <span aria-hidden="true">↗</span></Link>
+          </div>
         </Reveal>
-        <div className="home-case-studies-list">
-          {selectedProjects.map((project, index) => (
-            <Reveal className={`home-case-study home-case-study-${index + 1}`} direction={index % 2 ? 'left' : 'right'} delay={index * 0.07} key={project.slug}>
-              <div className="home-case-study-copy">
-                <span>Case study 0{index + 1} · {project.outcomeType}</span>
-                <h3>{project.name}</h3>
-                <p>{project.problem}</p>
-                <Link href={`/work/${project.slug}`}>Explore project <b aria-hidden="true">↗</b></Link>
-              </div>
-              {project.hero ? (
-                <div className="home-case-study-media">
-                  <Image src={project.hero.src} alt={project.hero.alt} fill sizes="(max-width: 900px) 92vw, 48vw" priority={index === 0} />
-                </div>
-              ) : null}
-            </Reveal>
-          ))}
+
+        <div className="home-case-playground-grid">
+          {selectedProjects.map((project, index) => {
+            const banner = caseStudyBanners[project.slug];
+            return (
+              <Reveal className={`home-case-play-card home-case-play-card-${index + 1}`} direction={index % 2 ? 'left' : 'right'} delay={index * 0.06} key={project.slug}>
+                <Link href={`/work/${project.slug}`} aria-label={`Explore ${project.name} case study`}>
+                  <div className="home-case-play-media">
+                    <Image src={banner.src} alt={banner.alt} fill sizes="(max-width: 760px) 92vw, (max-width: 1100px) 46vw, 58vw" priority={index === 0} />
+                    <strong className="home-case-play-number">0{index + 1}</strong>
+                    <span className="home-case-play-arrow" aria-hidden="true">↗</span>
+                  </div>
+                  <div className="home-case-play-copy">
+                    <div><span>{project.industry}</span><span>{project.outcomeType}</span></div>
+                    <h3>{project.name}</h3>
+                    <p>{project.context}</p>
+                  </div>
+                </Link>
+              </Reveal>
+            );
+          })}
         </div>
+
+        <Reveal className="home-case-playground-footer">
+          <p><span>06</span> projects. Real context. No manufactured proof.</p>
+          <Link href="/work">View the full evidence <span aria-hidden="true">→</span></Link>
+        </Reveal>
       </section>
 
       <section className="home-services section-light">
