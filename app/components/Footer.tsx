@@ -12,6 +12,10 @@ export function Footer() {
         </Link>
         <p>Brand, websites, content and digital systems — connected around the business.</p>
         <Link className="button button-accent footer-cta" href="/audit">Request a Digital Presence Audit</Link>
+        <div className="footer-socials" aria-label="Kraftt Digital social profiles">
+          <a href="https://www.instagram.com/krafttdigital" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+          <a href="https://www.linkedin.com/company/krafttdigital" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+        </div>
       </div>
       <div>
         <p className="footer-label">Services</p>

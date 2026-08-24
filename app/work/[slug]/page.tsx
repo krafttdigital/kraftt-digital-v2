@@ -71,6 +71,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <div className="project-detail-heading-summary">
               <p>{project.context}</p>
               <dl><dt>Engagement</dt><dd>{project.package}</dd></dl>
+              <a className="project-detail-live-link" href={project.liveUrl} target="_blank" rel="noreferrer">
+                Visit live website <span aria-hidden="true">↗</span>
+              </a>
             </div>
           </Reveal>
 

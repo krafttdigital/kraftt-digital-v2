@@ -54,6 +54,15 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
                   {project.relationshipLabel && <small>{project.relationshipLabel}</small>}
                 </div>
               </Link>
+              <a
+                className="work-page-card-live"
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Visit the live ${project.name} website`}
+              >
+                <span>Visit live website</span><span aria-hidden="true">↗</span>
+              </a>
             </Reveal>
           );
         })}

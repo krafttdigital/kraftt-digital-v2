@@ -22,6 +22,7 @@ export type ProjectSolution = {
 export type Project = {
   slug: string;
   name: string;
+  liveUrl: string;
   industry: string;
   relationshipLabel?: string;
   package: string;
@@ -47,6 +48,7 @@ export const projects: Project[] = [
   {
     slug: 'shree-hari-spintex',
     name: 'Shree Hari Spintex',
+    liveUrl: 'https://shreeharispintex.com',
     industry: 'Textile / Industrial',
     package: 'Website Growth (₹45,000) + Social (LinkedIn)',
     metrics: [
@@ -85,6 +87,7 @@ export const projects: Project[] = [
   {
     slug: 'mittal-architect',
     name: 'Mittal Architect',
+    liveUrl: 'https://mittalarchitect.in',
     industry: 'Architecture',
     package: 'Website Growth (₹45,000)',
     metrics: [
@@ -123,6 +126,7 @@ export const projects: Project[] = [
   {
     slug: 'kiraq-jewellery',
     name: 'Kiraq Jewellery',
+    liveUrl: 'https://kiraq.in',
     industry: 'D2C E-commerce',
     package: 'Brand Identity + Website Business (₹25,000) + Social Starter + AI Ad Creatives',
     metrics: [
@@ -160,6 +164,7 @@ export const projects: Project[] = [
   {
     slug: 'elixir-beverages',
     name: 'Elixir Beverages',
+    liveUrl: 'https://elixirbeverages.in',
     industry: 'FMCG D2C, pre-launch',
     package: 'Brand Identity + Website Starter',
     metrics: [
@@ -197,6 +202,7 @@ export const projects: Project[] = [
   {
     slug: 'bharat-bhushan-singla',
     name: 'Bharat Bhushan Singla',
+    liveUrl: 'https://bharatbhushansingla.me',
     industry: 'Legal Services',
     package: 'Professional services website · multi-page legal platform',
     metrics: [
@@ -234,6 +240,7 @@ export const projects: Project[] = [
   {
     slug: 'the-vibed-vines',
     name: 'The Vibed Vines',
+    liveUrl: 'https://thevibedvines.com',
     industry: 'Streetwear E-commerce',
     package: 'Custom e-commerce storefront · anime streetwear',
     metrics: [
@@ -273,6 +280,7 @@ export const projects: Project[] = [
   {
     slug: 'aegis-squad',
     name: 'Aegis Squad',
+    liveUrl: 'https://aegissquad.com',
     industry: 'Security',
     relationshipLabel: 'Early work, completed before Kraftt was founded.',
     package: 'Lean multi-page website build · pre-Kraftt founder work',
@@ -306,6 +314,7 @@ export const projects: Project[] = [
   {
     slug: 'ketan-goyal',
     name: 'Ketan Goyal',
+    liveUrl: 'https://ketangoyal.me',
     industry: 'Founder / Personal Brand',
     relationshipLabel: 'Internal venture / founder project — not a client engagement.',
     package: 'Internal venture',
