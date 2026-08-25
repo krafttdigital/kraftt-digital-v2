@@ -3,16 +3,17 @@ import Link from 'next/link';
 import { ArrowUpRight, Clock3, Layers3 } from 'lucide-react';
 import { Pricing, type ComparisonPlan, type ComparisonRow } from '@/components/ui/pricing-section-with-comparison';
 import { Footer } from '../components/Footer';
+import { JsonLd } from '../components/JsonLd';
 import { Reveal } from '../components/Reveal';
 import { SiteHeader } from '../components/SiteHeader';
 import { bundles } from '../data/bundles';
+import { createPageMetadata, createPageSchema } from '../data/seo';
 import { services } from '../data/services';
 
-export const metadata: Metadata = {
-  title: 'Services | Kraftt Digital',
-  description: 'Explore eight Kraftt services across websites, commerce, brand, content, creative production and digital systems.',
-  alternates: { canonical: '/services' },
-};
+const pageTitle = 'Digital Agency Services in India | Kraftt Digital';
+const pageDescription = 'Explore Kraftt Digital services in India and Punjab across website design, SEO, branding, content, commerce, creative production and digital systems.';
+
+export const metadata: Metadata = createPageMetadata({ title: pageTitle, description: pageDescription, path: '/services', label: 'Digital services · India' });
 
 const grouped = services.reduce<Record<string, typeof services>>((acc, service) => {
   (acc[service.category] ??= []).push(service);
@@ -41,6 +42,7 @@ const bundleRows: ComparisonRow[] = [
 export default function ServicesPage() {
   return (
     <main className="services-clarity-page">
+      <JsonLd data={createPageSchema({ name: pageTitle, description: pageDescription, path: '/services', breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Services', path: '/services' }] })} />
       <SiteHeader />
       <section className="services-clarity-hero" aria-labelledby="services-page-title">
         <Reveal className="services-clarity-hero-copy" direction="left">

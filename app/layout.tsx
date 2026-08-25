@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, Outfit } from 'next/font/google';
 import './globals.css';
+import { JsonLd } from './components/JsonLd';
+import { organizationAndWebsiteSchema } from './data/seo';
 import { siteUrl } from './data/site';
 
 const cormorant = Cormorant_Garamond({
@@ -23,8 +25,33 @@ export const metadata: Metadata = {
   },
   description:
     'Kraftt connects brand, websites, content and digital systems to make businesses easier to discover, trust and choose.',
-  alternates: { canonical: '/' },
-  icons: { icon: '/icon.png' },
+  manifest: '/favicon/site.webmanifest',
+  icons: {
+    icon: [
+      { url: '/favicon/favicon.ico', sizes: 'any' },
+      { url: '/favicon/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/favicon/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+    ],
+    shortcut: '/favicon/favicon.ico',
+    apple: [{ url: '/favicon/apple-touch-icon.png', type: 'image/png', sizes: '180x180' }],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
+  verification: {
+    ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}),
+    ...(process.env.BING_SITE_VERIFICATION
+      ? { other: { 'msvalidate.01': process.env.BING_SITE_VERIFICATION } }
+      : {}),
+  },
   openGraph: {
     type: 'website',
     siteName: 'Kraftt Digital',
@@ -44,7 +71,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${cormorant.variable} ${outfit.variable}`}>{children}</body>
+      <body className={`${cormorant.variable} ${outfit.variable}`}>
+        <JsonLd data={organizationAndWebsiteSchema()} />
+        {children}
+      </body>
     </html>
   );
 }

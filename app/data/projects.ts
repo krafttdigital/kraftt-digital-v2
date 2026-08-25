@@ -58,7 +58,7 @@ export const projects: Project[] = [
     liveUrl: 'https://shreeharispintex.com',
     workCategory: 'Manufacturing & B2B',
     industry: 'Textile Manufacturing',
-    package: 'Website Growth (₹45,000) + Social (LinkedIn)',
+    package: 'Website Growth + Social (LinkedIn)',
     metrics: [
       { icon: '◷', value: '10–15', label: 'Days to launch', note: 'Completed and made live with Managing Director approval.', kind: 'Delivery' },
       { icon: '⌖', value: 'Top 5', label: 'Google Maps', note: 'Reported for “spinning mills in Punjab” after launch.', kind: 'Measured' },

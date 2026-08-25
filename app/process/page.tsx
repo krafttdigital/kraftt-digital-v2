@@ -2,14 +2,15 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Footer } from '../components/Footer';
+import { JsonLd } from '../components/JsonLd';
 import { Reveal } from '../components/Reveal';
 import { SiteHeader } from '../components/SiteHeader';
+import { createPageMetadata, createPageSchema } from '../data/seo';
 
-export const metadata: Metadata = {
-  title: 'Process | Kraftt Digital',
-  description: 'The Kraftt working system from paid audit and clarification through proposal, onboarding, research, build and delivery.',
-  alternates: { canonical: '/process' },
-};
+const pageTitle = 'Kraftt Digital Process | Audit to Delivery';
+const pageDescription = 'Follow the Kraftt working system from paid audit and clarification through proposal, onboarding, research, build and delivery.';
+
+export const metadata: Metadata = createPageMetadata({ title: pageTitle, description: pageDescription, path: '/process', label: 'How Kraftt works' });
 
 const phases = [
   { number: '01', title: 'Understand', detail: 'Audit and clarify' },
@@ -66,6 +67,7 @@ const clarityPoints = [
 export default function ProcessPage() {
   return (
     <main className="process-clarity-page">
+      <JsonLd data={createPageSchema({ name: pageTitle, description: pageDescription, path: '/process', breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Process', path: '/process' }] })} />
       <SiteHeader />
 
       <section className="process-clarity-hero" aria-labelledby="process-page-title">

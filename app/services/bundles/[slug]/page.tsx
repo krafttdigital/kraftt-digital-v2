@@ -9,7 +9,8 @@ import { Reveal } from '../../../components/Reveal';
 import { SiteHeader } from '../../../components/SiteHeader';
 import { bundleBySlug, bundles } from '../../../data/bundles';
 import { projectBySlug } from '../../../data/projects';
-import { siteUrl, whatsappUrl } from '../../../data/site';
+import { createPageMetadata, createPageSchema, serviceSchema } from '../../../data/seo';
+import { whatsappUrl } from '../../../data/site';
 
 export const dynamic = 'force-static';
 export const dynamicParams = false;
@@ -22,13 +23,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const bundle = bundleBySlug(slug);
   if (!bundle) return {};
-  return {
-    title: `${bundle.name} | Kraftt Digital`,
+  return createPageMetadata({
+    title: `${bundle.name} Bundle | Kraftt Digital`,
     description: bundle.headline,
-    alternates: { canonical: `/services/bundles/${bundle.slug}` },
-    openGraph: { title: `${bundle.name} | Kraftt Digital`, description: bundle.headline, images: [] },
-    twitter: { card: 'summary', title: `${bundle.name} | Kraftt Digital`, description: bundle.headline, images: [] },
-  };
+    path: `/services/bundles/${bundle.slug}`,
+    label: 'Connected service bundle',
+  });
 }
 
 export default async function BundlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -39,12 +39,17 @@ export default async function BundlePage({ params }: { params: Promise<{ slug: s
 
   return (
     <main>
-      <JsonLd data={{
-        '@context': 'https://schema.org', '@type': 'Service', name: bundle.name,
-        description: bundle.problemSolved,
-        provider: { '@type': 'Organization', name: 'Kraftt Digital', url: siteUrl },
-        url: `${siteUrl}/services/bundles/${bundle.slug}`,
-      }} />
+      <JsonLd data={createPageSchema({
+        name: `${bundle.name} Bundle | Kraftt Digital`,
+        description: bundle.headline,
+        path: `/services/bundles/${bundle.slug}`,
+        breadcrumbs: [
+          { name: 'Home', path: '/' },
+          { name: 'Services', path: '/services' },
+          { name: bundle.name, path: `/services/bundles/${bundle.slug}` },
+        ],
+        entities: [serviceSchema({ name: bundle.name, description: bundle.problemSolved, path: `/services/bundles/${bundle.slug}` })],
+      })} />
       <SiteHeader />
       <section className="page-hero service-page-hero section-dark">
         <p className="eyebrow">Service bundle</p>

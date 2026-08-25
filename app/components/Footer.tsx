@@ -23,23 +23,45 @@ export function Footer() {
           <a href="https://www.linkedin.com/company/krafttdigital" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
         </div>
       </div>
-      <div>
+      <div className="footer-desktop-column">
         <p className="footer-label">Services</p>
         {services.map((service) => <Link key={service.slug} href={`/services/${service.slug}`}>{service.name}</Link>)}
       </div>
-      <div>
+      <div className="footer-desktop-column">
         <p className="footer-label">Bundles</p>
         {bundles.map((bundle) => <Link key={bundle.slug} href={`/services/bundles/${bundle.slug}`}>{bundle.name}</Link>)}
       </div>
-      <div>
+      <div className="footer-desktop-column">
         <p className="footer-label">Kraftt</p>
         <Link href="/work">Work</Link>
         <Link href="/process">Process</Link>
         <Link href="/about">About</Link>
-        <Link href="/resources">Resources</Link>
+        <Link href="/tools">Tools</Link>
         <Link href="/contact">Contact</Link>
         <Link href="/legal/privacy-policy">Privacy policy</Link>
         <Link href="/legal/terms">Terms</Link>
+      </div>
+      <div className="footer-mobile-groups" aria-label="Footer navigation">
+        <details>
+          <summary>Services <span aria-hidden="true">+</span></summary>
+          <div>{services.map((service) => <Link key={service.slug} href={`/services/${service.slug}`}>{service.name}</Link>)}</div>
+        </details>
+        <details>
+          <summary>Bundles <span aria-hidden="true">+</span></summary>
+          <div>{bundles.map((bundle) => <Link key={bundle.slug} href={`/services/bundles/${bundle.slug}`}>{bundle.name}</Link>)}</div>
+        </details>
+        <details>
+          <summary>Kraftt <span aria-hidden="true">+</span></summary>
+          <div>
+            <Link href="/work">Work</Link>
+            <Link href="/process">Process</Link>
+            <Link href="/about">About</Link>
+            <Link href="/tools">Tools</Link>
+            <Link href="/contact">Contact</Link>
+            <Link href="/legal/privacy-policy">Privacy policy</Link>
+            <Link href="/legal/terms">Terms</Link>
+          </div>
+        </details>
       </div>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} Kraftt Digital</span>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { services } from '../data/services';
 import { whatsappUrl } from '../data/site';
 
@@ -22,6 +22,60 @@ const messageFields = [
 export function AuditForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const [submitState, setSubmitState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    const form = formRef.current;
+    if (!form) return;
+    const params = new URLSearchParams(window.location.search);
+    if (!params.size) return;
+
+    const setValue = (name: string, value: string) => {
+      const control = form.elements.namedItem(name);
+      if (control instanceof HTMLInputElement || control instanceof HTMLSelectElement || control instanceof HTMLTextAreaElement) control.value = value;
+    };
+    const context: string[] = [];
+    const score = params.get('score');
+    const focus = params.get('focus');
+    if (score || focus) {
+      context.push(`Digital Presence Score: ${score ?? 'not recorded'}/100${focus ? `; weakest area: ${focus}` : ''}.`);
+      if (focus?.toLowerCase().includes('brand')) setValue('primaryGap', 'Brand and content feel inconsistent');
+      else if (focus?.toLowerCase().includes('enquiry')) setValue('primaryGap', 'Website is not generating enquiries');
+      else if (focus) setValue('primaryGap', 'People cannot find us online');
+    }
+
+    const tier = params.get('tier');
+    const siteType = params.get('siteType');
+    if (tier || siteType) {
+      setValue('service', siteType === 'ecommerce' ? 'Shopify Store Development' : 'Web Design & Development');
+      context.push(`Website calculator: ${tier ?? 'tier pending'}; ${params.get('pages') ?? 'page count not recorded'}; add-ons: ${params.get('addons') || 'none selected'}.`);
+      const urgency = params.get('urgency');
+      if (urgency === '30-days') setValue('timeline', 'Within 30 days');
+      if (urgency === '1-3-months') setValue('timeline', '1–3 months');
+    }
+
+    const socialTier = params.get('socialTier');
+    if (socialTier) {
+      setValue('service', 'Social Media Management');
+      context.push(`Social calculator: ${socialTier}; ${params.get('platforms') ?? '—'} platform(s), ${params.get('posts') ?? '—'} posts, stories ${params.get('stories') ?? '—'}, community management ${params.get('community') ?? '—'}.`);
+    }
+
+    const tool = params.get('tool');
+    if (tool === 'seo-roi') {
+      setValue('service', 'E-commerce SEO');
+      setValue('primaryGap', 'People cannot find us online');
+      context.push(`SEO ROI calculator: moderate illustrative ROI ${params.get('roi') ?? 'not recorded'}%.`);
+    } else if (tool === 'roas-calculator') {
+      context.push(`ROAS calculator: ${params.get('roas') ?? '—'}x; break-even ${params.get('breakEven') || 'not calculated'}.`);
+    } else if (tool === 'gst-calculator') {
+      setValue('service', 'Dashboards & Internal Tools');
+      context.push(`GST calculator used: ${params.get('gstRate') ?? '—'}% in ${params.get('gstMode') ?? '—'} mode.`);
+    } else if (tool === 'gst-invoice-generator') {
+      setValue('service', 'Dashboards & Internal Tools');
+      context.push(`GST invoice generator used; current invoice total ${params.get('invoiceTotal') ?? '—'}.`);
+    }
+
+    if (context.length) setValue('context', context.join('\n'));
+  }, []);
 
   function getValidForm() {
     const form = formRef.current;

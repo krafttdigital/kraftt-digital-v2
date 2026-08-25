@@ -1,12 +1,15 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SiteHeader } from '../components/SiteHeader';
+import { createPageMetadata } from '../data/seo';
 
-export const metadata: Metadata = {
-  title: 'Thank you | Kraftt Digital',
-  description: 'Your Digital Presence Audit request has been received.',
-  robots: { index: false, follow: false },
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'Audit Request Received | Kraftt Digital',
+  description: 'Your Digital Presence Audit request has been received by Kraftt Digital.',
+  path: '/thank-you',
+  label: 'Request received',
+  noIndex: true,
+});
 
 export default function ThankYouPage() {
   return (

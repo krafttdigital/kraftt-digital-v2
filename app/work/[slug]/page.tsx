@@ -4,10 +4,15 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AuditCTA } from '../../components/CTA';
 import { Footer } from '../../components/Footer';
+import { JsonLd } from '../../components/JsonLd';
+import { ProjectGalleryCarousel } from '../../components/ProjectGalleryCarousel';
 import { Reveal } from '../../components/Reveal';
+import { ReviewsSection } from '../../components/ReviewsSection';
 import { SiteHeader } from '../../components/SiteHeader';
 import { projectBySlug, projects } from '../../data/projects';
-import { siteUrl } from '../../data/site';
+import { galleryDetailsForProject } from '../../data/projectGalleryDetails';
+import { reviewsForProject } from '../../data/reviews';
+import { articleSchema, createPageMetadata, createPageSchema, reviewSchemas } from '../../data/seo';
 
 const projectBanners: Record<string, { src: string; alt: string }> = {
   'shree-hari-spintex': { src: '/shsl-banner.png', alt: 'Shree Hari Spintex website, search and local discovery project collage' },
@@ -31,14 +36,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const project = projectBySlug(slug);
   if (!project) return {};
-  const images = project.hero ? [{ url: `${siteUrl}${project.hero.src}`, width: project.hero.width, height: project.hero.height, alt: project.hero.alt }] : [];
-  return {
-    title: `${project.name} case study | Kraftt Digital`,
-    description: project.approach,
-    alternates: { canonical: `/work/${project.slug}` },
-    openGraph: { title: `${project.name} case study | Kraftt Digital`, description: project.approach, images },
-    twitter: { card: images.length ? 'summary_large_image' : 'summary', title: `${project.name} case study | Kraftt Digital`, description: project.approach, images },
-  };
+  const banner = projectBanners[project.slug];
+  return createPageMetadata({
+    title: `${project.name} Case Study | Kraftt Digital`,
+    description: project.context,
+    path: `/work/${project.slug}`,
+    label: `${project.industry} case study`,
+    type: 'article',
+    image: banner?.src,
+    imageAlt: banner?.alt,
+  });
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -51,9 +58,34 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const banner = projectBanners[project.slug];
   const relatedBanner = related ? projectBanners[related.slug] : null;
   const proofMetric = project.metrics.find((metric) => metric.kind === 'Measured') ?? project.metrics[0];
+  const projectReviews = reviewsForProject(project.slug);
+  const galleryDetails = galleryDetailsForProject(project.slug);
+  const gallerySlides = project.gallery.map((image, index) => ({
+    ...image,
+    detail: galleryDetails[index] ?? `A documented view of ${image.alt.toLowerCase()} within the delivered ${project.name} system.`,
+  }));
 
   return (
     <main className="project-detail-page">
+      <JsonLd data={createPageSchema({
+        name: `${project.name} Case Study | Kraftt Digital`,
+        description: project.context,
+        path: `/work/${project.slug}`,
+        breadcrumbs: [
+          { name: 'Home', path: '/' },
+          { name: 'Work', path: '/work' },
+          { name: project.name, path: `/work/${project.slug}` },
+        ],
+        entities: [
+          articleSchema({
+            name: `${project.name} Case Study`,
+            description: project.context,
+            path: `/work/${project.slug}`,
+            industry: project.industry,
+          }),
+          ...reviewSchemas(projectReviews),
+        ],
+      })} />
       <SiteHeader />
       <section className="project-detail-hero">
         <div className="project-detail-hero-inner">
@@ -81,7 +113,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
           <Reveal className="project-detail-hero-media" direction="scale">
             <Image src={banner.src} alt={banner.alt} fill priority sizes="(max-width: 760px) 94vw, 88vw" />
-            <strong>{projectNumber}</strong>
+            {/* <strong>{projectNumber}</strong> */}
             <span>View the project ↓</span>
           </Reveal>
 
@@ -163,18 +195,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <p>Selected screens and implementation details from the finished system.</p>
           </Reveal>
 
-        {project.gallery.length ? (
-          <div className="project-detail-gallery-grid">
-            {project.gallery.map((image, index) => (
-              <Reveal className={`project-detail-gallery-item project-detail-gallery-item-${index + 1}`} direction={index % 2 ? 'left' : 'right'} key={image.src}>
-                <div>
-                  <Image src={image.src} alt={image.alt} fill sizes="(max-width: 760px) 94vw, (max-width: 1100px) 47vw, 58vw" />
-                  <span>0{index + 1}</span>
-                </div>
-                <p>{image.alt}</p>
-              </Reveal>
-            ))}
-          </div>
+        {gallerySlides.length ? (
+          <ProjectGalleryCarousel slides={gallerySlides} projectName={project.name} />
         ) : (
           <Reveal className="project-detail-gallery-empty">
             <span>Founder-led internal venture</span>
@@ -204,6 +226,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       {project.founderNote && (
         <section className="project-detail-founder-note"><p className="eyebrow eyebrow-dark">Founder note</p><h2>{project.founderNote}</h2></section>
       )}
+
+      <ReviewsSection reviews={projectReviews} projectName={project.name} />
 
       {related && (
         <section className="project-detail-next">

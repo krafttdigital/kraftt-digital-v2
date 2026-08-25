@@ -1,0 +1,151 @@
+import Link from 'next/link';
+import {
+  BarChart3,
+  Calculator,
+  FileText,
+  Gauge,
+  Globe2,
+  ReceiptText,
+  Share2,
+  type LucideIcon,
+} from 'lucide-react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { Footer as SiteFooter } from '../../components/Footer';
+import { SiteHeader } from '../../components/SiteHeader';
+import type { ToolDefinition } from '../data';
+
+const toolIcons: Record<string, LucideIcon> = {
+  'digital-presence-score': Gauge,
+  'website-cost-calculator': Globe2,
+  'social-media-cost-calculator': Share2,
+  'seo-roi-calculator': BarChart3,
+  'roas-calculator': Calculator,
+  'gst-calculator': ReceiptText,
+  'gst-invoice-generator': FileText,
+};
+
+const toolDetailFacts: Record<string, { number: string; facts: [string, string][] }> = {
+  'digital-presence-score': {
+    number: '01',
+    facts: [['12', 'Guided signals'], ['04', 'Focus categories'], ['100', 'Point score']],
+  },
+  'website-cost-calculator': {
+    number: '02',
+    facts: [['05', 'Brief choices'], ['03', 'Website tiers'], ['Clear', 'Starting estimate']],
+  },
+  'social-media-cost-calculator': {
+    number: '03',
+    facts: [['04', 'Workload inputs'], ['03', 'Management tiers'], ['Clear', 'Scope match']],
+  },
+  'seo-roi-calculator': {
+    number: '04',
+    facts: [['03', 'Growth scenarios'], ['Live', 'Revenue model'], ['Clear', 'ROI range']],
+  },
+  'roas-calculator': {
+    number: '05',
+    facts: [['02', 'Core inputs'], ['Live', 'Break-even test'], ['₹', 'Profit view']],
+  },
+  'gst-calculator': {
+    number: '06',
+    facts: [['04', 'Standard rates'], ['CGST', 'Or IGST split'], ['Live', 'Tax breakdown']],
+  },
+  'gst-invoice-generator': {
+    number: '07',
+    facts: [['Live', 'Invoice totals'], ['PDF', 'Direct download'], ['0', 'Data stored']],
+  },
+};
+
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: ReactNode;
+  href?: string;
+  variant?: 'primary' | 'secondary';
+  className?: string;
+};
+
+export function Button({ children, href, variant = 'primary', className = '', ...props }: ButtonProps) {
+  const classes = `tool-btn tool-btn-${variant}${className ? ` ${className}` : ''}`;
+  if (href) return <Link href={href} className={classes}>{children}</Link>;
+  return <button className={classes} {...props}>{children}</button>;
+}
+
+export function ToolCard({ tool, index, featured = false }: { tool: ToolDefinition; index: number; featured?: boolean }) {
+  const Icon = toolIcons[tool.slug] ?? Calculator;
+
+  return (
+    <article className={`tool-card${featured ? ' tool-card-featured' : ''}`}>
+      <Link className="tool-card-hit" href={`/tools/${tool.slug}`} aria-label={`Open ${tool.name}`}>
+        <div className="tool-card-top">
+          <span>0{index + 1}</span>
+          <i aria-hidden="true"><Icon size={20} strokeWidth={1.45} /></i>
+          <strong>Free</strong>
+        </div>
+        <div>
+          <p className="tool-eyebrow">{tool.time}</p>
+          <h3>{tool.name}</h3>
+          <p>{tool.description}</p>
+        </div>
+        <span className="tool-card-link">Use this tool <span aria-hidden="true">↗</span></span>
+      </Link>
+    </article>
+  );
+}
+
+export function ToolIntro({ tool }: { tool: ToolDefinition }) {
+  const Icon = toolIcons[tool.slug] ?? Calculator;
+  const detail = toolDetailFacts[tool.slug];
+
+  return (
+    <>
+      <header className="tool-page-hero" aria-labelledby="tool-page-title">
+        <div className="tool-wrap-wide tool-page-hero-grid">
+          <div className="tool-page-hero-copy">
+          <Link className="tool-back-link" href="/tools"><span aria-hidden="true">←</span> All tools</Link>
+            <p className="tool-eyebrow">Free Kraftt tool · {detail.number}</p>
+            <h1 id="tool-page-title">{tool.name}</h1>
+            <p>{tool.value}</p>
+            <div className="tool-page-hero-actions">
+              <a href="#tool-workspace">Use this tool <span aria-hidden="true">↓</span></a>
+              <span>{tool.time} · no login</span>
+            </div>
+          </div>
+          <div className="tool-page-hero-art" aria-hidden="true">
+            <span>{detail.number}</span>
+            <Icon size={82} strokeWidth={.8} />
+            <p>Input</p><i /><p>Result</p><i /><p>Next step</p>
+          </div>
+        </div>
+      </header>
+      <section className="tool-detail-proof" aria-label={`${tool.name} overview`}>
+        <p>One focused tool.<br />One useful answer.</p>
+        {detail.facts.map(([value, label]) => <div key={label}><strong>{value}</strong><span>{label}</span></div>)}
+      </section>
+    </>
+  );
+}
+
+export function ResultActions({
+  serviceHref,
+  serviceLabel,
+  auditHref,
+}: {
+  serviceHref: string;
+  serviceLabel: string;
+  auditHref: string;
+}) {
+  return (
+    <div className="tool-result-actions">
+      <Button href={serviceHref} variant="secondary">{serviceLabel} <span aria-hidden="true">↗</span></Button>
+      <Button href={auditHref}>Request a Digital Presence Audit</Button>
+    </div>
+  );
+}
+
+export function ToolPage({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return (
+    <div className={`tool-suite${className ? ` ${className}` : ''}`}>
+      <SiteHeader />
+      {children}
+      <SiteFooter />
+    </div>
+  );
+}

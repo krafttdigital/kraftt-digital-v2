@@ -8,8 +8,9 @@ import { JsonLd } from '../../components/JsonLd';
 import { Reveal } from '../../components/Reveal';
 import { SiteHeader } from '../../components/SiteHeader';
 import { projectBySlug } from '../../data/projects';
+import { createPageMetadata, createPageSchema, faqSchema, serviceSchema } from '../../data/seo';
 import { serviceBySlug, services } from '../../data/services';
-import { siteUrl, whatsappUrl } from '../../data/site';
+import { whatsappUrl } from '../../data/site';
 
 const projectProofBanners: Record<string, { src: string; alt: string }> = {
   'mittal-architect': { src: '/mittal-banner.png', alt: 'Mittal Architect website, project portfolio and search visibility case study collage' },
@@ -25,17 +26,32 @@ export function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
 }
 
+const serviceSearchMetadata: Record<string, { title: string; description: string }> = {
+  'web-design-development': {
+    title: 'Web Designer & Website Builder in India | Kraftt Digital',
+    description: 'Work with a website designer in India for a fast, responsive business website—planned and built for companies in Punjab and beyond.',
+  },
+  'ecommerce-seo': {
+    title: 'E-commerce SEO Services in India & Punjab | Kraftt Digital',
+    description: 'Explore research-led e-commerce SEO services for businesses in India and Punjab, with clear scope, deliverables and published pricing.',
+  },
+  'brand-identity': {
+    title: 'Branding & Brand-Building Services in India | Kraftt Digital',
+    description: 'Explore branding and brand-building services for businesses in India and Punjab, from a practical starter identity to a complete brand system.',
+  },
+};
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const service = serviceBySlug(slug);
   if (!service) return {};
-  return {
-    title: `${service.name} | Kraftt Digital`,
-    description: service.headline,
-    alternates: { canonical: `/services/${service.slug}` },
-    openGraph: { title: `${service.name} | Kraftt Digital`, description: service.headline, images: [] },
-    twitter: { card: 'summary', title: `${service.name} | Kraftt Digital`, description: service.headline, images: [] },
-  };
+  const searchMetadata = serviceSearchMetadata[service.slug];
+  return createPageMetadata({
+    title: searchMetadata?.title ?? `${service.name} Service | Kraftt Digital`,
+    description: searchMetadata?.description ?? service.headline,
+    path: `/services/${service.slug}`,
+    label: service.category,
+  });
 }
 
 export default async function ServiceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -49,12 +65,20 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
   return (
     <main className="service-detail-v2">
-      <JsonLd data={{
-        '@context': 'https://schema.org', '@type': 'Service',
-        name: service.name, description: service.problemSolved,
-        provider: { '@type': 'Organization', name: 'Kraftt Digital', url: siteUrl },
-        url: `${siteUrl}/services/${service.slug}`,
-      }} />
+      <JsonLd data={createPageSchema({
+        name: `${service.name} Service | Kraftt Digital`,
+        description: service.headline,
+        path: `/services/${service.slug}`,
+        breadcrumbs: [
+          { name: 'Home', path: '/' },
+          { name: 'Services', path: '/services' },
+          { name: service.name, path: `/services/${service.slug}` },
+        ],
+        entities: [
+          serviceSchema({ name: service.name, description: service.problemSolved, path: `/services/${service.slug}` }),
+          faqSchema(service.faqs, `/services/${service.slug}`),
+        ],
+      })} />
       <SiteHeader />
 
       <section className="service-detail-hero" aria-labelledby="service-detail-title">

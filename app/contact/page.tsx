@@ -10,21 +10,23 @@ import {
   ScanSearch,
 } from 'lucide-react';
 import { Footer } from '../components/Footer';
+import { JsonLd } from '../components/JsonLd';
 import { Reveal } from '../components/Reveal';
 import { SiteHeader } from '../components/SiteHeader';
+import { createPageMetadata, createPageSchema } from '../data/seo';
 import { contactEmail, contactPhone, contactPhoneHref, whatsappUrl } from '../data/site';
 
-export const metadata: Metadata = {
-  title: 'Contact | Kraftt Digital',
-  description: 'Contact Kraftt Digital, request a ₹999 Digital Presence Audit, or compare services and published pricing.',
-  alternates: { canonical: '/contact' },
-};
+const pageTitle = 'Contact Kraftt Digital | Start with Clarity';
+const pageDescription = 'Contact Kraftt Digital, request a ₹999 Digital Presence Audit, or compare services and published pricing before starting a project.';
+
+export const metadata: Metadata = createPageMetadata({ title: pageTitle, description: pageDescription, path: '/contact', label: 'Contact Kraftt' });
 
 const whatsappProjectUrl = whatsappUrl('Hi Kraftt, I would like to discuss a digital presence project.');
 
 export default function ContactPage() {
   return (
     <main className="contact-page">
+      <JsonLd data={createPageSchema({ name: pageTitle, description: pageDescription, path: '/contact', breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }] })} />
       <SiteHeader />
 
       <section className="contact-hero section-light">

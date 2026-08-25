@@ -1,14 +1,26 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AuditCTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { HomeShowcase } from './components/HomeShowcase';
 import { JsonLd } from './components/JsonLd';
 import { Reveal } from './components/Reveal';
+import { ReviewsSection } from './components/ReviewsSection';
 import { SiteHeader } from './components/SiteHeader';
 import { projects } from './data/projects';
+import { featuredReviews } from './data/reviews';
+import { createPageMetadata, createPageSchema, reviewSchemas } from './data/seo';
 import { services } from './data/services';
-import { siteUrl } from './data/site';
+
+const homeTitle = 'Digital Agency in India | Kraftt Digital';
+const homeDescription = 'Kraftt Digital connects brand, websites, content and digital systems for businesses in India—making them easier to discover, trust and choose.';
+
+export const metadata: Metadata = createPageMetadata({
+  title: homeTitle,
+  description: homeDescription,
+  path: '/',
+  label: 'Digital agency · India',
+});
 
 const categories = [
   { title: 'Websites & Commerce', copy: 'Web design, Shopify and search visibility built around a clear buying path.', serviceNames: ['Web Design & Development', 'Shopify Store Development', 'E-commerce SEO'] },
@@ -104,14 +116,18 @@ const selectedProjects = featuredProjectSlugs
   .filter((project): project is NonNullable<typeof project> => Boolean(project));
 
 export default function Home() {
+  const homeReviews = featuredReviews();
+
   return (
     <main>
       <JsonLd data={{
-        '@context': 'https://schema.org',
-        '@type': 'Organization',
-        name: 'Kraftt Digital',
-        url: siteUrl,
-        description: 'Kraftt connects brand, websites, content and digital systems to make businesses easier to discover, trust and choose.',
+        ...createPageSchema({
+          name: homeTitle,
+          description: homeDescription,
+          path: '/',
+          breadcrumbs: [{ name: 'Home', path: '/' }],
+          entities: reviewSchemas(homeReviews),
+        }),
       }} />
       <SiteHeader overlay />
       <HomeShowcase />
@@ -226,11 +242,13 @@ export default function Home() {
           })}
         </div>
 
-        <Reveal className="home-case-playground-footer">
+        {/* <Reveal className="home-case-playground-footer">
           <p><span>04</span> featured projects. Real context. No manufactured proof.</p>
           <Link href="/work">View the full evidence <span aria-hidden="true">→</span></Link>
-        </Reveal>
+        </Reveal> */}
       </section>
+
+      <ReviewsSection reviews={homeReviews} variant="home" />
 
       <section className="home-services-play section-light">
         <div className="home-services-play-inner">
@@ -376,7 +394,7 @@ export default function Home() {
         </div>
       </section>
 
-      <AuditCTA title="Make the gap clear before choosing what to build." />
+      {/* <AuditCTA title="Make the gap clear before choosing what to build." /> */}
       <Footer />
     </main>
   );

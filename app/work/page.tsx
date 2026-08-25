@@ -2,16 +2,17 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { AuditCTA } from '../components/CTA';
 import { Footer } from '../components/Footer';
+import { JsonLd } from '../components/JsonLd';
 import { Reveal } from '../components/Reveal';
 import { SiteHeader } from '../components/SiteHeader';
 import { projects } from '../data/projects';
+import { createPageMetadata, createPageSchema } from '../data/seo';
 import { WorkGrid } from './WorkGrid';
 
-export const metadata: Metadata = {
-  title: 'Work | Kraftt Digital',
-  description: 'Eight Kraftt case studies across professional services, manufacturing, architecture, D2C, FMCG, security and founder-led work.',
-  alternates: { canonical: '/work' },
-};
+const pageTitle = 'Digital Agency Case Studies | Kraftt Digital';
+const pageDescription = 'Explore eight Kraftt Digital case studies across professional services, manufacturing, architecture, D2C, FMCG, security and founder-led work.';
+
+export const metadata: Metadata = createPageMetadata({ title: pageTitle, description: pageDescription, path: '/work', label: 'Selected work' });
 
 export default function WorkPage() {
   const projectCount = String(projects.length).padStart(2, '0');
@@ -21,6 +22,7 @@ export default function WorkPage() {
 
   return (
     <main className="work-page">
+      <JsonLd data={createPageSchema({ name: pageTitle, description: pageDescription, path: '/work', breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Work', path: '/work' }] })} />
       <SiteHeader />
       <section className="work-page-hero">
         <div className="work-page-hero-inner">

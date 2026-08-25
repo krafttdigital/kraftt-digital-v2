@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { JsonLd } from '../components/JsonLd';
 import { SiteHeader } from '../components/SiteHeader';
+import { createPageMetadata, createPageSchema, serviceSchema } from '../data/seo';
 import { AuditForm } from './AuditForm';
 
-export const metadata: Metadata = {
-  title: 'Request a Digital Presence Audit | Kraftt Digital',
-  description: 'Request a focused ₹999 review of how your business is discovered, understood, trusted and contacted.',
-  alternates: { canonical: '/audit' },
-};
+const pageTitle = 'Digital Presence Audit · ₹999 | Kraftt Digital';
+const pageDescription = 'Request a focused ₹999 review of how your business is discovered, understood, trusted and contacted before choosing a digital service.';
+
+export const metadata: Metadata = createPageMetadata({ title: pageTitle, description: pageDescription, path: '/audit', label: 'Digital Presence Audit' });
 
 const reviewed = [
   'Your business, category and current digital presence',
@@ -26,6 +27,13 @@ const deliverables = [
 export default function AuditPage() {
   return (
     <main className="audit-page">
+      <JsonLd data={createPageSchema({
+        name: pageTitle,
+        description: pageDescription,
+        path: '/audit',
+        breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Digital Presence Audit', path: '/audit' }],
+        entities: [serviceSchema({ name: 'Digital Presence Audit', description: pageDescription, path: '/audit' })],
+      })} />
       <SiteHeader />
 
       <section className="audit-hero">

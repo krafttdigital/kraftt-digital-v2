@@ -2,24 +2,26 @@ import type { MetadataRoute } from 'next';
 import { bundles } from './data/bundles';
 import { projects } from './data/projects';
 import { services } from './data/services';
-import { siteUrl } from './data/site';
+import { absoluteUrl } from './data/seo';
+import { tools } from './tools/data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
-    '', '/services', '/work', '/process', '/about', '/audit', '/thank-you',
-    '/contact', '/resources', '/legal/privacy-policy', '/legal/terms',
+    '', '/services', '/work', '/process', '/about', '/audit',
+    '/contact', '/tools', '/legal/privacy-policy', '/legal/terms',
   ];
   const routes = [
     ...staticRoutes,
     ...services.map((service) => `/services/${service.slug}`),
     ...bundles.map((bundle) => `/services/bundles/${bundle.slug}`),
     ...projects.map((project) => `/work/${project.slug}`),
+    ...tools.map((tool) => `/tools/${tool.slug}`),
   ];
 
   return routes.map((route) => ({
-    url: `${siteUrl}${route}`,
-    lastModified: new Date('2026-08-23'),
-    changeFrequency: route.startsWith('/work/') ? 'monthly' : 'weekly',
-    priority: route === '' ? 1 : route === '/audit' ? 0.9 : 0.7,
+    url: absoluteUrl(route || '/'),
+    lastModified: new Date('2026-08-25'),
+    changeFrequency: route === '' ? 'weekly' : route.startsWith('/work/') ? 'monthly' : 'monthly',
+    priority: route === '' ? 1 : route === '/audit' ? 0.9 : ['/services', '/work'].includes(route) ? 0.85 : 0.7,
   }));
 }

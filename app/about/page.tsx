@@ -2,14 +2,15 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Footer } from '../components/Footer';
+import { JsonLd } from '../components/JsonLd';
 import { Reveal } from '../components/Reveal';
 import { SiteHeader } from '../components/SiteHeader';
+import { createPageMetadata, createPageSchema } from '../data/seo';
 
-export const metadata: Metadata = {
-  title: 'About | Kraftt Digital',
-  description: 'Kraftt is a founder-led digital studio connecting brand, websites, content and systems around real business needs.',
-  alternates: { canonical: '/about' },
-};
+const pageTitle = 'About Kraftt Digital | Founder-led Digital Agency in India';
+const pageDescription = 'Meet Kraftt Digital, a founder-led digital agency in India connecting brand, websites, content and systems around real business needs.';
+
+export const metadata: Metadata = createPageMetadata({ title: pageTitle, description: pageDescription, path: '/about', label: 'About Kraftt' });
 
 const principles = [
   ['⌕', 'Research before format', 'We identify the business need before deciding what should be designed or built.'],
@@ -40,6 +41,7 @@ const poorFit = [
 export default function AboutPage() {
   return (
     <main className="about-clarity-page">
+      <JsonLd data={createPageSchema({ name: pageTitle, description: pageDescription, path: '/about', breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }] })} />
       <SiteHeader />
 
       <section className="about-clarity-hero" aria-labelledby="about-page-title">

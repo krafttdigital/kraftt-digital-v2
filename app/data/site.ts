@@ -1,4 +1,4 @@
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://krafttdigital.com';
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://krafttdigital.in';
 
 export const contactEmail = 'krafttdigital@gmail.com';
 export const contactPhone = '+91 79867 69102';
@@ -13,4 +13,5 @@ export const navItems = [
   { href: '/services', label: 'Services' },
   { href: '/process', label: 'Process' },
   { href: '/about', label: 'About' },
+  { href: '/tools', label: 'Tools' },
 ];
