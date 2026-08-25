@@ -2939,15 +2939,23 @@ p { line-height: 1.65; }
   .home-process-audit-art { height: 230px; min-height: 0; border-right: 0; border-bottom: 1px solid rgb(242 239 233 / 28%); }
   .home-process-audit-copy { padding: 25px 22px 29px; }
   .home-process-audit-copy h3 { font-size: 40px; }
-  .home-process-path-intro { grid-template-columns: 1fr; padding-top: 8px; }
-  .home-process-path-intro .eyebrow { grid-row: auto; margin-bottom: 8px; }
-  .home-process-path-step { grid-template-columns: 42px minmax(0, 1fr); gap: 13px; padding: 22px 0; }
-  .home-process-path-marker { grid-column: 1; grid-row: 1 / 3; }
+  .home-process-path { padding-top: 12px; }
+  .home-process-path-intro { grid-template-columns: 1fr; gap: 5px; padding: 0 0 18px; }
+  .home-process-path-intro .eyebrow { grid-row: auto; margin: 0 0 4px; }
+  .home-process-path-intro h3 { font-size: 29px; }
+  .home-process-path-intro > p:last-child { max-width: 320px; font-size: 11px; line-height: 1.45; }
+  .home-process-path-step { grid-template-columns: 34px minmax(0, 1fr); gap: 10px; min-height: 0; padding: 16px 0; }
+  .home-process-path-marker { grid-column: 1; grid-row: 1; }
   .home-process-path-copy { grid-column: 2; }
   .home-process-path-art,
-  .home-process-path-payment { grid-column: 2; width: min(100%, 260px); height: 104px; min-height: 104px; margin-top: 3px; }
-  .home-process-path-copy h4 { font-size: 32px; }
-  .home-process-path-marker::after { bottom: -129px; }
+  .home-process-path-payment { display: none; }
+  .home-process-path-marker span { width: 31px; height: 31px; font-size: 12px; }
+  .home-process-path-marker::after { top: 31px; bottom: -17px; }
+  .home-process-path-meta { gap: 6px; }
+  .home-process-path-meta span { font-size: 8px; }
+  .home-process-path-meta strong { padding: 4px 6px; font-size: 7px; }
+  .home-process-path-copy h4 { margin: 8px 0 5px; font-size: 27px; }
+  .home-process-path-copy > p { font-size: 11px; line-height: 1.45; }
   .home-process-value-note { grid-template-columns: 1fr; gap: 18px; padding: 27px 23px; }
   .home-process-value-note a { grid-column: auto; }
   .home-process-value-note p { font-size: 27px; }
