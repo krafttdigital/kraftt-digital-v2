@@ -69,7 +69,7 @@ export function createPageMetadata({
       url: canonical,
       images: [{
         url: ogImage,
-        ...(!image ? { width: 1200, height: 630 } : {}),
+        ...(!image ? { width: 1200, height: 630, type: 'image/png' } : {}),
         alt: imageAlt ?? `${title} — ${brandName}`,
       }],
     },

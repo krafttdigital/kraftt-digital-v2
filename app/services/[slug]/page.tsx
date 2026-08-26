@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Clock3, FileCheck2, Layers3, Minus, ShieldCheck } from 'lucide-react';
 import { Footer } from '../../components/Footer';
 import { JsonLd } from '../../components/JsonLd';
+import { RegionalPriceCopy } from '../../components/PricingCurrencyProvider';
 import { Reveal } from '../../components/Reveal';
 import { SiteHeader } from '../../components/SiteHeader';
 import { projectBySlug } from '../../data/projects';
@@ -19,7 +20,7 @@ const projectProofBanners: Record<string, { src: string; alt: string }> = {
   'elixir-beverages': { src: '/elixir-banner.png', alt: 'Elixir Beverages identity and pre-launch website case study collage' },
 };
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -100,7 +101,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             </Reveal>
 
             <Reveal className="service-detail-facts" direction="right">
-              <div><span>Starting at</span><strong>{service.tiers[0].price}</strong></div>
+              <div><span>Starting at</span><strong><RegionalPriceCopy>{service.tiers[0].price}</RegionalPriceCopy></strong></div>
               <div><span>First-tier delivery</span><strong>{service.tiers[0].timeline}</strong></div>
               <div><span>Package choices</span><strong>03 clear tiers</strong></div>
               <small>Final scope, timeline and payment schedule are confirmed in the proposal.</small>
@@ -147,13 +148,13 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                   {index === 1 && <strong>Most chosen</strong>}
                 </div>
                 <h3>{tier.name}</h3>
-                <div className="service-detail-package-price"><strong>{tier.price}</strong><span><Clock3 size={13} /> {tier.timeline}</span></div>
+                <div className="service-detail-package-price"><strong><RegionalPriceCopy>{tier.price}</RegionalPriceCopy></strong><span><Clock3 size={13} /> {tier.timeline}</span></div>
                 <p className="service-detail-includes-label">What you receive</p>
                 <ul className="service-detail-package-list">{tier.deliverables.map((item) => <li key={item}><Check size={14} strokeWidth={1.8} /><span>{item}</span></li>)}</ul>
                 {tier.addOns && tier.addOns.length > 0 && (
                   <details className="service-detail-addons">
                     <summary>Optional add-ons <span aria-hidden="true">+</span></summary>
-                    <ul>{tier.addOns.map((item) => <li key={item}>{item}</li>)}</ul>
+                    <ul>{tier.addOns.map((item) => <li key={item}><RegionalPriceCopy>{item}</RegionalPriceCopy></li>)}</ul>
                   </details>
                 )}
                 <a className="service-detail-package-cta" href={whatsappUrl(message)}>Discuss this tier <ArrowRight size={15} /></a>
@@ -206,7 +207,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <div className="service-detail-fit-grid">{service.goodFitWhen.map((item, index) => <Reveal key={item}><span>0{index + 1}</span><Check size={19} /><p>{item}</p></Reveal>)}</div>
         <Reveal className="service-detail-fit-cta">
           <p>Not sure the need is specific enough?</p>
-          <Link href="/audit">Start with the ₹999 audit <ArrowRight size={15} /></Link>
+          <Link href="/audit"><RegionalPriceCopy>Start with the ₹999 audit</RegionalPriceCopy> <ArrowRight size={15} /></Link>
         </Reveal>
       </section>
 
@@ -262,7 +263,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             {service.faqs.map((item, index) => (
               <details key={item.question}>
                 <summary><small>0{index + 1}</small><span>{item.question}</span><i aria-hidden="true">+</i></summary>
-                <p>{item.answer}</p>
+                <p><RegionalPriceCopy>{item.answer}</RegionalPriceCopy></p>
               </details>
             ))}
           </div>
@@ -275,7 +276,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <h2>Audit first.<br /><em>Build with confidence.</em></h2>
         </div>
         <div>
-          <p>Begin with the ₹999 audit if the exact requirement is still unclear, or discuss {service.name.toLowerCase()} directly if the scope is already defined.</p>
+          <p><RegionalPriceCopy>Begin with the ₹999 audit if the exact requirement is still unclear</RegionalPriceCopy>, or discuss {service.name.toLowerCase()} directly if the scope is already defined.</p>
           <div className="service-detail-final-actions">
             <Link href="/audit">Request the audit <ArrowRight size={15} /></Link>
             <a href={serviceMessage}>Discuss this service <ArrowRight size={15} /></a>

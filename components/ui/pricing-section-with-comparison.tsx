@@ -3,6 +3,7 @@ import { Check, Minus, MoveRight, PhoneCall } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { RegionalPriceCopy } from '@/app/components/PricingCurrencyProvider';
 
 export type ComparisonPlan = {
   name: string;
@@ -52,7 +53,7 @@ function Pricing({ plans, rows }: PricingProps) {
             </div>
             <h3>{plan.name}</h3>
             <p>{plan.description}</p>
-            <strong>{plan.price}</strong>
+            <strong><RegionalPriceCopy>{plan.price}</RegionalPriceCopy></strong>
             <small>{plan.timeline}</small>
             <Button asChild variant={plan.featured ? 'default' : 'secondary'}>
               <Link href={plan.href}>View full scope <MoveRight size={15} /></Link>
@@ -80,7 +81,7 @@ function Pricing({ plans, rows }: PricingProps) {
               {plan.featured && <Badge>Most complete</Badge>}
             </div>
             <p>{plan.description}</p>
-            <strong>{plan.price}</strong>
+            <strong><RegionalPriceCopy>{plan.price}</RegionalPriceCopy></strong>
             <small>{plan.timeline}</small>
             <ul>
               {rows.map((row) => (

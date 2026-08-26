@@ -12,6 +12,7 @@ import {
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { Footer as SiteFooter } from '../../components/Footer';
 import { SiteHeader } from '../../components/SiteHeader';
+import { CurrencySymbol } from '../../components/PricingCurrencyProvider';
 import type { ToolDefinition } from '../data';
 
 const toolIcons: Record<string, LucideIcon> = {
@@ -117,7 +118,7 @@ export function ToolIntro({ tool }: { tool: ToolDefinition }) {
       </header>
       <section className="tool-detail-proof" aria-label={`${tool.name} overview`}>
         <p>One focused tool.<br />One useful answer.</p>
-        {detail.facts.map(([value, label]) => <div key={label}><strong>{value}</strong><span>{label}</span></div>)}
+        {detail.facts.map(([value, label]) => <div key={label}><strong>{value === '₹' ? <CurrencySymbol /> : value}</strong><span>{label}</span></div>)}
       </section>
     </>
   );

@@ -3,10 +3,13 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { OptionQuestion, ResultPanel, revealResult } from './CalculatorPrimitives';
 import { Button, ResultActions } from './ToolSuite';
+import { usePricingCurrency } from '../../components/PricingCurrencyProvider';
+import { formatRegionalAmount, pricing } from '../../data/pricing';
 
 type SocialResult = { name: string; price: string; includes: string[]; auditHref: string };
 
 export function SocialMediaCostCalculator() {
+  const currency = usePricingCurrency();
   const [platforms, setPlatforms] = useState<string | null>(null);
   const [posts, setPosts] = useState<string | null>(null);
   const [stories, setStories] = useState<string | null>(null);
@@ -24,7 +27,7 @@ export function SocialMediaCostCalculator() {
       ? { name: 'Social Domination', price: '[PENDING: confirm exact Domination monthly pricing]', includes: ['30 posts each month', 'Reels', '3 platforms', 'DM/community management'] }
       : growth
         ? { name: 'Social Growth', price: '[PENDING: confirm exact Growth monthly pricing]', includes: ['20 posts each month', '15 stories', '2 platforms'] }
-        : { name: 'Social Starter', price: 'from ₹12,000/month', includes: ['12 posts each month', '8 stories', '1 platform'] };
+        : { name: 'Social Starter', price: `from ${formatRegionalAmount(pricing.socialStarterMonthly[currency], currency)}/month`, includes: ['12 posts each month', '8 stories', '1 platform'] };
     setResult({ ...next, auditHref: `/audit?socialTier=${encodeURIComponent(next.name)}&platforms=${platforms}&posts=${posts}&stories=${stories}&community=${community}` });
     revealResult(resultRef);
   }

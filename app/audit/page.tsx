@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { JsonLd } from '../components/JsonLd';
+import { RegionalPriceCopy } from '../components/PricingCurrencyProvider';
 import { SiteHeader } from '../components/SiteHeader';
 import { createPageMetadata, createPageSchema, serviceSchema } from '../data/seo';
 import { AuditForm } from './AuditForm';
@@ -44,7 +45,7 @@ export default function AuditPage() {
           <a className="button button-accent" href="#audit-form">Start the audit <span aria-hidden="true">↓</span></a>
         </div>
         <aside className="audit-hero-card" aria-label="Audit at a glance">
-          <div><span>Fixed investment</span><strong>₹999</strong></div>
+          <div><span>Fixed investment</span><strong><RegionalPriceCopy>₹999</RegionalPriceCopy></strong></div>
           <dl>
             <div><dt>Your input</dt><dd>5–7 minutes</dd></div>
             <div><dt>Our work</dt><dd>Research-led review</dd></div>
@@ -69,7 +70,7 @@ export default function AuditPage() {
           <div className="audit-guide-note"><span>Two ways to send</span><strong>WhatsApp or secure form</strong><p>Both options send the same details. Choose what feels easier.</p></div>
         </aside>
         <div className="audit-form-panel">
-          <div className="audit-form-heading"><span>₹999</span><div><p className="eyebrow eyebrow-dark">Short guided form</p><h2>Tell us what feels unclear.</h2></div></div>
+          <div className="audit-form-heading"><span><RegionalPriceCopy>₹999</RegionalPriceCopy></span><div><p className="eyebrow eyebrow-dark">Short guided form</p><h2>Tell us what feels unclear.</h2></div></div>
           <AuditForm />
         </div>
       </section>
@@ -82,7 +83,7 @@ export default function AuditPage() {
       </section>
 
       <section className="audit-explainer">
-        <div><p className="eyebrow eyebrow-dark">Why the audit is paid</p><h2>Research deserves protected time.</h2><p>The ₹999 fee lets Kraftt study the business properly instead of turning the exercise into a free speculative pitch.</p></div>
+        <div><p className="eyebrow eyebrow-dark">Why the audit is paid</p><h2>Research deserves protected time.</h2><p><RegionalPriceCopy>The ₹999 fee lets Kraftt study the business properly instead of turning the exercise into a free speculative pitch.</RegionalPriceCopy></p></div>
         <div className="audit-next-steps"><p className="eyebrow eyebrow-dark">What happens next</p><ol><li><span>01</span><p><strong>Request reviewed</strong>Your details are checked for fit and completeness.</p></li><li><span>02</span><p><strong>Payment confirmed</strong>Payment instructions and any missing inputs are shared.</p></li><li><span>03</span><p><strong>Research begins</strong>Delivery format and timing are confirmed before work starts.</p></li></ol></div>
       </section>
 

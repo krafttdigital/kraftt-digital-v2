@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Footer } from '../components/Footer';
 import { JsonLd } from '../components/JsonLd';
+import { RegionalPriceCopy } from '../components/PricingCurrencyProvider';
 import { Reveal } from '../components/Reveal';
 import { SiteHeader } from '../components/SiteHeader';
 import { createPageMetadata, createPageSchema } from '../data/seo';
@@ -156,7 +157,7 @@ export default function AboutPage() {
           <h2>Understand the gap.<br /><em>Then choose the work.</em></h2>
         </div>
         <div>
-          <p>Begin with a ₹999 business audit or explore the process before making a larger commitment.</p>
+          <p><RegionalPriceCopy>Begin with a ₹999 business audit or explore the process before making a larger commitment.</RegionalPriceCopy></p>
           <div className="about-clarity-actions about-clarity-actions-inverse">
             <Link href="/audit">Request your audit <span aria-hidden="true">→</span></Link>
             <Link href="/process">Explore the process <span aria-hidden="true">↗</span></Link>

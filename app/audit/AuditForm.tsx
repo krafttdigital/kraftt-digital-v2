@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { services } from '../data/services';
 import { whatsappUrl } from '../data/site';
+import { usePricingCurrency } from '../components/PricingCurrencyProvider';
+import { regionalizePriceCopy } from '../data/pricing';
 
 const formspreeEndpoint = 'https://formspree.io/f/mgawjopk';
 
@@ -20,6 +22,8 @@ const messageFields = [
 ] as const;
 
 export function AuditForm() {
+  const currency = usePricingCurrency();
+  const auditPrice = regionalizePriceCopy('₹999', currency);
   const formRef = useRef<HTMLFormElement>(null);
   const [submitState, setSubmitState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
@@ -94,7 +98,7 @@ export function AuditForm() {
       .map(([label, value]) => `${label}: ${value}`)
       .join('\n');
 
-    const message = `Hi Kraftt, I would like to request the ₹999 Digital Presence Audit.\n\n${details}\n\nI consent to Kraftt using these details to review my business and contact me about the audit.`;
+    const message = `Hi Kraftt, I would like to request the ${auditPrice} Digital Presence Audit.\n\n${details}\n\nI consent to Kraftt using these details to review my business and contact me about the audit.`;
     window.open(whatsappUrl(message), '_blank', 'noopener,noreferrer');
   }
 
@@ -121,7 +125,7 @@ export function AuditForm() {
 
   return (
     <form ref={formRef} className="audit-form" action={formspreeEndpoint} method="POST" onSubmit={handleFormspree}>
-      <input type="hidden" name="_subject" value="New ₹999 Digital Presence Audit request" />
+      <input type="hidden" name="_subject" value={`New ${auditPrice} Digital Presence Audit request`} />
 
       <fieldset className="audit-form-group audit-form-group-contact">
         <legend><span>01</span><span><strong>You and the business</strong><small>Four quick details</small></span></legend>

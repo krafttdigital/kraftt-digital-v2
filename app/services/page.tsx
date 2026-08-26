@@ -4,6 +4,7 @@ import { ArrowUpRight, Clock3, Layers3 } from 'lucide-react';
 import { Pricing, type ComparisonPlan, type ComparisonRow } from '@/components/ui/pricing-section-with-comparison';
 import { Footer } from '../components/Footer';
 import { JsonLd } from '../components/JsonLd';
+import { RegionalPriceCopy } from '../components/PricingCurrencyProvider';
 import { Reveal } from '../components/Reveal';
 import { SiteHeader } from '../components/SiteHeader';
 import { bundles } from '../data/bundles';
@@ -68,7 +69,7 @@ export default function ServicesPage() {
         <div><strong>08</strong><span>Specialist services</span></div>
         <div><strong>24</strong><span>Published service tiers</span></div>
         <div><strong>04</strong><span>Connected bundles</span></div>
-        <div><strong>₹8K</strong><span>Lowest service entry</span></div>
+        <div><strong><RegionalPriceCopy>₹8K</RegionalPriceCopy></strong><span>Lowest service entry</span></div>
       </section>
 
       <section className="services-clarity-menu" id="service-menu">
@@ -91,7 +92,7 @@ export default function ServicesPage() {
                     <Link key={service.slug} href={`/services/${service.slug}`}>
                       <span>{String(serviceIndex + 1).padStart(2, '0')}</span>
                       <div><h3>{service.name}</h3><p>{service.headline}</p></div>
-                      <div className="services-clarity-price"><small>Starts at</small><strong>{service.tiers[0].price}</strong></div>
+                      <div className="services-clarity-price"><small>Starts at</small><strong><RegionalPriceCopy>{service.tiers[0].price}</RegionalPriceCopy></strong></div>
                       <div className="services-clarity-time"><Clock3 size={15} strokeWidth={1.6} /><span>{service.tiers[0].timeline}</span></div>
                       <i aria-hidden="true"><ArrowUpRight size={18} /></i>
                     </Link>
@@ -109,7 +110,7 @@ export default function ServicesPage() {
         <Reveal className="services-clarity-choice-heading" direction="left">
           <p className="eyebrow">Still deciding?</p>
           <h2>You do not need to diagnose the solution alone.</h2>
-          <p>The ₹999 audit gives you a researched recommendation before a larger commitment.</p>
+          <p><RegionalPriceCopy>The ₹999 audit gives you a researched recommendation before a larger commitment.</RegionalPriceCopy></p>
           <Link href="/audit">Start with the audit <span aria-hidden="true">→</span></Link>
         </Reveal>
         <div className="services-clarity-choice-steps">

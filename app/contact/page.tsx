@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { Footer } from '../components/Footer';
 import { JsonLd } from '../components/JsonLd';
+import { RegionalPriceCopy } from '../components/PricingCurrencyProvider';
 import { Reveal } from '../components/Reveal';
 import { SiteHeader } from '../components/SiteHeader';
 import { createPageMetadata, createPageSchema } from '../data/seo';
@@ -35,7 +36,7 @@ export default function ContactPage() {
           <h1>Start with the right conversation.</h1>
           <p>Tell us what feels unclear—or choose the route that already fits. You will get a clear next step, scope and price.</p>
           <div className="button-row">
-            <Link className="button button-accent" href="/audit">Start with the ₹999 audit <ArrowUpRight size={15} aria-hidden="true" /></Link>
+            <Link className="button button-accent" href="/audit"><RegionalPriceCopy>Start with the ₹999 audit</RegionalPriceCopy> <ArrowUpRight size={15} aria-hidden="true" /></Link>
             <Link className="button button-outline-dark" href="/services">Explore services <ArrowUpRight size={15} aria-hidden="true" /></Link>
           </div>
           <div className="contact-trust-line" aria-label="Kraftt service principles">
@@ -89,7 +90,7 @@ export default function ContactPage() {
               <p>We study your business, category, competitors and current systems, then show what needs attention and what should happen next.</p>
             </div>
             <dl>
-              <div><dt>Price</dt><dd>₹999</dd></div>
+              <div><dt>Price</dt><dd><RegionalPriceCopy>₹999</RegionalPriceCopy></dd></div>
               <div><dt>You receive</dt><dd>Findings + direction</dd></div>
               <div><dt>Commitment</dt><dd>Audit only</dd></div>
             </dl>

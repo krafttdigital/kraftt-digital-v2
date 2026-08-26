@@ -221,7 +221,7 @@ export function ProjectGalleryCarousel({ slides, projectName }: ProjectGalleryCa
                   alt={slide.alt}
                   fill
                   draggable={false}
-                  sizes="(max-width: 760px) 78vw, (max-width: 1100px) 65vw, 56vw"
+                  sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 65vw, 56vw"
                 />
                 <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
               </button>

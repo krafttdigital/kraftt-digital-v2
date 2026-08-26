@@ -25,7 +25,7 @@ const projectBanners: Record<string, { src: string; alt: string }> = {
   'the-vibed-vines': { src: '/tvv-banner.png', alt: 'The Vibed Vines streetwear storefront, catalogue and checkout system collage' },
 };
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -36,15 +36,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const project = projectBySlug(slug);
   if (!project) return {};
-  const banner = projectBanners[project.slug];
   return createPageMetadata({
     title: `${project.name} Case Study | Kraftt Digital`,
     description: project.context,
     path: `/work/${project.slug}`,
     label: `${project.industry} case study`,
     type: 'article',
-    image: banner?.src,
-    imageAlt: banner?.alt,
   });
 }
 

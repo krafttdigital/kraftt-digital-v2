@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Footer } from './components/Footer';
 import { HomeShowcase } from './components/HomeShowcase';
 import { JsonLd } from './components/JsonLd';
+import { CurrencySymbol, RegionalPriceCopy } from './components/PricingCurrencyProvider';
 import { Reveal } from './components/Reveal';
 import { ReviewsSection } from './components/ReviewsSection';
 import { SiteHeader } from './components/SiteHeader';
@@ -166,9 +167,9 @@ export default function Home() {
                 <p>{processJourney[0].copy}</p>
                 <div className="home-process-audit-reason">
                   <span>Why the audit is paid</span>
-                  <p>The ₹999 fee protects the time needed for genuine research and keeps the audit valuable for both sides. It is paid analysis—not a sales call.</p>
+                  <p><RegionalPriceCopy>The ₹999 fee protects the time needed for genuine research and keeps the audit valuable for both sides. It is paid analysis—not a sales call.</RegionalPriceCopy></p>
                 </div>
-                <Link href="/audit">Request the ₹999 audit <span aria-hidden="true">→</span></Link>
+                <Link href="/audit"><RegionalPriceCopy>Request the ₹999 audit</RegionalPriceCopy> <span aria-hidden="true">→</span></Link>
               </div>
             </Reveal>
 
@@ -183,7 +184,7 @@ export default function Home() {
                 <Reveal className={`home-process-path-step${step.image ? '' : ' home-process-path-step-text'}`} delay={index * 0.045} key={step.number}>
                   <div className="home-process-path-marker"><span>{step.number}</span></div>
                   <div className="home-process-path-copy">
-                    <div className="home-process-path-meta"><span>{step.phase}</span><strong>{step.status}</strong></div>
+                    <div className="home-process-path-meta"><span>{step.phase}</span><strong><RegionalPriceCopy>{step.status}</RegionalPriceCopy></strong></div>
                     <h4>{step.title}</h4>
                     <p>{step.copy}</p>
                   </div>
@@ -192,7 +193,7 @@ export default function Home() {
                       <Image src={step.image} alt={step.alt!} fill sizes="(max-width: 760px) 36vw, 180px" />
                     </div>
                   ) : (
-                    <div className="home-process-path-payment" aria-hidden="true"><span>₹</span><small>Scope confirmed</small></div>
+                    <div className="home-process-path-payment" aria-hidden="true"><span><CurrencySymbol /></span><small>Scope confirmed</small></div>
                   )}
                 </Reveal>
               ))}
@@ -289,7 +290,7 @@ export default function Home() {
                       <Link key={service.slug} href={`/services/${service.slug}`}>
                         <span>{index + 1}.{serviceIndex + 1}</span>
                         <strong>{service.name}</strong>
-                        <small>From {service.tiers[0].price.split(' / ')[0]}</small>
+                        <small>From <RegionalPriceCopy>{service.tiers[0].price}</RegionalPriceCopy></small>
                         <i aria-hidden="true">↗</i>
                       </Link>
                     ))}
@@ -303,7 +304,7 @@ export default function Home() {
           <Reveal className="home-services-play-footer">
             <div>
               <span>Not sure which service fits?</span>
-              <p>The ₹999 audit finds the real gap before you invest in a solution.</p>
+              <p><RegionalPriceCopy>The ₹999 audit finds the real gap before you invest in a solution.</RegionalPriceCopy></p>
             </div>
             <div>
               <Link href="/audit">Start with an audit <span aria-hidden="true">→</span></Link>
@@ -369,7 +370,7 @@ export default function Home() {
                 <h3>Make serious digital work easier to understand, trust and choose.</h3>
               </div>
               <div className="home-trust-vision-detail">
-                <p>We connect brand, websites, content and internal systems around one commercial idea: help growing businesses become easier to discover, believe and buy from.</p>
+                <p style={{ color: "whitesmoke" }}>We connect brand, websites, content and internal systems around one commercial idea: help growing businesses become easier to discover, believe and buy from.</p>
                 <Link href="/about">Meet Kraftt <span aria-hidden="true">↗</span></Link>
               </div>
             </Reveal>
@@ -377,7 +378,7 @@ export default function Home() {
             <div className="home-trust-commitments">
               {trustCommitments.map(([icon, title, copy], index) => (
                 <Reveal delay={index * 0.05} key={title}>
-                  <span aria-hidden="true">{icon}</span>
+                  <span aria-hidden="true">{icon === '₹' ? <CurrencySymbol /> : icon}</span>
                   <div><h4>{title}</h4><p>{copy}</p></div>
                 </Reveal>
               ))}
@@ -385,7 +386,7 @@ export default function Home() {
           </div>
 
           <Reveal className="home-trust-pricing" direction="scale">
-            <div><span>Start with research</span><strong>₹999 audit</strong></div>
+            <div><span>Start with research</span><strong><RegionalPriceCopy>₹999 audit</RegionalPriceCopy></strong></div>
             <div><span>Decide with detail</span><strong>Free proposal</strong></div>
             <div><span>Invest with clarity</span><strong>Prices visible</strong></div>
             <div><span>Approve with confidence</span><strong>Scope in writing</strong></div>

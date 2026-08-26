@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Footer } from '../components/Footer';
 import { JsonLd } from '../components/JsonLd';
+import { CurrencySymbol, RegionalPriceCopy } from '../components/PricingCurrencyProvider';
 import { Reveal } from '../components/Reveal';
 import { SiteHeader } from '../components/SiteHeader';
 import { createPageMetadata, createPageSchema } from '../data/seo';
@@ -77,7 +78,7 @@ export default function ProcessPage() {
             <h1 id="process-page-title">Clarity before<br /><em>commitment.</em></h1>
             <p>Every project starts with research, moves through a written scope and begins only after you understand what is being built, why it matters and what it costs.</p>
             <div className="process-clarity-actions">
-              <Link href="/audit">Request the ₹999 audit <span aria-hidden="true">→</span></Link>
+              <Link href="/audit"><RegionalPriceCopy>Request the ₹999 audit</RegionalPriceCopy> <span aria-hidden="true">→</span></Link>
               <Link href="/services">View services <span aria-hidden="true">↗</span></Link>
             </div>
           </Reveal>
@@ -88,7 +89,7 @@ export default function ProcessPage() {
               <Image src="/01-audit.png" alt="Kraftt business audit and research illustration" fill priority sizes="(max-width: 900px) 90vw, 40vw" />
             </div>
             <div className="process-clarity-audit-copy">
-              <div><span>01 · Understand</span><strong>₹999</strong></div>
+              <div><span>01 · Understand</span><strong><RegionalPriceCopy>₹999</RegionalPriceCopy></strong></div>
               <h2>Business audit</h2>
               <p>Business · category · competitors · systems · opportunities</p>
               <small>Paid research delivered before a proposal.</small>
@@ -117,7 +118,7 @@ export default function ProcessPage() {
             <h2>Seven steps.<br />No hidden jumps.</h2>
             <p>Paid, free and optional moments are labelled before you reach them. Each step gives you enough clarity to choose the next one.</p>
             <div>
-              <span><b>₹999</b> first commitment</span>
+              <span><b><RegionalPriceCopy>₹999</RegionalPriceCopy></b> first commitment</span>
               <span><b>Free</b> detailed proposal</span>
               <span><b>Optional</b> clarification calls</span>
             </div>
@@ -127,9 +128,9 @@ export default function ProcessPage() {
           <div className="process-clarity-steps">
             {stages.map((stage) => (
               <Reveal className="process-clarity-step" key={stage.number}>
-                <div className="process-clarity-step-index"><span>{stage.number}</span><i aria-hidden="true">{stage.icon}</i></div>
+                <div className="process-clarity-step-index"><span>{stage.number}</span><i aria-hidden="true">{stage.icon === '₹' ? <CurrencySymbol /> : stage.icon}</i></div>
                 <div className="process-clarity-step-copy">
-                  <p><span>{stage.phase}</span><strong>{stage.status}</strong></p>
+                  <p><span>{stage.phase}</span><strong><RegionalPriceCopy>{stage.status}</RegionalPriceCopy></strong></p>
                   <h3>{stage.title}</h3>
                   <p>{stage.summary}</p>
                 </div>
@@ -151,7 +152,7 @@ export default function ProcessPage() {
         </Reveal>
         <div className="process-clarity-proof-grid">
           {clarityPoints.map(([icon, title, copy]) => (
-            <Reveal key={title}><span>{icon}</span><h3>{title}</h3><p>{copy}</p></Reveal>
+            <Reveal key={title}><span>{icon === '₹' ? <CurrencySymbol /> : icon}</span><h3>{title}</h3><p>{copy}</p></Reveal>
           ))}
         </div>
       </section>
@@ -162,7 +163,7 @@ export default function ProcessPage() {
           <h2>Start with clarity.<br /><em>Not a sales pitch.</em></h2>
         </div>
         <div>
-          <p>The ₹999 audit gives you a researched starting point before any larger commitment is proposed.</p>
+          <p><RegionalPriceCopy>The ₹999 audit gives you a researched starting point before any larger commitment is proposed.</RegionalPriceCopy></p>
           <div className="process-clarity-actions process-clarity-actions-inverse">
             <Link href="/audit">Request your audit <span aria-hidden="true">→</span></Link>
             <Link href="/contact">Ask a question <span aria-hidden="true">↗</span></Link>

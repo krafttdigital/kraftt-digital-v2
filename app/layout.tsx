@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Cormorant_Garamond, Outfit } from 'next/font/google';
 import './globals.css';
 import { JsonLd } from './components/JsonLd';
+import { PricingCurrencyProvider } from './components/PricingCurrencyProvider';
+import { detectPricingCurrency } from './data/pricing.server';
 import { organizationAndWebsiteSchema } from './data/seo';
 import { siteUrl } from './data/site';
 
@@ -68,12 +70,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const currency = await detectPricingCurrency();
+
   return (
     <html lang="en">
       <body className={`${cormorant.variable} ${outfit.variable}`}>
-        <JsonLd data={organizationAndWebsiteSchema()} />
-        {children}
+        <PricingCurrencyProvider currency={currency}>
+          <JsonLd data={organizationAndWebsiteSchema()} />
+          {children}
+        </PricingCurrencyProvider>
       </body>
     </html>
   );

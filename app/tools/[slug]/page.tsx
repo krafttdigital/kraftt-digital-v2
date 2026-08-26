@@ -12,7 +12,7 @@ import { WebsiteCostCalculator } from '../components/WebsiteCostCalculator';
 import { toolBySlug, tools } from '../data';
 
 const dynamicToolSlugs = tools.map((tool) => tool.slug).filter((slug) => slug !== 'digital-presence-score');
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 export const dynamicParams = false;
 export function generateStaticParams() { return dynamicToolSlugs.map((slug) => ({ slug })); }
 

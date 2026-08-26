@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState, type FormEvent } from 'react';
 import { Button, ResultActions } from './ToolSuite';
+import { RegionalPriceCopy } from '../../components/PricingCurrencyProvider';
 
 type CategoryKey = 'brand' | 'website' | 'enquiry' | 'tracking';
 type Answer = { points: number; category: CategoryKey };
@@ -140,7 +141,7 @@ export function DigitalPresenceScore() {
             </div>
             <div className="tool-result-cta">
               <h3>Your free score flags the categories.</h3>
-              <p>The ₹999 Digital Presence Audit tells you exactly what to fix and how — in detail, not a summary.</p>
+              <p><RegionalPriceCopy>The ₹999 Digital Presence Audit tells you exactly what to fix and how — in detail, not a summary.</RegionalPriceCopy></p>
               <ResultActions
                 serviceHref={serviceByFocus[result.focus].href}
                 serviceLabel={serviceByFocus[result.focus].label}

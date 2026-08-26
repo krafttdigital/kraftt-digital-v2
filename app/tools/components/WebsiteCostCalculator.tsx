@@ -3,6 +3,8 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { OptionQuestion, ResultPanel, revealResult } from './CalculatorPrimitives';
 import { Button, ResultActions } from './ToolSuite';
+import { usePricingCurrency } from '../../components/PricingCurrencyProvider';
+import { formatRegionalAmount, pricing } from '../../data/pricing';
 
 type Estimate = {
   packageName: string;
@@ -13,15 +15,16 @@ type Estimate = {
   auditHref: string;
 };
 
-const informationalPackages: Record<string, { name: string; price: number }> = {
-  one: { name: 'Starter', price: 12000 },
-  business: { name: 'Business', price: 25000 },
-  growth: { name: 'Growth', price: 45000 },
-};
+const informationalPackages = {
+  one: { name: 'Starter', priceKey: 'starter' },
+  business: { name: 'Business', priceKey: 'business' },
+  growth: { name: 'Growth', priceKey: 'growth' },
+} as const;
 
 const storePackages: Record<string, string> = { one: 'Launch Store', business: 'Growth Store', growth: 'Complete Store' };
 
 export function WebsiteCostCalculator() {
+  const currency = usePricingCurrency();
   const [siteType, setSiteType] = useState<string | null>(null);
   const [pages, setPages] = useState<string | null>(null);
   const [seo, setSeo] = useState<string | null>(null);
@@ -36,18 +39,19 @@ export function WebsiteCostCalculator() {
     event.preventDefault();
     if (!siteType || !pages || !seo || !brand || !urgency) return;
     const isInformational = siteType === 'informational';
-    const published = isInformational ? informationalPackages[pages] : null;
+    const published = isInformational ? informationalPackages[pages as keyof typeof informationalPackages] : null;
     const packageName = published?.name ?? storePackages[pages];
-    const brandPrice = brand === 'needed' ? 12000 : 0;
+    const publishedPrice = published ? pricing.websiteCalculator[published.priceKey][currency] : null;
+    const brandPrice = brand === 'needed' ? pricing.websiteCalculator.brandIdentity[currency] : 0;
     const addons = [
-      ...(brand === 'needed' ? [{ label: 'Brand Identity', value: 'from ₹12,000 one-time' }] : []),
-      ...(seo === 'yes' ? [{ label: 'Ongoing SEO', value: 'from ₹12,000/month' }] : []),
+      ...(brand === 'needed' ? [{ label: 'Brand Identity', value: `from ${formatRegionalAmount(pricing.websiteCalculator.brandIdentity[currency], currency)} one-time` }] : []),
+      ...(seo === 'yes' ? [{ label: 'Ongoing SEO', value: `from ${formatRegionalAmount(pricing.websiteCalculator.seoMonthly[currency], currency)}/month` }] : []),
     ];
     const queryAddons = [brand === 'needed' ? 'brand' : '', seo === 'yes' ? 'seo' : ''].filter(Boolean).join(',');
     setResult({
       packageName,
-      basePrice: published?.price ?? null,
-      oneTimeTotal: published ? published.price + brandPrice : null,
+      basePrice: publishedPrice,
+      oneTimeTotal: publishedPrice === null ? null : publishedPrice + brandPrice,
       serviceHref: isInformational ? '/services/web-design-development' : '/services/ecommerce-store-development',
       addons,
       auditHref: `/audit?tier=${encodeURIComponent(packageName.toLowerCase().replaceAll(' ', '-'))}&addons=${queryAddons}&siteType=${siteType}&pages=${pages}&urgency=${urgency}`,
@@ -68,9 +72,9 @@ export function WebsiteCostCalculator() {
       </form>
       {result && <section className="tool-results" ref={resultRef} aria-live="polite"><div className="tool-wrap"><ResultPanel eyebrow="Recommended starting point" title={result.packageName}>
         <dl className="tool-result-list">
-          <div><dt>Base package</dt><dd>{result.basePrice ? `from ₹${result.basePrice.toLocaleString('en-IN')}` : '[PENDING: confirm exact store package pricing]'}</dd></div>
+          <div><dt>Base package</dt><dd>{result.basePrice ? `from ${formatRegionalAmount(result.basePrice, currency)}` : '[PENDING: confirm exact store package pricing]'}</dd></div>
           {result.addons.map((addon) => <div key={addon.label}><dt>{addon.label}</dt><dd>{addon.value}</dd></div>)}
-          <div className="tool-result-total"><dt>Total starting estimate</dt><dd>{result.oneTimeTotal ? `₹${result.oneTimeTotal.toLocaleString('en-IN')}${result.addons.some((item) => item.label === 'Ongoing SEO') ? ' + ₹12,000/month' : ''}` : '[PENDING: confirm exact store package pricing]'}</dd></div>
+          <div className="tool-result-total"><dt>Total starting estimate</dt><dd>{result.oneTimeTotal ? `${formatRegionalAmount(result.oneTimeTotal, currency)}${result.addons.some((item) => item.label === 'Ongoing SEO') ? ` + ${formatRegionalAmount(pricing.websiteCalculator.seoMonthly[currency], currency)}/month` : ''}` : '[PENDING: confirm exact store package pricing]'}</dd></div>
         </dl>
         <p className="tool-required-note">This is a starting estimate based on published pricing — your exact quote comes free, with no obligation, at the Proposal stage.</p>
         <ResultActions serviceHref={result.serviceHref} serviceLabel="View the matching website service" auditHref={result.auditHref} />
