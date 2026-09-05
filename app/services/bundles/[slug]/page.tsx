@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Clock3, Layers3, Minus, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Clock3, Layers3, Minus, X } from 'lucide-react';
 import { Footer } from '../../../components/Footer';
 import { JsonLd } from '../../../components/JsonLd';
 import { RegionalPriceCopy } from '../../../components/PricingCurrencyProvider';
@@ -46,6 +46,7 @@ export default async function BundlePage({ params }: { params: Promise<{ slug: s
   const relatedProject = projectBySlug(bundle.relatedProjectSlug);
   const relatedBanner = relatedProject ? projectProofBanners[relatedProject.slug] : undefined;
   const bundleNumber = bundles.findIndex((item) => item.slug === bundle.slug) + 1;
+  const namedInclusionCount = bundle.inclusions.reduce((total, inclusion) => total + inclusion.items.length, 0);
   const bundleMessage = whatsappUrl(`Hi Kraftt, I'd like to discuss the ${bundle.name} bundle.`);
 
   return (
@@ -101,42 +102,75 @@ export default async function BundlePage({ params }: { params: Promise<{ slug: s
         <div className="bundle-detail-section-heading">
           <Reveal direction="left">
             <p className="eyebrow eyebrow-dark">Understand the fit</p>
-            <h2>One bundle.<br /><em>One connected outcome.</em></h2>
+            <h2>Choose by business fit.<br /><em>Then check readiness.</em></h2>
           </Reveal>
           <Reveal direction="right">
-            <p>Use a bundle when several parts of the customer journey need to improve together—not as separate, disconnected jobs.</p>
+            <p>{bundle.idealClient}</p>
           </Reveal>
         </div>
 
-        <div className="bundle-detail-context-grid">
-          <Reveal className="bundle-detail-context-card">
-            <div><span>01</span><ShieldCheck size={20} strokeWidth={1.5} /></div>
-            <p className="eyebrow eyebrow-dark">Built for</p>
-            <h3>{bundle.idealClient}</h3>
+        <div className="bundle-detail-match-grid">
+          <Reveal className="bundle-detail-match-card is-match">
+            <div className="bundle-detail-match-heading">
+              <span><Check size={18} strokeWidth={1.8} /></span>
+              <div><p className="eyebrow eyebrow-dark">Best match</p><h3>Built for businesses like these.</h3></div>
+            </div>
+            <ul>
+              {bundle.bestFor.map((item) => <li key={item}><Check size={15} strokeWidth={1.8} /><span>{item}</span></li>)}
+            </ul>
           </Reveal>
-          <Reveal className="bundle-detail-context-card is-dark">
-            <div><span>02</span><Layers3 size={20} strokeWidth={1.5} /></div>
-            <p className="eyebrow">Problem it solves</p>
-            <h3>{bundle.problemSolved}</h3>
+          <Reveal className="bundle-detail-match-card is-mismatch">
+            <div className="bundle-detail-match-heading">
+              <span><X size={18} strokeWidth={1.8} /></span>
+              <div><p className="eyebrow eyebrow-dark">Not the right fit</p><h3>Choose a focused service instead.</h3></div>
+            </div>
+            <ul>
+              {bundle.notFor.map((item) => <li key={item}><X size={15} strokeWidth={1.8} /><span>{item}</span></li>)}
+            </ul>
           </Reveal>
         </div>
+
+        <Reveal className="bundle-detail-context-note">
+          <span>What this bundle solves</span>
+          <p>{bundle.problemSolved}</p>
+        </Reveal>
       </section>
 
       <section className="bundle-detail-scope" id="included">
         <div className="bundle-detail-scope-inner">
-          <Reveal className="bundle-detail-scope-heading" direction="left">
-            <p className="eyebrow">What is included</p>
-            <h2>Several services.<br /><em>One accountable scope.</em></h2>
-            <p>Each part has a defined job, but planning and delivery stay connected from the first decision to final handover.</p>
-            <Link href="/process">Explore how Kraftt works <ArrowRight size={15} /></Link>
+          <Reveal className="bundle-detail-scope-heading">
+            <div className="bundle-detail-scope-kicker">
+              <p className="eyebrow">What is included</p>
+              <dl className="bundle-detail-scope-value" aria-label="Bundle inclusion summary">
+                <div><dt>{String(bundle.inclusions.length).padStart(2, '0')}</dt><dd>Connected packages</dd></div>
+                <div><dt>{String(namedInclusionCount).padStart(2, '0')}</dt><dd>Named inclusions</dd></div>
+              </dl>
+            </div>
+            <div className="bundle-detail-scope-title">
+              <h2>More built in.<br /><em>Less left to coordinate.</em></h2>
+            </div>
+            <div className="bundle-detail-scope-intro">
+              <p>Instead of buying disconnected pieces, you receive the strategy, systems and launch assets together under one bundle investment.</p>
+              <Link href="/process">Explore how Kraftt works <ArrowRight size={15} /></Link>
+            </div>
           </Reveal>
 
-          <div className="bundle-detail-deliverables">
-            {bundle.deliverables.map((item, index) => (
-              <Reveal className="bundle-detail-deliverable" key={item}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <Check size={18} strokeWidth={1.6} />
-                <h3>{item}</h3>
+          <p className="bundle-detail-scope-swipe" aria-hidden="true">Swipe through the included packages <ArrowRight size={14} /></p>
+          <div className={`bundle-detail-deliverables is-${bundle.inclusions.length}`}>
+            {bundle.inclusions.map((inclusion, index) => (
+              <Reveal className="bundle-detail-deliverable" key={inclusion.title}>
+                <div className="bundle-detail-deliverable-number">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <small>{String(inclusion.items.length).padStart(2, '0')} inclusions</small>
+                </div>
+                <div className="bundle-detail-deliverable-copy">
+                  <h3>{inclusion.title}</h3>
+                  <p>{inclusion.summary}</p>
+                </div>
+                <ul>
+                  {inclusion.items.map((item) => <li key={item}><Check size={13} strokeWidth={1.8} /><span>{item}</span></li>)}
+                </ul>
+                <span className="bundle-detail-deliverable-status"><Check size={13} strokeWidth={1.8} /> Included in this bundle</span>
               </Reveal>
             ))}
           </div>
@@ -151,19 +185,29 @@ export default async function BundlePage({ params }: { params: Promise<{ slug: s
         </Reveal>
       </section>
 
-      <section className="bundle-detail-fit">
-        <Reveal className="bundle-detail-fit-heading" direction="left">
-          <p className="eyebrow eyebrow-dark">Good fit check</p>
-          <h2>This bundle makes sense when…</h2>
+      <section className="bundle-detail-fit" id="fit">
+        <Reveal className="bundle-detail-fit-heading">
+          <div>
+            <p className="eyebrow eyebrow-dark">Good fit check</p>
+            <h2>Three signs this bundle is the right fit.</h2>
+          </div>
+          <p>If these statements match where your business is now, the bundle keeps the work connected and reduces unnecessary handoffs.</p>
         </Reveal>
-        <div className="bundle-detail-fit-grid">
-          {bundle.goodFitWhen.map((item, index) => (
-            <Reveal key={item}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <Check size={18} />
-              <p>{item}</p>
-            </Reveal>
-          ))}
+        <div className="bundle-detail-fit-board">
+          <Reveal className="bundle-detail-fit-score" direction="left">
+            <span className="bundle-detail-fit-score-icon"><Check size={22} strokeWidth={1.6} /></span>
+            <div><strong>03</strong><small>signals of a strong fit</small></div>
+            <p>When all three are true, one coordinated bundle is usually clearer than managing separate services.</p>
+          </Reveal>
+          <div className="bundle-detail-fit-grid">
+            {bundle.goodFitWhen.map((item, index) => (
+              <Reveal key={item}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <span className="bundle-detail-fit-check"><Check size={16} strokeWidth={1.8} /></span>
+                <p>{item}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
         <Reveal className="bundle-detail-fit-cta">
           <div><Clock3 size={18} /><p>Unsure whether a bundle or one service is the right scope?</p></div>

@@ -36,6 +36,7 @@ export function Footer() {
         <Link href="/work">Work</Link>
         <Link href="/process">Process</Link>
         <Link href="/about">About</Link>
+        <Link href="/partner-program">Partner Program</Link>
         <Link href="/tools">Tools</Link>
         <Link href="/contact">Contact</Link>
         <Link href="/legal/privacy-policy">Privacy policy</Link>
@@ -56,6 +57,7 @@ export function Footer() {
             <Link href="/work">Work</Link>
             <Link href="/process">Process</Link>
             <Link href="/about">About</Link>
+            <Link href="/partner-program">Partner Program</Link>
             <Link href="/tools">Tools</Link>
             <Link href="/contact">Contact</Link>
             <Link href="/legal/privacy-policy">Privacy policy</Link>
