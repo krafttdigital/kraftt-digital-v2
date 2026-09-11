@@ -23,6 +23,7 @@ export function GET() {
     `- About Kraftt: ${absoluteUrl('/about')}`,
     `- Digital Presence Audit (₹999): ${absoluteUrl('/audit')}`,
     `- Contact: ${absoluteUrl('/contact')}`,
+    `- Current offers: ${absoluteUrl('/offers/campaign-festive-season-offer')} — Active campaign status, scope, terms and enquiry options are shown on the canonical page.`,
     `- Kraftt Partner Program: ${absoluteUrl('/partner-program')} — Refer an eligible business and earn 15% of the final collected professional fee after delivery and complete client payment.`,
     `- Free tools: ${absoluteUrl('/tools')}`,
     '',

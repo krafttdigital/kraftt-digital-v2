@@ -8,7 +8,7 @@ import { tools } from './tools/data';
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     '', '/services', '/work', '/process', '/about', '/audit',
-    '/contact', '/partner-program', '/tools', '/legal/privacy-policy', '/legal/terms',
+    '/contact', '/partner-program', '/offers/campaign-festive-season-offer', '/tools', '/legal/privacy-policy', '/legal/terms',
   ];
   const routes = [
     ...staticRoutes,
@@ -20,8 +20,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return routes.map((route) => ({
     url: absoluteUrl(route || '/'),
-    lastModified: new Date(route === '/partner-program' ? '2026-09-05' : '2026-08-25'),
+    lastModified: new Date(route === '/offers/campaign-festive-season-offer' ? '2026-09-11' : route === '/partner-program' ? '2026-09-05' : '2026-08-25'),
     changeFrequency: route === '' ? 'weekly' : route.startsWith('/work/') ? 'monthly' : 'monthly',
-    priority: route === '' ? 1 : route === '/audit' ? 0.9 : ['/services', '/work'].includes(route) ? 0.85 : 0.7,
+    priority: route === '' ? 1 : ['/audit', '/offers/campaign-festive-season-offer'].includes(route) ? 0.9 : ['/services', '/work'].includes(route) ? 0.85 : 0.7,
   }));
 }
