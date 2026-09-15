@@ -13,6 +13,7 @@
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "test:offers": "node --experimental-strip-types scripts/test-offer-form.mjs",
     "validate:seo": "node scripts/validate-seo.mjs",
+    "validate:geo": "node scripts/validate-geo.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {

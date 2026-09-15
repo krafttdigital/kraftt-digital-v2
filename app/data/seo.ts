@@ -27,6 +27,8 @@ type PageMetadataInput = {
   imageAlt?: string;
   type?: 'website' | 'article';
   noIndex?: boolean;
+  languages?: Record<string, string>;
+  locale?: string;
 };
 
 export function createPageMetadata({
@@ -38,6 +40,8 @@ export function createPageMetadata({
   imageAlt,
   type = 'website',
   noIndex = false,
+  languages,
+  locale = 'en_IN',
 }: PageMetadataInput): Metadata {
   const canonical = absoluteUrl(path);
   const ogImage = image ? absoluteUrl(image) : socialImage(path, title, label);
@@ -58,12 +62,15 @@ export function createPageMetadata({
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      ...(languages ? { languages: Object.fromEntries(Object.entries(languages).map(([key, value]) => [key, absoluteUrl(value)])) } : {}),
+    },
     robots,
     openGraph: {
       type,
       siteName: brandName,
-      locale: 'en_IN',
+      locale,
       title,
       description,
       url: canonical,
@@ -161,10 +168,14 @@ export function serviceSchema({
   name,
   description,
   path,
+  areaServed,
+  serviceType,
 }: {
   name: string;
   description: string;
   path: string;
+  areaServed?: Record<string, unknown>;
+  serviceType?: string;
 }): Record<string, unknown> {
   const url = absoluteUrl(path);
   return {
@@ -174,6 +185,8 @@ export function serviceSchema({
     description,
     url,
     provider: { '@id': organizationId },
+    ...(areaServed ? { areaServed } : {}),
+    ...(serviceType ? { serviceType } : {}),
   };
 }
 

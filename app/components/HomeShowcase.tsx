@@ -9,20 +9,28 @@ const trustPillars = [
   ['01', 'Founder-led contact'],
 ];
 
-export function HomeShowcase() {
+type HomeShowcaseProps = {
+  eyebrow?: string;
+  intro?: string;
+};
+
+export function HomeShowcase({
+  eyebrow = 'Research-led digital presence · India',
+  intro = 'We connect brand, websites, content and digital systems into one clear presence—so the business people find online feels as credible as the one you run.',
+}: HomeShowcaseProps = {}) {
   return (
     <section className="kraftt-hero" aria-labelledby="home-showcase-title">
       <div className="kraftt-hero-shape" aria-hidden="true" />
 
       <div className="kraftt-hero-main">
         <div className="kraftt-hero-copy">
-          <p className="kraftt-hero-eyebrow">Research-led digital presence · India</p>
+          <p className="kraftt-hero-eyebrow">{eyebrow}</p>
           <h1 id="home-showcase-title">
             Be discovered.<br />
             Be trusted.<br />
-            <span>Be chosen.</span>
+            <span className="kraftt-hero-chosen"><span>Be chosen.</span></span>
           </h1>
-          <p className="kraftt-hero-intro">We connect brand, websites, content and digital systems into one clear presence—so the business people find online feels as credible as the one you run.</p>
+          <p className="kraftt-hero-intro">{intro}</p>
           <div className="kraftt-hero-actions">
             <Link href="/audit">Start with an audit <span aria-hidden="true">→</span></Link>
             <Link href="/work">View selected work <span aria-hidden="true">↗</span></Link>

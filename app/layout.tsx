@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, Outfit } from 'next/font/google';
 import './globals.css';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { JsonLd } from './components/JsonLd';
 import { PricingCurrencyProvider } from './components/PricingCurrencyProvider';
 import { detectPricingCurrency } from './data/pricing.server';
@@ -79,6 +80,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <PricingCurrencyProvider currency={currency}>
           <JsonLd data={organizationAndWebsiteSchema()} />
           {children}
+          <FloatingWhatsApp />
         </PricingCurrencyProvider>
       </body>
     </html>

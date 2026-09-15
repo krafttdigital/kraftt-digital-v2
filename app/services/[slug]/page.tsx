@@ -9,6 +9,7 @@ import { RegionalPriceCopy } from '../../components/PricingCurrencyProvider';
 import { Reveal } from '../../components/Reveal';
 import { SiteHeader } from '../../components/SiteHeader';
 import { projectBySlug } from '../../data/projects';
+import { regionServiceAlternates } from '../../data/geo';
 import { createPageMetadata, createPageSchema, faqSchema, serviceSchema } from '../../data/seo';
 import { serviceBySlug, services } from '../../data/services';
 import { whatsappUrl } from '../../data/site';
@@ -52,6 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: searchMetadata?.description ?? service.headline,
     path: `/services/${service.slug}`,
     label: service.category,
+    languages: regionServiceAlternates(service.slug),
   });
 }
 

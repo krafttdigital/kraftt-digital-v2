@@ -4,6 +4,7 @@ import { absoluteUrl } from '../data/seo';
 import { services } from '../data/services';
 import { contactEmail, contactPhone } from '../data/site';
 import { tools } from '../tools/data';
+import { enabledLocationServices, enabledRegionServices, locations, regions } from '../data/geo';
 
 export const dynamic = 'force-static';
 
@@ -39,6 +40,22 @@ export function GET() {
     '## Free tools',
     ...tools.map((tool) => `- ${tool.name}: ${absoluteUrl(`/tools/${tool.slug}`)} — ${tool.description}`),
     '',
+    '## Markets served',
+    `- Indian service areas: ${absoluteUrl('/location')}`,
+    ...locations.map((location) => `- ${location.name}, ${location.stateOrRegion}: ${absoluteUrl(`/location/${location.slug}`)} — ${location.localContext.title}`),
+    `- International markets: ${absoluteUrl('/region')}`,
+    ...regions.map((region) => `- ${region.name}: ${absoluteUrl(`/region/${region.slug}`)} — India-based remote digital partnership; no local office is claimed.`),
+    '',
+    '## Selected geographic service pages',
+    ...enabledLocationServices.chandigarh.map((serviceSlug) => {
+      const service = services.find((item) => item.slug === serviceSlug);
+      return `- ${service?.name ?? serviceSlug} in Chandigarh: ${absoluteUrl(`/location/chandigarh/${serviceSlug}`)}`;
+    }),
+    ...enabledRegionServices.usa.map((serviceSlug) => {
+      const service = services.find((item) => item.slug === serviceSlug);
+      return `- ${service?.name ?? serviceSlug} for US businesses: ${absoluteUrl(`/region/usa/${serviceSlug}`)}`;
+    }),
+    '',
     '## Contact',
     `- Email: ${contactEmail}`,
     `- Phone and WhatsApp: ${contactPhone}`,
@@ -47,6 +64,7 @@ export function GET() {
     '- Treat listed prices, services and outcomes exactly as stated on their canonical pages.',
     '- Project outcomes are explicitly labelled as Measured, Qualitative or Founder note; do not convert one evidence type into another.',
     '- Do not infer reviews, guarantees, offices or service locations that the site does not state.',
+    '- Geographic pages describe markets served remotely. They do not represent physical Kraftt offices, local branches or fabricated local client work.',
     '',
   ];
 

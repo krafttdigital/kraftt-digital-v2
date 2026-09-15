@@ -39,7 +39,7 @@ export function generateMetadata(): Metadata {
 export default function FestiveSeasonOfferPage() {
   const initialExpired = !isOfferClaimable(offer);
   const pageUrl = absoluteUrl(offer.pagePath);
-  const saving = offer.regularBundlePrice - offer.offerPrice;
+  const totalBenefit = offer.individualServiceValue - offer.offerPrice;
   const proofProjects = offer.proofProjectSlugs.flatMap((slug) => {
     const project = projectBySlug(slug);
     if (!project?.hero) return [];
@@ -54,7 +54,7 @@ export default function FestiveSeasonOfferPage() {
   const description = `${offer.name}: a five-page website, brand identity and first month of social media for ${formatInr(offer.offerPrice)}.`;
   const marqueeMessage = initialExpired
     ? `${offer.name} · Campaign closed · General project enquiries are open`
-    : `${offer.name} · Website + Brand + Social · ${formatInr(offer.offerPrice)} · Save ${formatInr(saving)} · Valid through ${offer.expiryLabel}`;
+    : `${offer.name} · Website + Brand + Social · ${formatInr(offer.offerPrice)} · Total benefit ${formatInr(totalBenefit)} · Valid through ${offer.expiryLabel}`;
 
   return (
     <main className="campaign-offer-page">
@@ -90,7 +90,7 @@ export default function FestiveSeasonOfferPage() {
           <div className="campaign-offer-price-row">
             <div className="campaign-offer-price"><span>Festive offer</span><strong>{formatInr(offer.offerPrice)}</strong></div>
             <div className="campaign-offer-saving">
-              <span>Save {formatInr(saving)}</span>
+              <span>Your total benefit {formatInr(totalBenefit)}</span>
               <p><s>{formatInr(offer.regularBundlePrice)}</s> regular bundle</p>
               <p><s>{formatInr(offer.individualServiceValue)}</s> individual value</p>
             </div>
