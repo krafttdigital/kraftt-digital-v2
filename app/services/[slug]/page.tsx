@@ -19,6 +19,7 @@ const projectProofBanners: Record<string, { src: string; alt: string }> = {
   'shree-hari-spintex': { src: '/shsl-banner.png', alt: 'Shree Hari Spintex industrial website and search presence case study collage' },
   'kiraq-jewellery': { src: '/kiraq-banner.png', alt: 'Kiraq Jewellery brand, storefront and product management case study collage' },
   'elixir-beverages': { src: '/elixir-banner.png', alt: 'Elixir Beverages identity and pre-launch website case study collage' },
+  'employee-os': { src: '/assets/projects/employee-os/employee-os-dashboard.webp', alt: 'Employee OS Windows dashboard for local employee, attendance and payroll management' },
 };
 
 export const dynamic = 'force-dynamic';
@@ -133,6 +134,40 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           </div>
         </div>
       </section>
+
+      {service.productProof && (
+        <section className="service-detail-product-proof" id="employee-os-proof" aria-labelledby="service-product-proof-title">
+          <div className="service-detail-product-proof-inner">
+            <Reveal className="service-detail-product-proof-copy" direction="left">
+              <p className="eyebrow">{service.productProof.eyebrow}</p>
+              <Image
+                className="service-detail-product-proof-logo"
+                src={service.productProof.logoSrc}
+                alt={service.productProof.name}
+                width={720}
+                height={168}
+                sizes="(max-width: 640px) 220px, 290px"
+              />
+              <h2 id="service-product-proof-title">A working desktop system.<br /><em>Not a concept screen.</em></h2>
+              <p>{service.productProof.description}</p>
+              <ul>{service.productProof.signals.map((signal) => <li key={signal}>{signal}</li>)}</ul>
+              <a href={service.productProof.href} target="_blank" rel="noopener noreferrer">
+                {service.productProof.linkLabel} <ArrowUpRight size={16} />
+              </a>
+            </Reveal>
+            <Reveal className="service-detail-product-proof-media" direction="right">
+              <Image
+                src={service.productProof.image.src}
+                alt={service.productProof.image.alt}
+                width={service.productProof.image.width}
+                height={service.productProof.image.height}
+                sizes="(max-width: 900px) 94vw, 54vw"
+              />
+              <span>Employee records → attendance → payroll → reports</span>
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       <section className="service-detail-packages" id="packages">
         <Reveal className="service-detail-packages-heading">

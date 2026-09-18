@@ -15,10 +15,11 @@ const projectBanners: Record<string, { src: string; alt: string }> = {
   'ketan-goyal': { src: '/ketan-banner.png', alt: 'Ketan Goyal portfolio, writing and digital builds collage' },
   'bharat-bhushan-singla': { src: '/bbs-banner.png', alt: 'Bharat Bhushan Singla legal website, case archive and consultation system collage' },
   'the-vibed-vines': { src: '/tvv-banner.png', alt: 'The Vibed Vines streetwear storefront, catalogue and checkout system collage' },
+  'employee-os': { src: '/assets/projects/employee-os/employee-os-dashboard.webp', alt: 'Employee OS Windows dashboard for local employee, attendance and payroll management' },
 };
 
 export function WorkGrid({ projects }: { projects: Project[] }) {
-  const filters = ['All Projects', 'Consumer Brands', 'Professional Services', 'Manufacturing & B2B', 'Personal Brands'] as const;
+  const filters = ['All Projects', 'Consumer Brands', 'Professional Services', 'Manufacturing & B2B', 'Digital Products & Systems', 'Personal Brands'] as const;
   const [active, setActive] = useState<(typeof filters)[number]>('All Projects');
   const visible = active === 'All Projects'
     ? projects
@@ -42,6 +43,7 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
         {visible.map((project, index) => {
           const banner = projectBanners[project.slug];
           const projectNumber = String(projects.findIndex((item) => item.slug === project.slug) + 1).padStart(2, '0');
+          const liveLabel = project.slug === 'employee-os' ? 'View Employee OS' : 'Visit live website';
 
           return (
             <Reveal className={`work-page-card work-page-card-${index + 1}`} direction={index % 2 ? 'left' : 'right'} delay={index * 0.045} key={project.slug}>
@@ -65,10 +67,10 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
                 className="work-page-card-live"
                 href={project.liveUrl}
                 target="_blank"
-                rel="noreferrer"
-                aria-label={`Visit the live ${project.name} website`}
+                rel="noopener noreferrer"
+                aria-label={`${liveLabel} in a new tab`}
               >
-                <span>Visit live website</span><span aria-hidden="true">↗</span>
+                <span>{liveLabel}</span><span aria-hidden="true">↗</span>
               </a>
             </Reveal>
           );

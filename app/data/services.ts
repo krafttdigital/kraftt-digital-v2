@@ -21,6 +21,16 @@ export type Service = {
   workflow: { title: string; detail: string }[];
   faqs: { question: string; answer: string }[];
   relatedProjectSlug: string;
+  productProof?: {
+    name: string;
+    eyebrow: string;
+    description: string;
+    href: string;
+    linkLabel: string;
+    logoSrc: string;
+    image: { src: string; alt: string; width: number; height: number };
+    signals: string[];
+  };
 };
 
 const tier = (
@@ -188,7 +198,22 @@ export const services: Service[] = [
       { question: 'Who hosts the tool?', answer: 'Kraftt configures and recommends the hosting setup. Ongoing provider charges are paid separately by the client.' },
       { question: 'Is post-launch support included?', answer: 'Full Internal Suite includes one month. Ongoing support can be arranged separately for any tier.' },
     ],
-    relatedProjectSlug: 'kiraq-jewellery',
+    productProof: {
+      name: 'Employee OS',
+      eyebrow: 'Kraftt-built product proof',
+      description: 'From operational dashboards to complete desktop systems, we design internal tools around the workflows teams actually use. Employee OS is our local-first Windows product for employee records, attendance, payroll, salary slips and reporting.',
+      href: 'https://employeeos.krafttdigital.in',
+      linkLabel: 'See Employee OS',
+      logoSrc: '/assets/projects/employee-os/employee-os-wordmark.webp',
+      image: {
+        src: '/assets/projects/employee-os/employee-os-dashboard.webp',
+        alt: 'Employee OS dashboard showing local employee, attendance and payroll summaries using dummy records',
+        width: 1440,
+        height: 900,
+      },
+      signals: ['Windows desktop', 'Offline-first', 'Payroll workflows', 'PDF & Excel reports'],
+    },
+    relatedProjectSlug: 'employee-os',
   },
   {
     slug: 'ai-powered-creative',

@@ -51,6 +51,12 @@ const projectGalleryDetails: Record<string, readonly string[]> = {
     'The careers page creates a dedicated route for applicants, keeping recruitment intent separate from client service enquiries.',
     'Structured search data gives crawlers clearer information about the company and its services without changing the visible experience.',
   ],
+  'employee-os': [
+    'The employee workspace keeps profiles, employment information, managed documents and routine actions together. Every visible record in this screen is clearly labelled test data.',
+    'The monthly attendance register is designed around a practical workflow: mark the common status quickly, then record exceptions and approved overtime where needed.',
+    'Payroll moves through visible draft, review, download and finalization stages so calculations can be checked before a month is locked.',
+    'The salary-slip workspace lets an administrator search finalized records, preview the available period and generate the required employee outputs.',
+  ],
 };
 
 export function galleryDetailsForProject(projectSlug: string): readonly string[] {

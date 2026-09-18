@@ -91,7 +91,11 @@ export default function ServicesPage() {
                   {items.map((service, serviceIndex) => (
                     <Link key={service.slug} href={`/services/${service.slug}`}>
                       <span>{String(serviceIndex + 1).padStart(2, '0')}</span>
-                      <div><h3>{service.name}</h3><p>{service.headline}</p></div>
+                      <div>
+                        <h3>{service.name}</h3>
+                        <p>{service.headline}</p>
+                        {service.productProof && <small className="services-clarity-proof">{service.productProof.name} · Kraftt product proof</small>}
+                      </div>
                       <div className="services-clarity-price"><small>Starts at</small><strong><RegionalPriceCopy>{service.tiers[0].price}</RegionalPriceCopy></strong></div>
                       <div className="services-clarity-time"><Clock3 size={15} strokeWidth={1.6} /><span>{service.tiers[0].timeline}</span></div>
                       <i aria-hidden="true"><ArrowUpRight size={18} /></i>

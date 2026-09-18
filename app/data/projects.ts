@@ -23,6 +23,7 @@ export type WorkCategory =
   | 'Consumer Brands'
   | 'Professional Services'
   | 'Manufacturing & B2B'
+  | 'Digital Products & Systems'
   | 'Personal Brands';
 
 export type Project = {
@@ -324,6 +325,46 @@ export const projects: Project[] = [
       { src: `${base}/aegis-squad/aegis-seo-jsonld.png`, alt: 'Aegis Squad structured search data implementation', width: 1898, height: 875 },
     ],
     relatedProjectSlug: 'shree-hari-spintex',
+  },
+  {
+    slug: 'employee-os',
+    name: 'Employee OS',
+    liveUrl: 'https://employeeos.krafttdigital.in',
+    workCategory: 'Digital Products & Systems',
+    industry: 'Desktop Application · Internal Operations',
+    relationshipLabel: 'Kraftt Digital product — not a client engagement.',
+    package: 'Product strategy · UX/UI design · Electron desktop development · Payroll workflow engineering · PDF and Excel reporting · Local data and backup architecture',
+    metrics: [
+      { icon: '⊞', value: 'Windows x64', label: 'Desktop platform', note: 'Built for Windows 10 and Windows 11, 64-bit computers.', kind: 'Delivery' },
+      { icon: '⌁', value: 'Offline-first', label: 'Normal operation', note: 'Employee, attendance and payroll workflows continue without an internet connection after installation.', kind: 'Delivery' },
+      { icon: '▦', value: '07', label: 'Connected workflows', note: 'Employee records, attendance, overtime, payroll, salary slips, reports and backup management.', kind: 'Scope' },
+      { icon: '◎', value: 'Local', label: 'Operational data', note: 'Operational employee data remains on the customer’s computer.', kind: 'Delivery' },
+    ],
+    competitors: ['Manual registers and spreadsheets', 'Cloud HRMS platforms', 'Payroll-only desktop software', 'Disconnected attendance tools'],
+    solutionPoints: [
+      { icon: '◎', title: 'Employee record system', detail: 'Profiles, managed documents, employment details and routine record administration in one Windows workspace.' },
+      { icon: '▦', title: 'Monthly attendance', detail: 'A keyboard-friendly register for attendance exceptions, paid days and approved overtime.' },
+      { icon: '₹', title: 'Reviewable payroll', detail: 'Draft calculation, review, report download and finalization are separated into visible stages.' },
+      { icon: '≡', title: 'Salary slips and reports', detail: 'Generate salary slips plus readable PDF and Excel reports from stored payroll records.' },
+      { icon: '↻', title: 'Backup and restore', detail: 'Portable local backups move the database, managed documents and company assets together.' },
+      { icon: '⌂', title: 'Local-first operation', detail: 'Normal operational work stays on the installed computer instead of relying on a cloud employee database.' },
+    ],
+    problem: 'Employee records, monthly attendance, payroll calculations, salary slips and backups often live in separate registers, files and spreadsheets that are difficult to review as one operating workflow.',
+    context: 'Employee OS is a Kraftt Digital Windows desktop product created to connect routine employee, attendance and payroll work while keeping operational employee data on the customer’s computer.',
+    findings: ['Routine employee information needs one structured source', 'Attendance and approved overtime must feed a reviewable payroll workflow', 'Finalized salary records need stable PDF and Excel outputs', 'Local operations require a clear backup and restore path'],
+    approach: 'Product strategy, workflow mapping, UX/UI design and Electron desktop development shaped one local-first system around the sequence teams already follow: maintain records, mark attendance, review payroll, generate outputs and protect the data.',
+    outcome: 'A released Windows desktop product that connects employee records, attendance, payroll, salary slips, reports and local backups in one operational workspace.',
+    outcomeType: 'Founder note',
+    evidenceNote: 'This is a Kraftt Digital product rather than a client engagement. The secure download and current release information are maintained on the dedicated Employee OS website.',
+    hero: { src: `${base}/employee-os/employee-os-dashboard.webp`, alt: 'Employee OS dashboard with employee, attendance and payroll summaries using dummy records', width: 1440, height: 900 },
+    gallery: [
+      { src: `${base}/employee-os/employee-os-employees.webp`, alt: 'Employee OS employee records screen using clearly labelled test employee data', width: 1440, height: 900 },
+      { src: `${base}/employee-os/employee-os-attendance.webp`, alt: 'Employee OS monthly attendance register using dummy employee records', width: 1440, height: 900 },
+      { src: `${base}/employee-os/employee-os-payroll.webp`, alt: 'Employee OS payroll review workflow using dummy payroll data', width: 1440, height: 900 },
+      { src: `${base}/employee-os/employee-os-salary-slips.webp`, alt: 'Employee OS salary-slip search and download screen using dummy records', width: 1440, height: 900 },
+    ],
+    founderNote: 'Employee OS is a Kraftt Digital product. This case study documents product strategy and delivery, not a client testimonial or third-party endorsement.',
+    relatedProjectSlug: 'kiraq-jewellery',
   },
   {
     slug: 'ketan-goyal',

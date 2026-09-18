@@ -10,7 +10,7 @@ import { createPageMetadata, createPageSchema } from '../data/seo';
 import { WorkGrid } from './WorkGrid';
 
 const pageTitle = 'Digital Agency Case Studies | Kraftt Digital';
-const pageDescription = 'Explore eight Kraftt Digital case studies across professional services, manufacturing, architecture, D2C, FMCG, security and founder-led work.';
+const pageDescription = 'Explore nine Kraftt Digital case studies and products across professional services, manufacturing, commerce, digital systems and founder-led work.';
 
 export const metadata: Metadata = createPageMetadata({ title: pageTitle, description: pageDescription, path: '/work', label: 'Selected work' });
 
@@ -37,7 +37,7 @@ export default function WorkPage() {
           </Reveal>
 
           <Reveal className="work-page-hero-intro" direction="right">
-            <p>Eight digital systems shaped around different business gaps. Every project is labelled by what it can honestly prove.</p>
+            <p>Nine digital systems shaped around different business gaps. Every project is labelled by what it can honestly prove.</p>
             <a href="#work-index">Browse the work <span aria-hidden="true">↓</span></a>
           </Reveal>
         </div>

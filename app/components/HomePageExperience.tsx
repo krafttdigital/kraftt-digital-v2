@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Footer } from './Footer';
+import { EmployeeOsFeature } from './EmployeeOsFeature';
 import { HomeShowcase } from './HomeShowcase';
 import { JsonLd } from './JsonLd';
 import { CurrencySymbol, RegionalPriceCopy } from './PricingCurrencyProvider';
@@ -355,7 +356,9 @@ export function HomePageExperience({ eyebrow, intro, schema, geographicContext }
         </div>
       </section>
 
-      <section className="home-conversion">
+      <EmployeeOsFeature />
+
+      {/* <section className="home-conversion">
         <Reveal className="home-conversion-heading" direction="left">
           <p className="eyebrow eyebrow-dark">{geographicContext?.localEyebrow ?? 'Built to be chosen'}</p>
           <h2>{geographicTitleLines ? <>{geographicTitleLines[0]}<br />{geographicTitleLines[1]}</> : <>Clarity gets attention.<br />Proof earns action.</>}</h2>
@@ -387,7 +390,7 @@ export function HomePageExperience({ eyebrow, intro, schema, geographicContext }
           <p>{geographicContext?.detail ?? 'Between research, structure, brand expression and technology, we reduce the distance between first impression and confident enquiry.'}</p>
           <strong>One idea, consistently expressed across brand, website, content, growth and internal systems.</strong>
         </Reveal>
-      </section>
+      </section> */}
 
       <section className="home-trust">
         <div className="home-trust-inner">
