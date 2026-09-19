@@ -76,6 +76,20 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     <html lang="en">
+      <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18424492469" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-18424492469');
+            `,
+          }}
+        />
+      </head>
       <body className={`${cormorant.variable} ${outfit.variable}`}>
         <PricingCurrencyProvider currency={currency}>
           <JsonLd data={organizationAndWebsiteSchema()} />
