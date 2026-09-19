@@ -26,8 +26,12 @@ export default async function cachePagesByPricingRegion(request: Request, contex
   if (!response.ok || !contentType.includes('text/html')) return response;
 
   const headers = new Headers(response.headers);
+  const frameworkVary = headers.get('Netlify-Vary');
   headers.set('Netlify-CDN-Cache-Control', 'public, max-age=900, stale-while-revalidate=3600');
-  headers.set('Netlify-Vary', PRICING_REGION_CACHE_KEY);
+  headers.set(
+    'Netlify-Vary',
+    frameworkVary ? `${frameworkVary},${PRICING_REGION_CACHE_KEY}` : PRICING_REGION_CACHE_KEY,
+  );
 
   return new Response(response.body, {
     status: response.status,
