@@ -57,7 +57,7 @@ export const config = {
     '/*.txt',
     '/*.xml',
   ],
-  method: ['GET', 'HEAD'],
+  method: ['GET'],
   name: 'Cache HTML by pricing region',
   onError: 'bypass',
   path: '/*',
