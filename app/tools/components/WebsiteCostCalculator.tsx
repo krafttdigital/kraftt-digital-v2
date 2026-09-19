@@ -8,8 +8,8 @@ import { formatRegionalAmount, pricing } from '../../data/pricing';
 
 type Estimate = {
   packageName: string;
-  basePrice: number | null;
-  oneTimeTotal: number | null;
+  basePrice: number;
+  oneTimeTotal: number;
   serviceHref: string;
   addons: { label: string; value: string }[];
   auditHref: string;
@@ -21,7 +21,11 @@ const informationalPackages = {
   growth: { name: 'Growth', priceKey: 'growth' },
 } as const;
 
-const storePackages: Record<string, string> = { one: 'Launch Store', business: 'Growth Store', growth: 'Complete Store' };
+const storePackages = {
+  one: { name: 'Launch Store', priceKey: 'launchStore' },
+  business: { name: 'Growth Store', priceKey: 'growthStore' },
+  growth: { name: 'Complete Store', priceKey: 'completeStore' },
+} as const;
 
 export function WebsiteCostCalculator() {
   const currency = usePricingCurrency();
@@ -39,9 +43,11 @@ export function WebsiteCostCalculator() {
     event.preventDefault();
     if (!siteType || !pages || !seo || !brand || !urgency) return;
     const isInformational = siteType === 'informational';
-    const published = isInformational ? informationalPackages[pages as keyof typeof informationalPackages] : null;
-    const packageName = published?.name ?? storePackages[pages];
-    const publishedPrice = published ? pricing.websiteCalculator[published.priceKey][currency] : null;
+    const published = isInformational
+      ? informationalPackages[pages as keyof typeof informationalPackages]
+      : storePackages[pages as keyof typeof storePackages];
+    const packageName = published.name;
+    const publishedPrice = pricing.websiteCalculator[published.priceKey][currency];
     const brandPrice = brand === 'needed' ? pricing.websiteCalculator.brandIdentity[currency] : 0;
     const addons = [
       ...(brand === 'needed' ? [{ label: 'Brand Identity', value: `from ${formatRegionalAmount(pricing.websiteCalculator.brandIdentity[currency], currency)} one-time` }] : []),
@@ -51,7 +57,7 @@ export function WebsiteCostCalculator() {
     setResult({
       packageName,
       basePrice: publishedPrice,
-      oneTimeTotal: publishedPrice === null ? null : publishedPrice + brandPrice,
+      oneTimeTotal: publishedPrice + brandPrice,
       serviceHref: isInformational ? '/services/web-design-development' : '/services/ecommerce-store-development',
       addons,
       auditHref: `/audit?tier=${encodeURIComponent(packageName.toLowerCase().replaceAll(' ', '-'))}&addons=${queryAddons}&siteType=${siteType}&pages=${pages}&urgency=${urgency}`,
@@ -72,9 +78,9 @@ export function WebsiteCostCalculator() {
       </form>
       {result && <section className="tool-results" ref={resultRef} aria-live="polite"><div className="tool-wrap"><ResultPanel eyebrow="Recommended starting point" title={result.packageName}>
         <dl className="tool-result-list">
-          <div><dt>Base package</dt><dd>{result.basePrice ? `from ${formatRegionalAmount(result.basePrice, currency)}` : '[PENDING: confirm exact store package pricing]'}</dd></div>
+          <div><dt>Base package</dt><dd>from {formatRegionalAmount(result.basePrice, currency)}</dd></div>
           {result.addons.map((addon) => <div key={addon.label}><dt>{addon.label}</dt><dd>{addon.value}</dd></div>)}
-          <div className="tool-result-total"><dt>Total starting estimate</dt><dd>{result.oneTimeTotal ? `${formatRegionalAmount(result.oneTimeTotal, currency)}${result.addons.some((item) => item.label === 'Ongoing SEO') ? ` + ${formatRegionalAmount(pricing.websiteCalculator.seoMonthly[currency], currency)}/month` : ''}` : '[PENDING: confirm exact store package pricing]'}</dd></div>
+          <div className="tool-result-total"><dt>Total starting estimate</dt><dd>{formatRegionalAmount(result.oneTimeTotal, currency)}{result.addons.some((item) => item.label === 'Ongoing SEO') ? ` + ${formatRegionalAmount(pricing.websiteCalculator.seoMonthly[currency], currency)}/month` : ''}</dd></div>
         </dl>
         <p className="tool-required-note">This is a starting estimate based on published pricing — your exact quote comes free, with no obligation, at the Proposal stage.</p>
         <ResultActions serviceHref={result.serviceHref} serviceLabel="View the matching website service" auditHref={result.auditHref} />

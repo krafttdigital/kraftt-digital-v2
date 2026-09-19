@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Footer } from '../components/Footer';
 import { JsonLd } from '../components/JsonLd';
 import { RegionalPriceCopy } from '../components/PricingCurrencyProvider';
 import { SiteHeader } from '../components/SiteHeader';
@@ -37,42 +38,51 @@ export default function AuditPage() {
       })} />
       <SiteHeader />
 
-      <section className="audit-hero">
+      <aside className="audit-attention-marquee" aria-label="Digital Presence Audit highlights">
+        <div className="audit-attention-marquee-track" aria-hidden="true">
+          {[0, 1].map((group) => (
+            <div className="audit-attention-marquee-group" key={group}>
+              {[0, 1].map((item) => (
+                <span key={item}>
+                  Digital Presence Audit <i>◆</i> Find the real gap first <i>◆</i> Research-led review <i>◆</i> Clear priorities <i>◆</i> No long brief <i>◆</i>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </aside>
+
+      <section className="audit-hero audit-hero-form-first">
         <div className="audit-hero-copy">
           <p className="eyebrow eyebrow-dark">Digital Presence Audit</p>
           <h1>Find the real gap before paying for the wrong fix.</h1>
           <p>Share the basics in five minutes. Kraftt researches your business, competitors and current systems—then shows you what deserves attention first.</p>
-          <a className="button button-accent" href="#audit-form">Start the audit <span aria-hidden="true">↓</span></a>
+          <div className="audit-hero-price">
+            <div><span>Fixed audit</span><strong><RegionalPriceCopy>₹999</RegionalPriceCopy></strong></div>
+            <p>No long brief. No sales call disguised as an audit.</p>
+          </div>
+          <ul className="audit-hero-review-list">{reviewed.map((item) => <li key={item}>{item}</li>)}</ul>
         </div>
-        <aside className="audit-hero-card" aria-label="Audit at a glance">
-          <div><span>Fixed investment</span><strong><RegionalPriceCopy>₹999</RegionalPriceCopy></strong></div>
-          <dl>
-            <div><dt>Your input</dt><dd>5–7 minutes</dd></div>
-            <div><dt>Our work</dt><dd>Research-led review</dd></div>
-            <div><dt>Next step</dt><dd>Clear priorities</dd></div>
-          </dl>
-          <p>No long brief. No sales call disguised as an audit.</p>
-        </aside>
+        <div className="audit-hero-form-column" id="audit-form">
+          <div className="audit-form-assurance">
+            <span>Start here · 5 minutes</span>
+            <strong>Share the essentials. We investigate the rest.</strong>
+            <small>Secure form or WhatsApp · Direct reply</small>
+          </div>
+          <div className="audit-form-panel">
+            <div className="audit-form-heading"><span><RegionalPriceCopy>₹999</RegionalPriceCopy></span><div><p className="eyebrow eyebrow-dark">Short guided form</p><h2>Tell us what feels unclear.</h2></div></div>
+            <AuditForm />
+          </div>
+          <ol className="audit-hero-next-steps" aria-label="What happens next">
+            <li><span>01</span> Send details</li><li><span>02</span> We research</li><li><span>03</span> Receive direction</li>
+          </ol>
+        </div>
       </section>
 
       <section className="audit-reassurance" aria-label="How the audit works">
         <div><span>01</span><strong>You share the essentials</strong><p>Short answers and one useful link are enough.</p></div>
         <div><span>02</span><strong>We do the research</strong><p>Business, competitors, trust and enquiry paths are reviewed.</p></div>
         <div><span>03</span><strong>You receive direction</strong><p>Clear findings, priorities and the right next scope.</p></div>
-      </section>
-
-      <section className="audit-workspace" id="audit-form">
-        <aside className="audit-form-guide">
-          <p className="eyebrow eyebrow-dark">Request the audit</p>
-          <h2>You provide the basics. We investigate the rest.</h2>
-          <p>The form is intentionally short. If something is not available, leave the optional field blank.</p>
-          <ul>{reviewed.map((item) => <li key={item}>{item}</li>)}</ul>
-          <div className="audit-guide-note"><span>Two ways to send</span><strong>WhatsApp or secure form</strong><p>Both options send the same details. Choose what feels easier.</p></div>
-        </aside>
-        <div className="audit-form-panel">
-          <div className="audit-form-heading"><span><RegionalPriceCopy>₹999</RegionalPriceCopy></span><div><p className="eyebrow eyebrow-dark">Short guided form</p><h2>Tell us what feels unclear.</h2></div></div>
-          <AuditForm />
-        </div>
       </section>
 
       <section className="audit-deliverables">
@@ -88,6 +98,7 @@ export default function AuditPage() {
       </section>
 
       <p className="privacy-note audit-privacy">Your details are sent only through the option you choose. Form submissions are processed by Formspree; WhatsApp submissions open a pre-filled message for your review. See the <Link href="/legal/privacy-policy">privacy policy</Link>.</p>
+      <Footer />
     </main>
   );
 }

@@ -96,31 +96,38 @@ export function ToolIntro({ tool }: { tool: ToolDefinition }) {
   const detail = toolDetailFacts[tool.slug];
 
   return (
-    <>
-      <header className="tool-page-hero" aria-labelledby="tool-page-title">
-        <div className="tool-wrap-wide tool-page-hero-grid">
-          <div className="tool-page-hero-copy">
-          <Link className="tool-back-link" href="/tools"><span aria-hidden="true">←</span> All tools</Link>
-            <p className="tool-eyebrow">Free Kraftt tool · {detail.number}</p>
-            <h1 id="tool-page-title">{tool.name}</h1>
-            <p>{tool.value}</p>
-            <div className="tool-page-hero-actions">
-              <a href="#tool-workspace">Use this tool <span aria-hidden="true">↓</span></a>
-              <span>{tool.time} · no login</span>
-            </div>
+    <header className="tool-page-intro" aria-labelledby="tool-page-title">
+      <Link className="tool-back-link" href="/tools"><span aria-hidden="true">←</span> All free tools</Link>
+      <div className="tool-intro-label">
+        <span aria-hidden="true"><Icon size={16} strokeWidth={1.6} /></span>
+        <p className="tool-eyebrow">Free Kraftt tool · {detail.number}</p>
+      </div>
+      <h1 id="tool-page-title">{tool.name}</h1>
+      <p className="tool-intro-copy">{tool.value}</p>
+      <div className="tool-intro-facts" aria-label={`${tool.name} overview`}>
+        {detail.facts.map(([value, label]) => (
+          <div key={label}>
+            <strong>{value === '₹' ? <CurrencySymbol /> : value}</strong>
+            <span>{label}</span>
           </div>
-          <div className="tool-page-hero-art" aria-hidden="true">
-            <span>{detail.number}</span>
-            <Icon size={82} strokeWidth={.8} />
-            <p>Input</p><i /><p>Result</p><i /><p>Next step</p>
-          </div>
-        </div>
-      </header>
-      <section className="tool-detail-proof" aria-label={`${tool.name} overview`}>
-        <p>One focused tool.<br />One useful answer.</p>
-        {detail.facts.map(([value, label]) => <div key={label}><strong>{value === '₹' ? <CurrencySymbol /> : value}</strong><span>{label}</span></div>)}
+        ))}
+      </div>
+      <p className="tool-intro-note"><span aria-hidden="true">✓</span> {tool.time} · no login · instant result</p>
+    </header>
+  );
+}
+
+export function ToolDetail({ tool, children }: { tool: ToolDefinition; children: ReactNode }) {
+  const Icon = toolIcons[tool.slug] ?? Calculator;
+
+  return (
+    <main className={`tool-detail-layout tool-detail-${tool.slug}`}>
+      <ToolIntro tool={tool} />
+      <section className="tool-detail-workspace" aria-label={`${tool.name} calculator`}>
+        <span className="tool-workspace-badge"><Icon size={13} strokeWidth={1.8} aria-hidden="true" /> Calculator</span>
+        {children}
       </section>
-    </>
+    </main>
   );
 }
 

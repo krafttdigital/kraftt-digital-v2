@@ -13,12 +13,10 @@ const messageFields = [
   ['business', 'Business'],
   ['email', 'Email'],
   ['whatsapp', 'WhatsApp number'],
-  ['category', 'Business category'],
   ['primaryGap', 'Main gap'],
   ['links', 'Website / social link'],
   ['service', 'Service of interest'],
-  ['timeline', 'Desired timeline'],
-  ['context', 'Short context'],
+  ['context', 'Anything we should know'],
 ] as const;
 
 export function AuditForm() {
@@ -53,8 +51,7 @@ export function AuditForm() {
       setValue('service', siteType === 'ecommerce' ? 'Shopify Store Development' : 'Web Design & Development');
       context.push(`Website calculator: ${tier ?? 'tier pending'}; ${params.get('pages') ?? 'page count not recorded'}; add-ons: ${params.get('addons') || 'none selected'}.`);
       const urgency = params.get('urgency');
-      if (urgency === '30-days') setValue('timeline', 'Within 30 days');
-      if (urgency === '1-3-months') setValue('timeline', '1–3 months');
+      if (urgency) context.push(`Preferred timing: ${urgency}.`);
     }
 
     const socialTier = params.get('socialTier');
@@ -127,33 +124,16 @@ export function AuditForm() {
     <form ref={formRef} className="audit-form" action={formspreeEndpoint} method="POST" onSubmit={handleFormspree}>
       <input type="hidden" name="_subject" value={`New ${auditPrice} Digital Presence Audit request`} />
 
-      <fieldset className="audit-form-group audit-form-group-contact">
-        <legend><span>01</span><span><strong>You and the business</strong><small>Four quick details</small></span></legend>
-        <div className="audit-field-grid">
-          <label><span>Your name *</span><input name="name" autoComplete="name" placeholder="Your full name" required /></label>
-          <label><span>Business name *</span><input name="business" autoComplete="organization" placeholder="Business or brand name" required /></label>
-          <label><span>Email *</span><input name="email" type="email" autoComplete="email" placeholder="you@business.com" required /></label>
-          <label><span>WhatsApp number *</span><input name="whatsapp" type="tel" autoComplete="tel" inputMode="tel" placeholder="Number with country code" required /></label>
-        </div>
-      </fieldset>
-
-      <fieldset className="audit-form-group audit-form-group-business">
-        <legend><span>02</span><span><strong>What feels blocked?</strong><small>Choose the closest answer</small></span></legend>
-        <div className="audit-field-grid">
-          <label><span>Business category *</span><select name="category" defaultValue="" required><option value="" disabled>Select a category</option><option>Consumer brand / E-commerce</option><option>Professional services</option><option>Manufacturing / B2B</option><option>Personal brand</option><option>Other</option></select></label>
-          <label><span>Main gap *</span><select name="primaryGap" defaultValue="" required><option value="" disabled>What needs attention first?</option><option>People cannot find us online</option><option>Our presence does not build trust</option><option>Website is not generating enquiries</option><option>Brand and content feel inconsistent</option><option>We need better internal systems</option><option>Starting from scratch</option><option>Not sure yet</option></select></label>
-          <label><span>Website or social link</span><input name="links" type="url" inputMode="url" placeholder="https:// — optional" /></label>
-          <label><span>Service of interest</span><select name="service" defaultValue=""><option value="">Not sure yet</option>{services.map((service) => <option key={service.slug} value={service.name}>{service.name}</option>)}</select></label>
-        </div>
-      </fieldset>
-
-      <fieldset className="audit-form-group audit-form-group-note">
-        <legend><span>03</span><span><strong>One short note</strong><small>Two or three lines are enough</small></span></legend>
-        <div className="audit-field-grid">
-          <label><span>Desired timeline</span><select name="timeline" defaultValue=""><option value="">Still exploring</option><option>Within 30 days</option><option>1–3 months</option><option>3–6 months</option></select></label>
-          <label className="audit-field-span"><span>Anything we should know?</span><textarea name="context" rows={3} maxLength={500} placeholder="Example: We have a website, but people still call to ask basic questions. Optional." /></label>
-        </div>
-      </fieldset>
+      <div className="audit-field-grid audit-field-grid-compact">
+        <label><span>Your name *</span><input name="name" autoComplete="name" placeholder="Your full name" required /></label>
+        <label><span>Email *</span><input name="email" type="email" autoComplete="email" inputMode="email" placeholder="you@business.com" required /></label>
+        <label><span>Business name *</span><input name="business" autoComplete="organization" placeholder="Business or brand name" required /></label>
+        <label><span>WhatsApp number *</span><input name="whatsapp" type="tel" autoComplete="tel" inputMode="tel" minLength={8} maxLength={18} placeholder="Number with country code" required /></label>
+        <label><span>Main gap *</span><select name="primaryGap" defaultValue="" required><option value="" disabled>What needs attention first?</option><option>People cannot find us online</option><option>Our presence does not build trust</option><option>Website is not generating enquiries</option><option>Brand and content feel inconsistent</option><option>We need better internal systems</option><option>Starting from scratch</option><option>Not sure yet</option></select></label>
+        <label><span>Website or social link</span><input name="links" placeholder="Website URL, Instagram handle or LinkedIn page" /></label>
+        <label className="audit-field-span"><span>Service of interest</span><select name="service" defaultValue=""><option value="">Not sure yet</option>{services.map((service) => <option key={service.slug} value={service.name}>{service.name}</option>)}</select></label>
+        <label className="audit-field-span"><span>Anything we should know?</span><textarea name="context" rows={2} maxLength={500} placeholder="Two or three lines are enough. Optional." /></label>
+      </div>
 
       <label className="audit-consent"><input type="checkbox" name="consent" value="Yes" required /><span>I consent to Kraftt using these details to review my business and contact me about the audit.</span></label>
 

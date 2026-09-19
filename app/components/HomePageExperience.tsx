@@ -270,7 +270,7 @@ export function HomePageExperience({ eyebrow, intro, schema, geographicContext }
               <Reveal className={`home-case-play-card home-case-play-card-${index + 1}`} direction={index % 2 ? 'left' : 'right'} delay={index * 0.06} key={project.slug}>
                 <Link href={`/work/${project.slug}`} aria-label={`Explore ${project.name} case study`}>
                   <div className="home-case-play-media">
-                    <Image src={banner.src} alt={banner.alt} fill sizes="(max-width: 760px) 92vw, (max-width: 1100px) 46vw, 58vw" priority={index === 0} />
+                    <Image src={banner.src} alt={banner.alt} fill sizes="(max-width: 760px) 92vw, (max-width: 1100px) 46vw, 58vw" />
                     <strong className="home-case-play-number">0{index + 1}</strong>
                     <span className="home-case-play-arrow" aria-hidden="true">↗</span>
                   </div>

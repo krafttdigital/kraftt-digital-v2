@@ -1,6 +1,5 @@
 'use client';
 
-import { animate, inView } from 'framer-motion/dom';
 import { useEffect, useRef } from 'react';
 
 type RevealDirection = 'up' | 'left' | 'right' | 'scale';
@@ -30,23 +29,29 @@ export function Reveal({
       scale: 'scale(.965)',
     }[direction];
     const endTransform = direction === 'scale' ? 'scale(1)' : 'translate3d(0, 0, 0)';
-    let revealed = false;
-
-    const stop = inView(element, () => {
-      if (revealed) return;
-      revealed = true;
-      animate(
-        element,
+    let animation: Animation | undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      animation = element.animate(
+        [
+          { opacity: 0, transform: startTransform, filter: 'blur(7px)' },
+          { opacity: 1, transform: endTransform, filter: 'blur(0px)' },
+        ],
         {
-          opacity: [0, 1],
-          transform: [startTransform, endTransform],
-          filter: ['blur(7px)', 'blur(0px)'],
+          duration: 720,
+          delay: delay * 1000,
+          easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+          fill: 'forwards',
         },
-        { duration: 0.72, delay, ease: [0.22, 1, 0.36, 1] },
       );
-    }, { margin: '0px 0px -10% 0px' });
+    }, { rootMargin: '0px 0px -10% 0px' });
 
-    return () => stop();
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      animation?.cancel();
+    };
   }, [delay, direction]);
 
   return <div ref={ref} className={className}>{children}</div>;

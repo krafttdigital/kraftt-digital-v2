@@ -9,10 +9,17 @@ export const pricing = {
     starter: { INR: 12_000, USD: 299 },
     business: { INR: 25_000, USD: 599 },
     growth: { INR: 45_000, USD: 999 },
+    launchStore: { INR: 22_000, USD: 499 },
+    growthStore: { INR: 40_000, USD: 899 },
+    completeStore: { INR: 70_000, USD: 1_499 },
     brandIdentity: { INR: 12_000, USD: 299 },
     seoMonthly: { INR: 12_000, USD: 299 },
   },
-  socialStarterMonthly: { INR: 12_000, USD: 299 },
+  socialMediaCalculator: {
+    starter: { INR: 12_000, USD: 299 },
+    growth: { INR: 22_000, USD: 599 },
+    domination: { INR: 40_000, USD: 999 },
+  },
   seoRetainerMonthly: { INR: 12_000, USD: 299 },
 } as const satisfies Record<string, unknown>;
 

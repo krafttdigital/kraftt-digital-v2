@@ -7,7 +7,7 @@ import { GstInvoiceGenerator } from '../components/GstInvoiceGenerator';
 import { RoasCalculator } from '../components/RoasCalculator';
 import { SeoRoiCalculator } from '../components/SeoRoiCalculator';
 import { SocialMediaCostCalculator } from '../components/SocialMediaCostCalculator';
-import { ToolIntro, ToolPage } from '../components/ToolSuite';
+import { ToolDetail, ToolPage } from '../components/ToolSuite';
 import { WebsiteCostCalculator } from '../components/WebsiteCostCalculator';
 import { toolBySlug, tools } from '../data';
 
@@ -43,8 +43,7 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
   return (
     <ToolPage>
       <JsonLd data={createPageSchema({ name: pageTitle, description: tool.description, path: `/tools/${tool.slug}`, breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Tools', path: '/tools' }, { name: tool.name, path: `/tools/${tool.slug}` }] })} />
-      <ToolIntro tool={tool} />
-      <main><Calculator slug={tool.slug} /></main>
+      <ToolDetail tool={tool}><Calculator slug={tool.slug} /></ToolDetail>
     </ToolPage>
   );
 }

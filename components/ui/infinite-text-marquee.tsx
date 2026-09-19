@@ -2,8 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion, useMotionValue, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { useRef } from "react";
 
 type InfiniteTextMarqueeProps = {
   text?: string;
@@ -26,23 +25,20 @@ export const InfiniteTextMarquee: React.FC<InfiniteTextMarqueeProps> = ({
   textColor = "",
   hoverColor = "",
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const cursorX = useMotionValue(-200);
-  const cursorY = useMotionValue(-200);
-  const rotation = useMotionValue(0);
-  const reduceMotion = useReducedMotion();
+  const tooltipRef = useRef<HTMLDivElement>(null);
   const maxRotation = 8;
 
   const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (!showTooltip) return;
-
-    cursorX.set(event.clientX);
-    cursorY.set(event.clientY);
+    const tooltip = tooltipRef.current;
+    if (!showTooltip || !tooltip) return;
 
     const midpoint = window.innerWidth / 2;
     const distanceFromMidpoint = Math.abs(event.clientX - midpoint);
     const nextRotation = (distanceFromMidpoint / midpoint) * maxRotation;
-    rotation.set(event.clientX > midpoint ? nextRotation : -nextRotation);
+    const rotation = event.clientX > midpoint ? nextRotation : -nextRotation;
+    tooltip.style.top = `${event.clientY}px`;
+    tooltip.style.left = `${event.clientX}px`;
+    tooltip.style.transform = `translate(-50%, -145%) rotate(${rotation}deg)`;
   };
 
   const repeatedText = Array(2).fill(text);
@@ -51,33 +47,26 @@ export const InfiniteTextMarquee: React.FC<InfiniteTextMarqueeProps> = ({
     color: textColor || undefined,
     "--marquee-hover": hoverColor || "var(--raw-umber)",
     "--marquee-font-size": fontSize,
+    "--marquee-duration": `${speed}s`,
   } as React.CSSProperties;
 
   return (
     <>
       {showTooltip && (
-        <motion.div
+        <div
+          ref={tooltipRef}
           aria-hidden="true"
-          className={`following-tooltip ${isHovered ? "is-visible" : ""}`}
-          style={{
-            top: cursorY,
-            left: cursorX,
-            x: "-50%",
-            y: "-145%",
-            rotateZ: rotation,
-          }}
+          className="following-tooltip"
         >
           {tooltipText}
-        </motion.div>
+        </div>
       )}
 
       <div className="infinite-text-marquee" onPointerMove={handlePointerMove}>
-        <motion.div
+        <div
           className="infinite-text-marquee__track"
-          onPointerEnter={() => setIsHovered(true)}
-          onPointerLeave={() => setIsHovered(false)}
-          animate={reduceMotion ? { x: "0%" } : { x: ["0%", "-50%"] }}
-          transition={reduceMotion ? { duration: 0 } : { repeat: Infinity, duration: speed, ease: "linear" }}
+          onPointerEnter={() => tooltipRef.current?.classList.add("is-visible")}
+          onPointerLeave={() => tooltipRef.current?.classList.remove("is-visible")}
         >
           {[0, 1].map((group) => (
             <Link
@@ -95,7 +84,7 @@ export const InfiniteTextMarquee: React.FC<InfiniteTextMarqueeProps> = ({
               ))}
             </Link>
           ))}
-        </motion.div>
+        </div>
       </div>
     </>
   );

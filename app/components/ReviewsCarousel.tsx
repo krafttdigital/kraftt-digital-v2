@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState, type PointerEvent } from 'react';
 import type { ClientReview } from '../data/reviews';
@@ -12,17 +11,26 @@ type ReviewsCarouselProps = {
   projectName?: string;
 };
 
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+    updatePreference();
+    mediaQuery.addEventListener('change', updatePreference);
+    return () => mediaQuery.removeEventListener('change', updatePreference);
+  }, []);
+
+  return prefersReducedMotion;
+}
+
 export function ReviewsCarousel({ reviews, variant, projectName }: ReviewsCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const reduceMotion = useReducedMotion();
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { damping: 26, stiffness: 190 });
-  const springY = useSpring(mouseY, { damping: 26, stiffness: 190 });
-  const numberX = useTransform(springX, [-250, 250], [-16, 16]);
-  const numberY = useTransform(springY, [-180, 180], [-8, 8]);
+  const watermarkRef = useRef<HTMLSpanElement>(null);
+  const reduceMotion = usePrefersReducedMotion();
   const isHome = variant === 'home';
 
   const goNext = useCallback(() => {
@@ -41,14 +49,17 @@ export function ReviewsCarousel({ reviews, variant, projectName }: ReviewsCarous
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const bounds = carouselRef.current?.getBoundingClientRect();
-    if (!bounds || reduceMotion) return;
-    mouseX.set(event.clientX - (bounds.left + bounds.width / 2));
-    mouseY.set(event.clientY - (bounds.top + bounds.height / 2));
+    const watermark = watermarkRef.current;
+    if (!bounds || !watermark || reduceMotion) return;
+    const horizontalDistance = event.clientX - (bounds.left + bounds.width / 2);
+    const verticalDistance = event.clientY - (bounds.top + bounds.height / 2);
+    const x = Math.max(-16, Math.min(16, horizontalDistance / 15.625));
+    const y = Math.max(-8, Math.min(8, verticalDistance / 22.5));
+    watermark.style.transform = `translate3d(${x}px, ${y}px, 0)`;
   };
 
   const handlePointerLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
+    if (watermarkRef.current) watermarkRef.current.style.transform = 'translate3d(0, 0, 0)';
     setIsPaused(false);
   };
 
@@ -64,13 +75,13 @@ export function ReviewsCarousel({ reviews, variant, projectName }: ReviewsCarous
         if (!event.currentTarget.contains(event.relatedTarget)) setIsPaused(false);
       }}
     >
-      <motion.span
+      <span
+        ref={watermarkRef}
         className="client-reviews-watermark"
         aria-hidden="true"
-        style={reduceMotion ? undefined : { x: numberX, y: numberY }}
       >
         {String(activeIndex + 1).padStart(2, '0')}
-      </motion.span>
+      </span>
 
       <div className="client-reviews-rail" aria-hidden="true">
         <span>Testimonials</span>
@@ -102,21 +113,21 @@ export function ReviewsCarousel({ reviews, variant, projectName }: ReviewsCarous
           {reviews.map((review, index) => {
             const isActive = index === activeIndex;
             return (
-              <motion.div
+              <div
                 className={`client-review-slide${isActive ? ' is-active' : ''}`}
                 key={review.id}
                 aria-hidden={!isActive}
                 inert={!isActive}
-                animate={reduceMotion ? undefined : {
+                style={{
                   opacity: isActive ? 1 : 0,
-                  x: isActive ? 0 : index < activeIndex ? -24 : 24,
+                  transform: reduceMotion
+                    ? 'none'
+                    : `translate3d(${isActive ? 0 : index < activeIndex ? -24 : 24}px, 0, 0)`,
                   filter: isActive ? 'blur(0px)' : 'blur(7px)',
                 }}
-                initial={false}
-                transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
               >
                 <ReviewCard review={review} index={index} showProjectLink={isHome} />
-              </motion.div>
+              </div>
             );
           })}
         </div>

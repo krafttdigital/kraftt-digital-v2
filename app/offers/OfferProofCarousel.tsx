@@ -83,7 +83,6 @@ export function OfferProofCarousel({ projects }: { projects: ProofProject[] }) {
                     alt={project.hero.alt}
                     width={project.hero.width}
                     height={project.hero.height}
-                    priority={index === 0}
                     sizes="(max-width: 700px) 88vw, (max-width: 1100px) 70vw, 62vw"
                   />
                   <span className="offer-proof-slide-number" aria-hidden="true">

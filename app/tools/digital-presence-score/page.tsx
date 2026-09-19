@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { JsonLd } from '../../components/JsonLd';
 import { createPageMetadata, createPageSchema } from '../../data/seo';
 import { DigitalPresenceScore } from '../components/DigitalPresenceScore';
-import { ToolIntro, ToolPage } from '../components/ToolSuite';
+import { ToolDetail, ToolPage } from '../components/ToolSuite';
 import { toolBySlug } from '../data';
 
 const tool = toolBySlug('digital-presence-score')!;
@@ -15,8 +15,7 @@ export default function DigitalPresenceScorePage() {
   return (
     <ToolPage>
       <JsonLd data={createPageSchema({ name: pageTitle, description: pageDescription, path: '/tools/digital-presence-score', breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Tools', path: '/tools' }, { name: tool.name, path: '/tools/digital-presence-score' }] })} />
-      <ToolIntro tool={tool} />
-      <main><DigitalPresenceScore /></main>
+      <ToolDetail tool={tool}><DigitalPresenceScore /></ToolDetail>
     </ToolPage>
   );
 }
