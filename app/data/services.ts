@@ -58,7 +58,7 @@ export const services: Service[] = [
         'Five-page responsive website', 'Full on-page SEO across every page', 'WhatsApp integration', 'Contact form and basic lead capture', 'Google Search Console setup',
       ], ['GEO & AEO optimisation — ₹5,000 / $99', 'JSON-LD schema — ₹3,500 / $69', 'Maintenance — ₹1,500/month or ₹12,000/year']),
       tier('Growth — Full Build', '₹45,000 / $999', '10–14 days', [
-        'Eight to ten responsive pages', 'Complete SEO and JSON-LD', 'GEO and AEO optimisation', 'Google Search Console setup', 'WhatsApp and CRM integration', 'Blog section setup',
+        'Eight to ten responsive pages', 'Complete SEO and JSON-LD', 'GEO and AEO optimisation', 'Google Search Console setup', 'WhatsApp integration', 'Blog section setup (Optional as business need)',
       ], ['Maintenance — ₹1,500/month or ₹12,000/year']),
     ],
     mainDeliverables: ['Responsive pages for mobile, tablet and desktop', 'On-page SEO structure, metadata and accessible image text', 'WhatsApp click-to-chat', 'Contact and lead capture from Business tier upward'],
